@@ -4,7 +4,7 @@ from app.views import kitchen as views
 from app.database.models import kitchen as models
 
 
-blueprint = Blueprint("dish_types", __name__)
+blueprint = Blueprint("kitchen", __name__)
 
 blueprint.add_url_rule(
     "/dish_types/",
