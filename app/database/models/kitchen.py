@@ -46,3 +46,8 @@ class DishModel(Base):
         nullable=False
     )
     dish_type = relationship(DishTypeModel, cascade="all delete")
+    ingredients = relationship(
+        IngredientModel,
+        secondary=DishIngredientsModel,
+        back_populates="dishes"
+    )
