@@ -7,7 +7,12 @@ from sqlalchemy import (
     String,
     ForeignKey
 )
-from sqlalchemy.orm import relationship, declared_attr, Relationship
+from sqlalchemy.orm import (
+    relationship,
+    declarative_mixin,
+    declared_attr,
+    Relationship
+)
 
 from app.database.models.base import Base
 
@@ -25,6 +30,7 @@ class UserGroupModel(Base):
     name = Column(Enum(UserGroupEnum), unique=True, nullable=False)
 
 
+@declarative_mixin
 class AbstractUserModel(Base):
     __abstract__ = True
 
