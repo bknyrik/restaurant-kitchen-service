@@ -36,7 +36,7 @@ class AbstractUserModel(Base):
     password = Column(String(255), nullable=False)
     group_id = Column(
         Integer,
-        ForeignKey("user_groups", ondelete="CASCADE"),
+        ForeignKey("user_groups.id", ondelete="CASCADE"),
         nullable=False
     )
     group = relationship(UserGroupModel, cascade="all, delete", uselist=False)
