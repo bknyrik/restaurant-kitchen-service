@@ -5,6 +5,7 @@ from sqlalchemy import (
     DECIMAL,
     ForeignKey
 )
+from sqlalchemy.orm import relationship
 
 from app.database.models.base import Base
 
@@ -27,3 +28,4 @@ class DishModel(Base):
         ForeignKey("dish_type.id", ondelete="CASCADE"),
         nullable=False
     )
+    dish_type = relationship(DishTypeModel, cascade="all delete")
