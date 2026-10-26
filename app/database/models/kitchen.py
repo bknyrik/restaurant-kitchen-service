@@ -48,7 +48,7 @@ class DishModel(Base):
     price = Column(DECIMAL(10, 2), nullable=False)
     dish_type_id = Column(
         Integer,
-        ForeignKey("dish_type.id", ondelete="CASCADE"),
+        ForeignKey("dish_types.id", ondelete="CASCADE"),
         nullable=False
     )
     dish_type = relationship(DishTypeModel, cascade="all, delete")
