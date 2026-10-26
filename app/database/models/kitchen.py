@@ -9,6 +9,7 @@ from sqlalchemy import (
 from sqlalchemy.orm import relationship
 
 from app.database.models.base import Base
+from app.database.models.users import AbstractUserModel
 
 
 DishIngredientsModel = Table(
@@ -56,3 +57,9 @@ class DishModel(Base):
         secondary=DishIngredientsModel,
         back_populates="dishes"
     )
+
+
+class CookModel(AbstractUserModel):
+    __tablename__ = "cooks"
+
+    years_of_experience = Column(Integer, nullable=True)
