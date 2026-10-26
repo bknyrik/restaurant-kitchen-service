@@ -17,6 +17,13 @@ class DishTypeModel(Base):
     name = Column(String(255), unique=True, nullable=False)
 
 
+class IngredientModel(Base):
+    __tablename__ = "ingredients"
+
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String(255), unique=True, nullable=False)
+
+
 class DishModel(Base):
     __tablename__ = "dishes"
 
