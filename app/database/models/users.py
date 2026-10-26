@@ -7,7 +7,7 @@ from sqlalchemy import (
     String,
     ForeignKey
 )
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import relationship, declared_attr, Relationship
 
 from app.database.models.base import Base
 
@@ -39,4 +39,11 @@ class AbstractUserModel(Base):
         ForeignKey("user_groups.id", ondelete="CASCADE"),
         nullable=False
     )
-    group = relationship(UserGroupModel, cascade="all, delete", uselist=False)
+
+    @declared_attr
+    def group(cls) -> Relationship:
+        return relationship(
+            UserGroupModel,
+            cascade="all, delete",
+            uselist=False
+        )
