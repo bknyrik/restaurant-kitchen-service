@@ -51,7 +51,7 @@ class DishModel(Base):
         ForeignKey("dish_type.id", ondelete="CASCADE"),
         nullable=False
     )
-    dish_type = relationship(DishTypeModel, cascade="all delete")
+    dish_type = relationship(DishTypeModel, cascade="all, delete")
     ingredients = relationship(
         IngredientModel,
         secondary=DishIngredientsModel,
