@@ -1,6 +1,11 @@
 from enum import StrEnum, auto
 
-from sqlalchemy import Column, Integer, Enum
+from sqlalchemy import (
+    Column,
+    Integer,
+    Enum,
+    String
+)
 
 from app.database.models.base import Base
 
@@ -16,3 +21,14 @@ class UserGroupModel(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     name = Column(Enum(UserGroupEnum), unique=True, nullable=False)
+
+
+class AbstractUserModel(Base):
+    __abstract__ = True
+
+    id = Column(Integer, primary_key=True, index=True)
+    username = Column(String(255), unique=True, nullable=False)
+    email = Column(String(255), nullable=True)
+    first_name = Column(String(255), nullable=True)
+    last_name = Column(String(255), nullable=True)
+    password = Column(String(255), nullable=False)
