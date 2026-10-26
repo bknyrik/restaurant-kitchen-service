@@ -11,7 +11,6 @@ from sqlalchemy.orm import (
     relationship,
     declarative_mixin,
     declared_attr,
-    Relationship
 )
 
 from app.database.models.base import Base
