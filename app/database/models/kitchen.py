@@ -32,6 +32,11 @@ class IngredientModel(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String(255), unique=True, nullable=False)
+    dishes = relationship(
+        "DishModel",
+        secondary=DishIngredientsModel,
+        back_populates="ingredients"
+    )
 
 
 class DishModel(Base):
