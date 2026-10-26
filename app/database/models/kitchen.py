@@ -1,4 +1,5 @@
 from sqlalchemy import (
+    Table,
     Column,
     Integer,
     String,
@@ -8,6 +9,15 @@ from sqlalchemy import (
 from sqlalchemy.orm import relationship
 
 from app.database.models.base import Base
+
+
+DishIngredientsModel = Table(
+    "dish_ingredients",
+    Base.metadata,
+    Column("id", Integer, primary_key=True, index=True),
+    Column("dish_id", ForeignKey("dishes.id"), nullable=False),
+    Column("ingredient_id", ForeignKey("ingredients.id"), nullable=False)
+)
 
 
 class DishTypeModel(Base):
