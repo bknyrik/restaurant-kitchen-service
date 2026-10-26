@@ -2,6 +2,7 @@ from flask import Flask
 from flask_migrate import Migrate
 
 from app.database.config import db, SQLALCHEMY_DATABASE_URI
+from app.blueprints import kitchen
 
 
 def create_app() -> Flask:
@@ -12,4 +13,5 @@ def create_app() -> Flask:
 
     migrate = Migrate(app, db, directory="app/database/migrations")
 
+    app.register_blueprint(kitchen.blueprint)
     return app
