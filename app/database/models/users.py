@@ -39,4 +39,4 @@ class AbstractUserModel(Base):
         ForeignKey("user_groups", ondelete="CASCADE"),
         nullable=False
     )
-    group = relationship(UserGroupModel, cascade="delete all", uselist=False)
+    group = relationship(UserGroupModel, cascade="all, delete", uselist=False)
