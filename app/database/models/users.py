@@ -4,7 +4,8 @@ from sqlalchemy import (
     Column,
     Integer,
     Enum,
-    String
+    String,
+    ForeignKey
 )
 
 from app.database.models.base import Base
@@ -32,3 +33,8 @@ class AbstractUserModel(Base):
     first_name = Column(String(255), nullable=True)
     last_name = Column(String(255), nullable=True)
     password = Column(String(255), nullable=False)
+    group_id = Column(
+        Integer,
+        ForeignKey("user_groups", ondelete="CASCADE"),
+        nullable=False
+    )
