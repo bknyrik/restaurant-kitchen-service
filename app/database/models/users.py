@@ -47,7 +47,7 @@ class AbstractUserModel(Base):
     )
 
     @declared_attr
-    def group(cls) -> Relationship:
+    def group(cls):
         return relationship(
             UserGroupModel,
             cascade="all, delete",
