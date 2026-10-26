@@ -8,9 +8,9 @@ from app.database.models import kitchen as models
 
 class DishTypeListView(View):
 
-    def __init__(self) -> None:
-        self.model = models.DishTypeModel
-        self.template = "kitchen/dish_type_list.html"
+    def __init__(self, model: type[models.Base], template: str) -> None:
+        self.model = model
+        self.template = template
 
     def dispatch_request(self) -> str:
         dish_types = db.session.execute(
