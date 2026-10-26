@@ -7,6 +7,7 @@ from sqlalchemy import (
     String,
     ForeignKey
 )
+from sqlalchemy.orm import relationship
 
 from app.database.models.base import Base
 
@@ -38,3 +39,4 @@ class AbstractUserModel(Base):
         ForeignKey("user_groups", ondelete="CASCADE"),
         nullable=False
     )
+    group = relationship(UserGroupModel, cascade="delete all", uselist=False)
