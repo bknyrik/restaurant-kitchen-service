@@ -14,3 +14,11 @@ blueprint.add_url_rule(
         "kitchen/dish_type_list.html"
     )
 )
+blueprint.add_url_rule(
+    "/dish_types/create/",
+    view_func=views.DishTypeCreateView.as_view(
+        "dish_type_create",
+        models.DishTypeModel,
+        "kitchen/dish_type_form.html"
+    )
+)
