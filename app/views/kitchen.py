@@ -35,7 +35,7 @@ class DishTypeCreateView(View):
         if request.method == "POST" and form.validate():
             db.session.execute(
                 insert(self.model)
-                .values(**form.data)
+                .values(name=form.data["name"])
             )
             db.session.commit()
             return redirect(url_for("kitchen.dish_type_list"))
