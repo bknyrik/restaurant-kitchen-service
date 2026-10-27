@@ -66,10 +66,7 @@ class DishTypeDeleteView(View):
     template = "kitchen/dish_type_delete_form.html"
 
     def dispatch_request(self, id: int) -> str | Response:
-        dish_type = db.session.execute(
-            select(self.model)
-            .where(self.model.id == id)
-        ).scalar_one_or_none()
+        dish_type = db.get_or_404(self.model, id)
 
         if request.method == "POST":
             db.session.delete(dish_type)
