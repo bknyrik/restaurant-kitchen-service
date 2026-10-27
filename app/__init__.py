@@ -12,7 +12,7 @@ csrf = CSRFProtect()
 
 def create_app() -> Flask:
     app = Flask(__name__)
-    app.secret_key = settings.FLASK_SECRET_KEY
+    app.secret_key = settings.SECRET_KEY
     app.config["SQLALCHEMY_DATABASE_URI"] = SQLALCHEMY_DATABASE_URI
 
     db.init_app(app)
