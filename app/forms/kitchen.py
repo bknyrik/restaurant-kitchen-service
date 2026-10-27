@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms_alchemy import ModelForm
+from wtforms_alchemy import ModelForm, Unique
 from wtforms import StringField, validators
 
 from app.database.config import db
@@ -11,4 +11,10 @@ class DishTypeForm(ModelForm, FlaskForm):
     class Meta:
         model = models.DishTypeModel
 
-    name = StringField("Name", [validators.Length(min=4),])
+    name = StringField(
+        label="Name",
+        validators=[
+            validators.Length(min=4),
+            Unique(models.DishTypeModel.name, get_session=lambda: db.session)
+        ]
+    )
