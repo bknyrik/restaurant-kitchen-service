@@ -1,13 +1,14 @@
 {% extends "base.html" %}
+
+{% macro create_or_update() -%}
+  {{ "Create" if not dish_type else "Update" }}
+{%- endmacro %}
+
 {% block title %}
-  <title>{{ "Create" if not dish_type else "Update" }} dish type</title>
+  <title>{{ create_or_update() }} dish type</title>
 {% endblock %}
 {% block content %}
-  {% if not dish_type %}
-    <h1>Create dish type</h1>
-  {% else %}
-    <h1>Update dish type {{ dish_type.name }}</h1>
-  {% endif %}
+  <h1>{{ create_or_update() }} dish type</h1>
   <form action="#" method="post">
     {{ form.csrf_token }}
     <div class="mb-3">
