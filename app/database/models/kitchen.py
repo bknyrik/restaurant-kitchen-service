@@ -27,6 +27,9 @@ class DishTypeModel(Base):
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String(255), unique=True, nullable=False)
 
+    def __eq__(self, value: "DishTypeModel") -> bool:
+        return self.id == value.id and self.name == value.name
+
 
 class IngredientModel(Base):
     __tablename__ = "ingredients"
