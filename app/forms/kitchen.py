@@ -7,12 +7,14 @@ from app.database.models import kitchen as models
 
 
 class DishTypeForm(FlaskForm):
+    model = models.DishTypeModel
+
     name = StringField("Name", [validators.Length(min=4),])
 
     def validate_name(self, name: StringField) -> None:
         dish_type = db.session.execute(
-            select(models.DishTypeModel)
-            .where(models.DishTypeModel.name == name.data)
+            select(self.model)
+            .where(self.model.name == name.data)
         ).scalar_one_or_none()
 
         if dish_type:
