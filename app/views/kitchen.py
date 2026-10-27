@@ -1,6 +1,6 @@
 from flask import render_template, request, redirect, url_for, Response
 from flask.views import View
-from sqlalchemy import select, insert
+from sqlalchemy import select, insert, update
 
 from app.database.config import db
 from app.database.models import kitchen as models
@@ -35,5 +35,24 @@ class DishTypeCreateView(View):
             )
             db.session.commit()
             return redirect(url_for("kitchen.dish_type_list"))
+
+        return render_template(self.template, form=form)
+
+
+class DishTypeUpdateView(View):
+    methods = ("GET", "POST")
+    model = models.DishTypeModel
+    template = "kitchen/dish_type_form.html"
+
+    def dispatch_request(self, id: int) -> str | Response:
+        form = forms.DishTypeForm(request.form)
+
+        if request.method == "POST" and form.validate():
+            db.session.execute(
+                update(self.model)
+                .values(name=form.data["name"])
+                .where(self.model.id == id)
+            )
+            db.session.commit()
 
         return render_template(self.template, form=form)
