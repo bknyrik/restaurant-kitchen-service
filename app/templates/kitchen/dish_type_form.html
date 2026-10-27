@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block title %}
-  <title>Create dish type</title>
+  <title>{{ "Create" if not dish_type else "Update" }} dish type</title>
 {% endblock %}
 {% block content %}
   {% if not dish_type %}
