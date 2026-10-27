@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}
+  <title>Dish types</title>
+{% endblock %}
+{% block content %}
+  <h1>Dish types</h1>
+  <table class="table table-dark table-striped">
+    <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Name</th>
+    </tr>
+    </thead>
+  <tbody>
+  {% for dish_type in dish_types %}
+  <tr>
+    <th scope="row">{{ dish_type.id }}</th>
+    <td>{{ dish_type.name }}</td>
+  </tr>
+  {% endfor %}
+  </tbody>
+  </table>
+{% endblock %}
