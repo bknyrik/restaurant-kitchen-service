@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}
+  <title>Delete object</title>
+{% endblock %}
+{% block content %}
+  <h1>Delete dish type {{ object.name }}?</h1>
+  <form method="POST">
+    {{ csrf_token() }}
+    <input class="btn btn-primary" type="submit" value="Submit">
+  </form>
+{% endblock %}
