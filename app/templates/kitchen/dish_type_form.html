@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}
+  <title>Create dish type</title>
+{% endblock %}
+{% block content %}
+  {% if not dish_type %}
+    <h1>Create dish type</h1>
+  {% else %}
+    <h1>Update dish type {{ dish_type.name }}</h1>
+  {% endif %}
+  <form action="#" method="post">
+    {{ form.csrf_token }}
+    <div class="mb-3">
+      {{ form.name.label(class="form-label") }}: {{ form.name(class="form-control") }}
+      {% for error in form.name.errors %}
+        <span class="text-danger">{{ error }}</span>
+      {% endfor %}
+    </div>
+    <input class="btn btn-primary" type="submit" value="Submit">
+  </form>
+{% endblock %}
