@@ -22,10 +22,8 @@ class DishTypeListView(View):
 
 class DishTypeCreateView(View):
     methods = ("GET", "POST")
-
-    def __init__(self, model: type[models.Base], template: str) -> None:
-        self.model = model
-        self.template = template
+    model = models.DishTypeModel
+    template = "kitchen/dish_type_form.html"
 
     def dispatch_request(self) -> str | Response:
         form = forms.DishTypeForm(request.form)
