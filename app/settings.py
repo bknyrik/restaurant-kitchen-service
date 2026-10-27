@@ -12,6 +12,7 @@ class Settings:
     DB_PASSWORD = os.getenv("DB_PASSWORD")
     DB_HOST = os.getenv("DB_HOST")
     DB_PORT = os.getenv("DB_PORT")
+    FLASK_SECRET_KEY = os.getenv("FLASK_SECRET_KEY")
 
 
 settings = Settings()
