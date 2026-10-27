@@ -59,5 +59,6 @@ class DishTypeUpdateView(View):
                 .where(self.model.id == id)
             )
             db.session.commit()
+            return redirect(url_for("kitchen.dish_type_list"))
 
         return render_template(self.template, form=form, dish_type=dish_type)
