@@ -8,11 +8,7 @@ blueprint = Blueprint("kitchen", __name__)
 
 blueprint.add_url_rule(
     "/dish_types/",
-    view_func=views.DishTypeListView.as_view(
-        "dish_type_list",
-        models.DishTypeModel,
-        "kitchen/dish_type_list.html"
-    )
+    view_func=views.DishTypeListView.as_view("dish_type_list")
 )
 blueprint.add_url_rule(
     "/dish_types/create/",

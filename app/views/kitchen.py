@@ -8,10 +8,8 @@ from app.forms import kitchen as forms
 
 
 class DishTypeListView(View):
-
-    def __init__(self, model: type[models.Base], template: str) -> None:
-        self.model = model
-        self.template = template
+    model = models.DishTypeModel
+    template = "kitchen/dish_type_list.html"
 
     def dispatch_request(self) -> str:
         dish_types = db.session.execute(
