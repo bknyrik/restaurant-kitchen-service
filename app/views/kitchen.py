@@ -58,3 +58,22 @@ class DishTypeUpdateView(View):
             return redirect(url_for("kitchen.dish_type_list"))
 
         return render_template(self.template, form=form, dish_type=dish_type)
+
+
+class DishTypeDeleteView(View):
+    methods = ("GET", "POST")
+    model = models.DishTypeModel
+    template = "kitchen/dish_type_delete_form.html"
+
+    def dispatch_request(self, id: int) -> str | Response:
+        dish_type = db.session.execute(
+            select(self.model)
+            .where(self.model.id == id)
+        )
+
+        if request.method == "POST":
+            db.session.delete(dish_type)
+            db.session.commit()
+            return redirect(url_for("kitchen.dish_type_list"))
+
+        return render_template(self.template, object=dish_type)
