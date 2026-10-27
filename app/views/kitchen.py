@@ -45,7 +45,12 @@ class DishTypeUpdateView(View):
     template = "kitchen/dish_type_form.html"
 
     def dispatch_request(self, id: int) -> str | Response:
-        form = forms.DishTypeForm(request.form)
+        dish_type = db.session.execute(
+            select(self.model)
+            .where(self.model.id == id)
+        ).scalar_one_or_none()
+
+        form = forms.DishTypeForm(request.form, obj=dish_type)
 
         if request.method == "POST" and form.validate():
             db.session.execute(
@@ -55,4 +60,4 @@ class DishTypeUpdateView(View):
             )
             db.session.commit()
 
-        return render_template(self.template, form=form)
+        return render_template(self.template, form=form, dish_type=dish_type)
