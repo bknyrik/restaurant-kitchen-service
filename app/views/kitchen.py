@@ -69,7 +69,7 @@ class DishTypeDeleteView(View):
         dish_type = db.session.execute(
             select(self.model)
             .where(self.model.id == id)
-        )
+        ).scalar_one_or_none()
 
         if request.method == "POST":
             db.session.delete(dish_type)
