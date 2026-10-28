@@ -15,6 +15,8 @@
       <tr>
         <th scope="col">Id</th>
         <th scope="col">Name</th>
+        <th scope="col">Update</th>
+        <th scope="col">Delete</th>
       </tr>
       </thead>
       <tbody>
@@ -22,6 +24,10 @@
         <tr>
           <th scope="row">{{ object.id }}</th>
           <td>{{ object.name }}</td>
+          <td><a class="btn btn-success" href="{{ url_for("kitchen.ingredient_update", id=object.id) }}">Update</a>
+          </td>
+          <td><a class="btn btn-danger" href="{{ url_for("kitchen.ingredient_delete", id=object.id) }}">Delete</a>
+          </td>
         </tr>
       {% endfor %}
       </tbody>
