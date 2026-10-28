@@ -1,23 +1,10 @@
 {% extends "base.html" %}
-
-{% macro create_or_update() -%}
-  {{ "Create" if not dish_type else "Update" }}
-{%- endmacro %}
-
+{% from "includes/create_update_form.html" import create_or_update with context %}
 {% block title %}
   <title>{{ create_or_update() }} dish type</title>
 {% endblock %}
 {% block content %}
-  <h1>{{ create_or_update() }} dish type</h1>
-  <form action="#" method="post">
-    {{ form.csrf_token }}
-    <div class="mb-3">
-      {{ form.name.label(class="form-label") }}: {{ form.name(class="form-control") }}
-      {% for error in form.name.errors %}
-        <span class="text-danger">{{ error }}</span>
-      {% endfor %}
-    </div>
-    <input class="btn btn-primary" type="submit" value="Submit">
-    <input class="btn btn-primary" type="reset" value="Reset">
-  </form>
+  {% with object_type="dish type" %}
+    {% include "includes/create_update_form.html" %}
+  {% endwith %}
 {% endblock %}
