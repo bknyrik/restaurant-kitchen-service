@@ -1,7 +1,3 @@
-from sqlalchemy import select
-from sqlalchemy.orm import joinedload
-
-from app.database.config import db
 from app.database.models import kitchen as models
 from app.forms import kitchen as forms
 from app.views import shortcuts
@@ -60,12 +56,6 @@ class IngredientDeleteView(shortcuts.DeleteView):
 class DishListView(shortcuts.ListView):
     model = models.DishModel
     template = "kitchen/dish_list.html"
-
-    def get_object_list(self) -> list[models.DishModel]:
-        return db.session.execute(
-            select(self.model)
-            .options(joinedload(self.model.dish_type))
-        ).scalars().all()
 
 
 class DishDetailView(shortcuts.DetailView):
