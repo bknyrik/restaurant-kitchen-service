@@ -4,7 +4,7 @@
 {% endblock %}
 {% block content %}
   <h1>Ingredients</h1>
-  {% if not objects %}
+  {% if not object_list %}
     <p>There are no ingredients in the system.</p>
   {% else %}
     <table class="table table-dark table-striped">
@@ -15,7 +15,7 @@
       </tr>
       </thead>
       <tbody>
-      {% for object in objects %}
+      {% for object in object_list %}
         <tr>
           <th scope="row">{{ object.id }}</th>
           <td>{{ object.name }}</td>
