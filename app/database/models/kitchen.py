@@ -57,7 +57,7 @@ class DishModel(Base):
     ingredients = relationship(
         IngredientModel,
         secondary=DishIngredientsModel,
-        back_populates="dishes"
+        backref="dishes"
     )
 
 
