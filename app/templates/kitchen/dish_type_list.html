@@ -4,7 +4,7 @@
 {% endblock %}
 {% block content %}
   <h1>Dish types</h1>
-  {% if not dish_types %}
+  {% if not object_list %}
     <p>There are no dish types in the system.</p>
   {% else %}
     <div class="mb-3">
@@ -20,13 +20,13 @@
       </tr>
       </thead>
       <tbody>
-      {% for dish_type in dish_types %}
+      {% for object in object_list %}
         <tr>
-          <th scope="row">{{ dish_type.id }}</th>
-          <td>{{ dish_type.name }}</td>
-          <td><a class="btn btn-success" href="{{ url_for("kitchen.dish_type_update", id=dish_type.id) }}">Update</a>
+          <th scope="row">{{ object.id }}</th>
+          <td>{{ object.name }}</td>
+          <td><a class="btn btn-success" href="{{ url_for("kitchen.dish_type_update", id=object.id) }}">Update</a>
           </td>
-          <td><a class="btn btn-danger" href="{{ url_for("kitchen.dish_type_delete", id=dish_type.id) }}">Delete</a>
+          <td><a class="btn btn-danger" href="{{ url_for("kitchen.dish_type_delete", id=object.id) }}">Delete</a>
           </td>
         </tr>
       {% endfor %}
