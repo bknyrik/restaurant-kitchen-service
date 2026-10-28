@@ -5,19 +5,12 @@ from sqlalchemy import select, insert
 from app.database.config import db
 from app.database.models import kitchen as models
 from app.forms import kitchen as forms
+from app.views import shortcuts
 
 
-class DishTypeListView(View):
+class DishTypeListView(shortcuts.ListView):
     model = models.DishTypeModel
     template = "kitchen/dish_type_list.html"
-
-    def dispatch_request(self) -> str:
-        dish_types = db.session.execute(
-            select(self.model)
-            .order_by(self.model.name)
-        ).scalars().all()
-
-        return render_template(self.template, dish_types=dish_types)
 
 
 class DishTypeCreateView(View):
@@ -76,17 +69,9 @@ class DishTypeDeleteView(View):
         return render_template(self.template, object=dish_type)
 
 
-class IngredientListView(View):
+class IngredientListView(shortcuts.ListView):
     model = models.IngredientModel
     template = "kitchen/ingredient_list.html"
-
-    def dispatch_request(self) -> str:
-        ingredients = db.session.execute(
-            select(self.model)
-            .order_by(self.model.name)
-        ).scalars().all()
-
-        return render_template(self.template, objects=ingredients)
 
 
 class IngredientCreateView(View):
