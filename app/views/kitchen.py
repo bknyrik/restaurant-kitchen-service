@@ -37,7 +37,7 @@ class IngredientCreateView(shortcuts.CreateView):
     model = models.IngredientModel
     template = "kitchen/ingredient_form.html"
     form_class = forms.IngredientForm
-    success_url_name = "kitchen.ingredient_list.html"
+    success_url_name = "kitchen.ingredient_list"
 
 
 class IngredientDeleteView(shortcuts.DeleteView):
