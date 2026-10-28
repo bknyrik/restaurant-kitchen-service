@@ -41,3 +41,7 @@ blueprint.add_url_rule(
     "/dishes/",
     view_func=views.DishListView.as_view("dish_list")
 )
+blueprint.add_url_rule(
+    "/dishes/<int:id>/",
+    view_func=views.DishDetailView.as_view("dish_detail")
+)
