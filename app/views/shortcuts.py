@@ -11,10 +11,13 @@ class ListView(View):
     model: type[Base]
     template: str
 
+    def get_object_list(self) -> list[Base]:
+        return list(
+            db.session.execute(select(self.model)).scalars().all()
+        )
+
     def dispatch_request(self) -> str:
-        object_list = db.session.execute(
-            select(self.model)
-        ).scalars().all()
+        object_list = self.get_object_list()
         return render_template(self.template, object_list=object_list)
 
 
