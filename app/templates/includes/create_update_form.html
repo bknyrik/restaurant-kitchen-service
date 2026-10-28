@@ -1,0 +1,14 @@
+<h1>{{ "Create" if not object else "Update" }} {{ object_type }}</h1>
+<form action="#" method="post">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+  {% for field in form._fields.values() %}
+    <div class="mb-3">
+      {{ field.label(class="form-label") }}: {{ form.name(class="form-control") }}
+      {% for error in field.errors %}
+        <span class="text-danger">{{ error }}</span>
+      {% endfor %}
+    </div>
+  {% endfor %}
+  <input class="btn btn-primary" type="submit" value="Submit">
+  <input class="btn btn-primary" type="reset" value="Reset">
+</form>
