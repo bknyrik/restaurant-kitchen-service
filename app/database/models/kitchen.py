@@ -66,6 +66,11 @@ class DishModel(Base):
         secondary=DishIngredientsModel,
         backref="dishes"
     )
+    cooks = relationship(
+        "CookModel",
+        secondary=CookDishesModel,
+        backref="dishes"
+    )
 
 
 class CookModel(AbstractUserModel):
