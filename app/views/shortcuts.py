@@ -1,6 +1,7 @@
 from flask import render_template, redirect, url_for, request, Response
 from flask.views import View
-from sqlalchemy import select
+from flask_wtf import Form
+from sqlalchemy import select, insert
 
 from app.database.config import db
 from app.database.models.base import Base
@@ -15,6 +16,28 @@ class ListView(View):
             select(self.model)
         ).scalars().all()
         return render_template(self.template, object_list=object_list)
+
+
+class CreateView(View):
+    methods = ("GET", "POST")
+    model: type[Base]
+    template: str
+    success_url_name: str
+    form_class: type[Form]
+
+    def dispatch_request(self) -> str | Response:
+        form = self.form_class(request.form)
+
+        if request.method == "POST" and form.validate():
+            data = form.data
+            data.pop("csrf_token", None)
+
+            db.session.execute(insert(self.model).values(**data))
+            db.session.commit()
+
+            return redirect(url_for(self.success_url_name))
+
+        return render_template(self.template, form=form)
 
 
 class DeleteView(View):
