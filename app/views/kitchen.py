@@ -66,3 +66,8 @@ class DishListView(shortcuts.ListView):
             select(self.model)
             .options(joinedload(self.model.dish_type))
         ).scalars().all()
+
+
+class DishDetailView(shortcuts.DetailView):
+    model = models.DishModel
+    template = "kitchen/dish_detail.html"
