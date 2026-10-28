@@ -3,9 +3,7 @@
   <title>Delete object</title>
 {% endblock %}
 {% block content %}
-  <h1>Delete dish type {{ object.name }}?</h1>
-  <form method="POST">
-    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-    <input class="btn btn-primary" type="submit" value="Submit">
-  </form>
+  {% with object_type="dish type", object_name=object.name %}
+    {% include "includes/delete_form.html" %}
+  {% endwith %}
 {% endblock %}
