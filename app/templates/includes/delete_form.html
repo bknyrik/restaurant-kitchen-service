@@ -1,0 +1,6 @@
+<h1>Delete {{ object_type }} {{ object_name }}?</h1>
+<p class="text-warning">Warning: after deletion all related object will be also removed.</p>
+<form method="POST">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+  <input class="btn btn-primary" type="submit" value="Submit">
+</form>
