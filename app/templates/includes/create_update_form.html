@@ -1,4 +1,8 @@
-<h1>{{ "Create" if not object else "Update" }} {{ object_type }}</h1>
+{% macro create_or_update() -%}
+  {{ "Create" if not object else "Update" }}
+{%- endmacro %}
+
+<h1>{{ create_or_update() }} {{ object_type }}</h1>
 <form action="#" method="post">
   <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
   {% for field in form._fields.values() %}
