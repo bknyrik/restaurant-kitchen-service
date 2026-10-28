@@ -38,10 +38,7 @@ class CreateView(View):
         form = self.form_class(request.form)
 
         if request.method == "POST" and form.validate():
-            data = form.data
-            data.pop("csrf_token", None)
-
-            db.session.execute(insert(self.model).values(**data))
+            db.session.execute(insert(self.model).values(**form.data))
             db.session.commit()
 
             return redirect(url_for(self.success_url_name))
