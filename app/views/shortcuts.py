@@ -18,6 +18,15 @@ class ListView(View):
         return render_template(self.template, object_list=object_list)
 
 
+class DetailView(View):
+    model: type[Base]
+    template: str
+
+    def dispatch_request(self, id: int) -> str:
+        object_ = db.get_or_404(self.model, id)
+        return render_template(self.template, object=object_)
+
+
 class CreateView(View):
     methods = ("GET", "POST")
     model: type[Base]
