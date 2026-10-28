@@ -3,6 +3,7 @@ from sqlalchemy import (
     Column,
     Integer,
     String,
+    Text,
     DECIMAL,
     ForeignKey
 )
@@ -44,6 +45,7 @@ class DishModel(Base):
     __tablename__ = "dishes"
 
     id = Column(Integer, primary_key=True, index=True)
+    description = Column(Text, nullable=True)
     name = Column(String(255), unique=True, nullable=False)
     price = Column(DECIMAL(10, 2), nullable=False)
     dish_type_id = Column(
