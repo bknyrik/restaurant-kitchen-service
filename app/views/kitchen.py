@@ -51,3 +51,8 @@ class IngredientDeleteView(shortcuts.DeleteView):
     model = models.IngredientModel
     template = "kitchen/ingredient_delete_form.html"
     success_url_name = "kitchen.ingredient_list"
+
+
+class DishListView(shortcuts.ListView):
+    model = models.DishModel
+    template = "kitchen/dish_list.html"
