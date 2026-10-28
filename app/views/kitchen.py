@@ -13,23 +13,11 @@ class DishTypeListView(shortcuts.ListView):
     template = "kitchen/dish_type_list.html"
 
 
-class DishTypeCreateView(View):
-    methods = ("GET", "POST")
+class DishTypeCreateView(shortcuts.CreateView):
     model = models.DishTypeModel
     template = "kitchen/dish_type_form.html"
-
-    def dispatch_request(self) -> str | Response:
-        form = forms.DishTypeForm(request.form)
-
-        if request.method == "POST" and form.validate():
-            db.session.execute(
-                insert(self.model)
-                .values(name=form.data["name"])
-            )
-            db.session.commit()
-            return redirect(url_for("kitchen.dish_type_list"))
-
-        return render_template(self.template, form=form)
+    form_class = forms.DishTypeForm
+    success_url_name = "kitchen.dish_type_list"
 
 
 class DishTypeUpdateView(View):
