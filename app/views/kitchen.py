@@ -87,3 +87,18 @@ class IngredientListView(View):
         ).scalars().all()
 
         return render_template(self.template, objects=ingredients)
+
+
+class IngredientDeleteView(View):
+    model = models.IngredientModel
+    template = "kitchen/ingredient_delete_form.html"
+
+    def dispatch_request(self, id: int) -> str | Response:
+        ingredient = db.get_or_404(self.model, id)
+
+        if request.method == "POST":
+            db.session.delete(ingredient)
+            db.session.commit()
+            return redirect(url_for("kitchen.ingredient_list"))
+
+        return render_template(self.template, object=ingredient)
