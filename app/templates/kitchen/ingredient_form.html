@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% from "includes/create_update_form.html" import create_or_update with context %}
+{% block title %}
+  <title>{{ create_or_update() }} ingredient</title>
+{% endblock %}
+{% block content %}
+  {% with object_type="ingredient" %}
+    {% include "includes/create_update_form.html" %}
+  {% endwith %}
+{% endblock %}
