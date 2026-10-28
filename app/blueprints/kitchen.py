@@ -37,3 +37,7 @@ blueprint.add_url_rule(
     "/ingredients/<int:id>/delete/",
     view_func=views.IngredientDeleteView.as_view("ingredient_delete")
 )
+blueprint.add_url_rule(
+    "/dishes/",
+    view_func=views.DishListView.as_view("dish_list")
+)
