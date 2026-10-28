@@ -18,3 +18,17 @@ class DishTypeForm(ModelForm, FlaskForm):
             Unique(models.DishTypeModel.name, get_session=lambda: db.session)
         ]
     )
+
+
+class IngredientForm(ModelForm, FlaskForm):
+
+    class Meta:
+        model = models.IngredientModel
+
+    name = StringField(
+        label="Name",
+        validators=[
+            validators.Length(min=4),
+            Unique(models.IngredientModel.name, get_session=lambda: db.session)
+        ]
+    )
