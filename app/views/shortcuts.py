@@ -40,6 +40,25 @@ class CreateView(View):
         return render_template(self.template, form=form)
 
 
+class UpdateView(View):
+    methods = ("GET", "POST")
+    model: type[Base]
+    template: str
+    success_url_name: str
+    form_class: type[Form]
+
+    def dispatch_request(self, id: int) -> str | Response:
+        object_ = db.get_or_404(self.model, id)
+        form = self.form_class(request.form, obj=object_)
+
+        if request.method == "POST" and form.validate():
+            form.populate_obj(object_)
+            db.session.commit()
+            return redirect(url_for(self.success_url_name))
+
+        return render_template(self.template, form=form, object=object_)
+
+
 class DeleteView(View):
     methods = ("GET", "POST")
     model: type[Base]
