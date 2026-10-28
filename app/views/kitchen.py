@@ -34,7 +34,6 @@ class IngredientListView(shortcuts.ListView):
 
 
 class IngredientCreateView(shortcuts.CreateView):
-    methods = ("GET", "POST")
     model = models.IngredientModel
     template = "kitchen/ingredient_form.html"
     form_class = forms.IngredientForm
