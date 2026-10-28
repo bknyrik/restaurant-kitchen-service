@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}
+  <title>Delete ingredient</title>
+{% endblock %}
+{% block content %}
+  {% with object_type="ingredient", object_name=object.name %}
+    {% include "includes/delete_form.html" %}
+  {% endwith %}
+{% endblock %}
