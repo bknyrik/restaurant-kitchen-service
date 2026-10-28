@@ -89,6 +89,25 @@ class IngredientListView(View):
         return render_template(self.template, objects=ingredients)
 
 
+class IngredientCreateView(View):
+    methods = ("GET", "POST")
+    model = models.IngredientModel
+    template = "kitchen/ingredient_form.html"
+
+    def dispatch_request(self) -> str | Response:
+        form = forms.IngredientForm(request.form)
+
+        if request.method == "POST" and form.validate():
+            db.session.execute(
+                insert(self.model)
+                .values(name=form.data["name"])
+            )
+            db.commit()
+            return redirect(url_for("kitchen.ingredient_list"))
+
+        return render_template(self.template, form=form)
+
+
 class IngredientDeleteView(View):
     model = models.IngredientModel
     template = "kitchen/ingredient_delete_form.html"
