@@ -74,3 +74,16 @@ class DishTypeDeleteView(View):
             return redirect(url_for("kitchen.dish_type_list"))
 
         return render_template(self.template, object=dish_type)
+
+
+class IngredientListView(View):
+    model = models.IngredientModel
+    template = "kitchen/ingredient_list.html"
+
+    def dispatch_request(self) -> str:
+        ingredients = db.session.execute(
+            select(self.model)
+            .order_by(self.model.name)
+        ).scalars().all()
+
+        return render_template(self.template, objects=ingredients)
