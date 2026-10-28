@@ -21,6 +21,14 @@ DishIngredientsModel = Table(
     Column("ingredient_id", ForeignKey("ingredients.id"), nullable=False)
 )
 
+CookDishesModel = Table(
+    "cook_dishes",
+    Base.metadata,
+    Column("id", Integer, primary_key=True, index=True),
+    Column("cook_id", ForeignKey("cooks.id"), nullable=False),
+    Column("dish_id", ForeignKey("dishes.id"), nullable=False)
+)
+
 
 class DishTypeModel(Base):
     __tablename__ = "dish_types"
