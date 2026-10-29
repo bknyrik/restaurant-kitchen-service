@@ -1,7 +1,6 @@
 from flask import render_template, redirect, url_for, request, Response
 from flask.views import View
 from flask_wtf import Form
-from sqlalchemy import insert
 from flask_sqlalchemy.model import Model
 
 from app.database.config import db
@@ -42,7 +41,11 @@ class CreateView(View):
         form = self.form_class(request.form)
 
         if request.method == "POST" and form.validate():
-            db.session.execute(insert(self.model).values(**form.data))
+            object_ = self.model()
+
+            form.populate_obj(object_)
+
+            db.session.add(object_)
             db.session.commit()
 
             return redirect(url_for(self.success_url_name))
