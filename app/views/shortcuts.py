@@ -60,6 +60,14 @@ class UpdateView(View):
     success_url_name: str
     form_class: type[Form]
 
+    def get_form(self, object_: Model) -> Form:
+        form = self.form_class(obj=object_)
+
+        if request.method == "POST":
+            form.process(request.form)
+
+        return form
+
     def dispatch_request(self, id: int) -> str | Response:
         object_ = db.get_or_404(self.model, id)
         form = self.form_class(obj=object_)
