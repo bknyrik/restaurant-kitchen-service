@@ -23,7 +23,7 @@ class DetailView(View):
     model: type[Model]
     template: str
 
-    def get_object(self, id: int) -> db.Model:
+    def get_object(self, id: int) -> Model:
         return db.get_or_404(self.model, id)
 
     def dispatch_request(self, id: int) -> str:
