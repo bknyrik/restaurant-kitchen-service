@@ -1,7 +1,7 @@
 from flask import render_template, redirect, url_for, request, Response
 from flask.views import View
 from flask_wtf import Form
-from sqlalchemy import select, insert
+from sqlalchemy import insert
 from flask_sqlalchemy.model import Model
 
 from app.database.config import db
@@ -12,9 +12,7 @@ class ListView(View):
     template: str
 
     def get_object_list(self) -> list[Model]:
-        return list(
-            db.session.execute(select(self.model)).scalars().all()
-        )
+        return self.model.query.all()
 
     def dispatch_request(self) -> str:
         object_list = self.get_object_list()
