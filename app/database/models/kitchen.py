@@ -1,72 +1,61 @@
-from sqlalchemy import (
-    Table,
-    Column,
-    Integer,
-    String,
-    Text,
-    DECIMAL,
-    ForeignKey
-)
-from sqlalchemy.orm import relationship
-
-from app.database.models.base import Base
+from app.database.config import db
 from app.database.models.users import AbstractUserModel
 
 
-DishIngredientsModel = Table(
+DishIngredientsModel = db.Table(
     "dish_ingredients",
-    Base.metadata,
-    Column("id", Integer, primary_key=True, index=True),
-    Column("dish_id", ForeignKey("dishes.id"), nullable=False),
-    Column("ingredient_id", ForeignKey("ingredients.id"), nullable=False)
+    db.Model.metadata,
+    db.Column("id", db.Integer, primary_key=True, index=True),
+    db.Column("dish_id", db.ForeignKey("dishes.id"), nullable=False),
+    db.Column("ingredient_id", db.ForeignKey("ingredients.id"), nullable=False)
 )
 
-CookDishesModel = Table(
+CookDishesModel = db.Table(
     "cook_dishes",
-    Base.metadata,
-    Column("id", Integer, primary_key=True, index=True),
-    Column("cook_id", ForeignKey("cooks.id"), nullable=False),
-    Column("dish_id", ForeignKey("dishes.id"), nullable=False)
+    db.Model.metadata,
+    db.Column("id", db.Integer, primary_key=True, index=True),
+    db.Column("cook_id", db.ForeignKey("cooks.id"), nullable=False),
+    db.Column("dish_id", db.ForeignKey("dishes.id"), nullable=False)
 )
 
 
-class DishTypeModel(Base):
+class DishTypeModel(db.Model):
     __tablename__ = "dish_types"
 
-    id = Column(Integer, primary_key=True, index=True)
-    name = Column(String(255), unique=True, nullable=False)
+    id = db.Column(db.Integer, primary_key=True, index=True)
+    name = db.Column(db.String(255), unique=True, nullable=False)
 
 
-class IngredientModel(Base):
+class IngredientModel(db.Model):
     __tablename__ = "ingredients"
 
-    id = Column(Integer, primary_key=True, index=True)
-    name = Column(String(255), unique=True, nullable=False)
+    id = db.Column(db.Integer, primary_key=True, index=True)
+    name = db.Column(db.String(255), unique=True, nullable=False)
 
 
-class DishModel(Base):
+class DishModel(db.Model):
     __tablename__ = "dishes"
 
-    id = Column(Integer, primary_key=True, index=True)
-    description = Column(Text, nullable=True)
-    name = Column(String(255), unique=True, nullable=False)
-    price = Column(DECIMAL(10, 2), nullable=False)
-    dish_type_id = Column(
-        Integer,
-        ForeignKey("dish_types.id", ondelete="CASCADE"),
+    id = db.Column(db.Integer, primary_key=True, index=True)
+    description = db.Column(db.Text, nullable=True)
+    name = db.Column(db.String(255), unique=True, nullable=False)
+    price = db.Column(db.DECIMAL(10, 2), nullable=False)
+    dish_type_id = db.Column(
+        db.Integer,
+        db.ForeignKey("dish_types.id", ondelete="CASCADE"),
         nullable=False
     )
-    dish_type = relationship(
+    dish_type = db.relationship(
         DishTypeModel,
         cascade="all, delete",
         backref="dishes"
     )
-    ingredients = relationship(
+    ingredients = db.relationship(
         IngredientModel,
         secondary=DishIngredientsModel,
         backref="dishes"
     )
-    cooks = relationship(
+    cooks = db.relationship(
         "CookModel",
         secondary=CookDishesModel,
         backref="dishes"
@@ -76,4 +65,4 @@ class DishModel(Base):
 class CookModel(AbstractUserModel):
     __tablename__ = "cooks"
 
-    years_of_experience = Column(Integer, nullable=True)
+    years_of_experience = db.Column(db.Integer, nullable=True)
