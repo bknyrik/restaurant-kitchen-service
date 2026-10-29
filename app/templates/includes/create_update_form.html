@@ -7,7 +7,7 @@
   <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
   {% for field in form._fields.values() %}
     <div class="mb-3">
-      {{ field.label(class="form-label") }}: {{ form.name(class="form-control") }}
+      {{ field.label(class="form-label") }}: {{ field(class="form-control") }}
       {% for error in field.errors %}
         <span class="text-danger">{{ error }}</span>
       {% endfor %}
