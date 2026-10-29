@@ -31,3 +31,18 @@ class IngredientForm(ModelForm):
             Unique(models.IngredientModel.name, get_session=lambda: db.session)
         ]
     )
+
+
+class DishForm(ModelForm):
+
+    class Meta:
+        model = models.DishModel
+
+    name = StringField(
+        label="Name",
+        validators=[
+            validators.DataRequired(),
+            validators.Length(min=5),
+            Unique(models.DishModel.name, get_session=lambda: db.session)
+        ]
+    )
