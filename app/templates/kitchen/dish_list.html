@@ -22,7 +22,7 @@
       <tbody>
       {% for object in object_list %}
         <tr>
-          <th scope="row">{{ object.id }}</th>
+          <th scope="row"><a class="btn btn-info" href="{{ url_for("kitchen.dish_detail", id=object.id ) }}">{{ object.id }}</a></th>
           <td>{{ object.name }}</td>
           <td>{{ object.price }}</td>
           <td>{{ object.dish_type.name }}</td>
