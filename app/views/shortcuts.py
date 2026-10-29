@@ -2,16 +2,16 @@ from flask import render_template, redirect, url_for, request, Response
 from flask.views import View
 from flask_wtf import Form
 from sqlalchemy import select, insert
+from flask_sqlalchemy.model import Model
 
 from app.database.config import db
-from app.database.models.base import Base
 
 
 class ListView(View):
-    model: type[Base]
+    model: type[Model]
     template: str
 
-    def get_object_list(self) -> list[Base]:
+    def get_object_list(self) -> list[Model]:
         return list(
             db.session.execute(select(self.model)).scalars().all()
         )
@@ -22,10 +22,10 @@ class ListView(View):
 
 
 class DetailView(View):
-    model: type[Base]
+    model: type[Model]
     template: str
 
-    def get_object(self, id: int) -> Base:
+    def get_object(self, id: int) -> db.Model:
         return db.get_or_404(self.model, id)
 
     def dispatch_request(self, id: int) -> str:
@@ -35,7 +35,7 @@ class DetailView(View):
 
 class CreateView(View):
     methods = ("GET", "POST")
-    model: type[Base]
+    model: type[Model]
     template: str
     success_url_name: str
     form_class: type[Form]
@@ -54,7 +54,7 @@ class CreateView(View):
 
 class UpdateView(View):
     methods = ("GET", "POST")
-    model: type[Base]
+    model: type[Model]
     template: str
     success_url_name: str
     form_class: type[Form]
@@ -73,7 +73,7 @@ class UpdateView(View):
 
 class DeleteView(View):
     methods = ("GET", "POST")
-    model: type[Base]
+    model: type[Model]
     template: str
     success_url_name: str
 
