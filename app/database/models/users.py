@@ -26,6 +26,11 @@ class AbstractUserModel(db.Model):
     first_name = db.Column(db.String(255), nullable=True)
     last_name = db.Column(db.String(255), nullable=True)
     password = db.Column(db.String(255), nullable=False)
+    created_at = db.Column(
+        db.DateTime(timezone=True),
+        server_default=db.func.now(),
+        nullable=False
+    )
     group_id = db.Column(
         db.Integer,
         db.ForeignKey("user_groups.id", ondelete="CASCADE"),
