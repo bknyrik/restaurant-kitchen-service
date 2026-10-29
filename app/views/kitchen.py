@@ -1,6 +1,15 @@
+from flask import render_template
+from flask.views import View
+
 from app.database.models import kitchen as models
 from app.forms import kitchen as forms
 from app.views import shortcuts
+
+
+class IndexView(View):
+
+    def dispatch_request(self) -> str:
+        return render_template("index.html")
 
 
 class DishTypeListView(shortcuts.ListView):
