@@ -6,6 +6,8 @@ from wtforms_alchemy import (
 )
 from wtforms import (
     StringField,
+    DecimalField,
+    TextAreaField,
     validators,
 )
 
@@ -66,3 +68,8 @@ class DishForm(ModelForm):
         get_label=lambda ingredient: ingredient.name,
         get_pk=lambda ingredient: int(ingredient.id)
     )
+    price = DecimalField(
+        "Price",
+        validators=[validators.DataRequired()]
+    )
+    description = TextAreaField("Description")
