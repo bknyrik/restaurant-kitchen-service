@@ -70,7 +70,7 @@ class UpdateView(View):
 
     def dispatch_request(self, id: int) -> str | Response:
         object_ = db.get_or_404(self.model, id)
-        form = self.form_class(obj=object_)
+        form = self.get_form(object_)
 
         if request.method == "POST" and form.validate():
             form.populate_obj(object_)
