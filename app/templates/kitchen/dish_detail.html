@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}
+  <title>Dish detail</title>
+{% endblock %}
+{% block content %}
+  <h1>Dish {{ object.name }}</h1>
+  <section class="fs-5">
+    <hr>
+    <h2 class="mb-3">General information</h2>
+    <p><span class="fw-bold">Description:</span> {{ object.description|default("Absent", True) }}</p>
+    <p><span class="fw-bold">Price:</span> {{ object.price }}</p>
+    <p><span class="fw-bold">Dish type:</span> {{ object.dish_type.name }}</p>
+    <p><span
+        class="fw-bold">Ingredients:</span> {{ object.ingredients|map(attribute="name")|join(", ")|default("Absent", True) }}
+    </p>
+  </section>
+  <a class="btn btn-success" href="{{ url_for("kitchen.dish_update", id=object.id) }}">Update</a>
+  <a class="btn btn-danger" href="{{ url_for("kitchen.dish_delete", id=object.id) }}">Delete</a>
+{% endblock %}
