@@ -61,3 +61,8 @@ class DishListView(shortcuts.ListView):
 class DishDetailView(shortcuts.DetailView):
     model = models.DishModel
     template = "kitchen/dish_detail.html"
+
+
+class DishDeleteView(shortcuts.DeleteView):
+    model = models.DishModel
+    template = "kitchen/dish_delete_form.html"
