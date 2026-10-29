@@ -6,6 +6,10 @@ from app.views import kitchen as views
 blueprint = Blueprint("kitchen", __name__)
 
 blueprint.add_url_rule(
+    "/",
+    view_func=views.IndexView.as_view("index")
+)
+blueprint.add_url_rule(
     "/dish_types/",
     view_func=views.DishTypeListView.as_view("dish_type_list")
 )
