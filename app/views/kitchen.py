@@ -66,3 +66,4 @@ class DishDetailView(shortcuts.DetailView):
 class DishDeleteView(shortcuts.DeleteView):
     model = models.DishModel
     template = "kitchen/dish_delete_form.html"
+    success_url_name = "kitchen.dish_list"
