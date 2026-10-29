@@ -550,6 +550,33 @@ timezone = ["python-dateutil"]
 url = ["furl (>=0.4.1)"]
 
 [[package]]
+name = "types-flask-sqlalchemy"
+version = "2.5.9.4"
+description = "Typing stubs for Flask-SQLAlchemy"
+optional = false
+python-versions = "*"
+groups = ["main"]
+files = [
+    {file = "types-Flask-SQLAlchemy-2.5.9.4.tar.gz", hash = "sha256:69b4c9880d2431b49c60dde09ce38696d7353bbef255a3a1b50a2f98b2002109"},
+    {file = "types_Flask_SQLAlchemy-2.5.9.4-py3-none-any.whl", hash = "sha256:16c3c52d2f44703dec639a71b04c0c909da55329b7bfe3a04adaee945a77477a"},
+]
+
+[package.dependencies]
+types-SQLAlchemy = "*"
+
+[[package]]
+name = "types-sqlalchemy"
+version = "1.4.53.38"
+description = "Typing stubs for SQLAlchemy"
+optional = false
+python-versions = "*"
+groups = ["main"]
+files = [
+    {file = "types-SQLAlchemy-1.4.53.38.tar.gz", hash = "sha256:5bb7463537e04e1aa5a3557eb725930df99226dcfd3c9bf93008025bfe5c169e"},
+    {file = "types_SQLAlchemy-1.4.53.38-py3-none-any.whl", hash = "sha256:7e60e74f823931cc9a9e8adb0a4c05e5533e6708b8a266807893a739faf4eaaa"},
+]
+
+[[package]]
 name = "typing-extensions"
 version = "4.16.0"
 description = "Backported and Experimental Type Hints for Python 3.9+"
@@ -680,4 +707,4 @@ timezone = ["python-dateutil"]
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.12"
-content-hash = "8e70674f1e20a0957ebf0d8c0e11537b11f1f9bcb306f30d2db145549fadafbe"
+content-hash = "8a959c6e7140b4d68e3a1d28862247b970f7153ef168c18339954102c4a302b8"
