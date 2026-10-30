@@ -3,7 +3,7 @@ from flask_migrate import Migrate
 from flask_wtf.csrf import CSRFProtect
 
 from app.database.config import db, SQLALCHEMY_DATABASE_URI
-from app.blueprints import kitchen
+from app.blueprints import kitchen, authentication
 from app.settings import settings
 from app.views.authentication import login_manager, bcrypt
 
@@ -24,4 +24,5 @@ def create_app() -> Flask:
     bcrypt.init_app(app, db)
 
     app.register_blueprint(kitchen.blueprint)
+    app.register_blueprint(authentication.blueprint)
     return app
