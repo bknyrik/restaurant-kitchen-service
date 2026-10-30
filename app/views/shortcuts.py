@@ -13,7 +13,7 @@ class TemplateView(View):
         return dict()
 
     def dispatch_request(self) -> str:
-        return render_template(self.template)
+        return render_template(self.template, **self.get_context_data())
 
 
 class ListView(View):
