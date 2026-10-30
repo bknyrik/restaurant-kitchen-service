@@ -38,7 +38,7 @@ class LoginView(View):
 
             if cook and bcrypt.check_password_hash(cook.password, password):
                 login_user(cook)
-                return redirect(url_for("index"))
+                return redirect(url_for("kitchen.index"))
 
 
         return render_template(self.template, form=form)
