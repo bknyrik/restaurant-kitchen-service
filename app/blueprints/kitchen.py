@@ -65,3 +65,7 @@ blueprint.add_url_rule(
     "/cooks/",
     view_func=views.CookListView.as_view("cook_list")
 )
+blueprint.add_url_rule(
+    "/cooks/<int:id>/",
+    view_func=views.CookDetailView.as_view("cook_detail")
+)
