@@ -26,13 +26,13 @@ class DishTypeUpdateView(mixins.LoginRequiredMixin, shortcuts.UpdateView):
     success_url_name = "kitchen.dish_type_list"
 
 
-class DishTypeDeleteView(shortcuts.DeleteView):
+class DishTypeDeleteView(mixins.LoginRequiredMixin, shortcuts.DeleteView):
     model = models.DishTypeModel
     template = "kitchen/dish_type_delete_form.html"
     success_url_name = "kitchen.dish_type_list"
 
 
-class IngredientListView(shortcuts.ListView):
+class IngredientListView(mixins.LoginRequiredMixin, shortcuts.ListView):
     model = models.IngredientModel
     template = "kitchen/ingredient_list.html"
 
