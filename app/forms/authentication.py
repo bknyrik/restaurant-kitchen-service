@@ -1,5 +1,8 @@
 from flask_wtf import Form
+from wtforms_alchemy import ModelForm
 from wtforms import StringField, PasswordField, validators
+
+from app.database.models.kitchen import CookModel
 
 
 class LoginForm(Form):
@@ -11,3 +14,8 @@ class LoginForm(Form):
         "Password",
         validators=[validators.DataRequired()]
     )
+
+
+class RegistrationForm(ModelForm):
+    class Meta:
+        model = CookModel
