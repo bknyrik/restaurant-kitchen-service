@@ -45,11 +45,7 @@ class DishModel(db.Model):
         db.ForeignKey("dish_types.id", ondelete="CASCADE"),
         nullable=False
     )
-    dish_type = db.relationship(
-        DishTypeModel,
-        cascade="all, delete-orphan",
-        back_populates="dishes"
-    )
+    dish_type = db.relationship(DishTypeModel, back_populates="dishes")
     ingredients = db.relationship(
         IngredientModel,
         secondary=DishIngredientsModel,
