@@ -19,6 +19,7 @@ def create_app() -> Flask:
     db.init_app(app)
     csrf.init_app(app)
     login_manager.init_app(app)
+    login_manager.login_view = "auth.login"
     bcrypt.init_app(app)
 
 
