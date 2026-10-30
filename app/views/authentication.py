@@ -1,4 +1,5 @@
-from flask import View, Response, request, redirect, render_template, url_for
+from flask.views import View
+from flask import Response, request, redirect, render_template, url_for
 from flask_login import LoginManager, login_user
 from flask_bcrypt import Bcrypt
 
