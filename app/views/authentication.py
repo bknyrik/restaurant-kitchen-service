@@ -40,4 +40,4 @@ class LoginView(View):
                 return redirect(url_for("index"))
 
 
-        return render_template(self.template)
+        return render_template(self.template, form=form)
