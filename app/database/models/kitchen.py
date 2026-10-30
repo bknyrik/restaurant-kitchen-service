@@ -24,6 +24,11 @@ class DishTypeModel(db.Model):
 
     id = db.Column(db.Integer, primary_key=True, index=True)
     name = db.Column(db.String(255), unique=True, nullable=False)
+    dishes = db.relationship(
+        "DishModel",
+        cascade="all, delete-orphan",
+        back_populates="dish_type"
+    )
 
 
 class IngredientModel(db.Model):
