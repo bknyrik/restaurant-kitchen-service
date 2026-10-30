@@ -12,14 +12,14 @@ class DishTypeListView(mixins.LoginRequiredMixin, shortcuts.ListView):
     template = "kitchen/dish_type_list.html"
 
 
-class DishTypeCreateView(shortcuts.CreateView):
+class DishTypeCreateView(mixins.LoginRequiredMixin, shortcuts.CreateView):
     model = models.DishTypeModel
     template = "kitchen/dish_type_form.html"
     form_class = forms.DishTypeForm
     success_url_name = "kitchen.dish_type_list"
 
 
-class DishTypeUpdateView(shortcuts.UpdateView):
+class DishTypeUpdateView(mixins.LoginRequiredMixin, shortcuts.UpdateView):
     model = models.DishTypeModel
     template = "kitchen/dish_type_form.html"
     form_class = forms.DishTypeForm
