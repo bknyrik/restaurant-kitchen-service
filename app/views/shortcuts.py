@@ -9,6 +9,9 @@ from app.database.config import db
 class TemplateView(View):
     template: str
 
+    def get_context_data(self) -> dict:
+        return dict()
+
     def dispatch_request(self) -> str:
         return render_template(self.template)
 
