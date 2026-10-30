@@ -1,6 +1,6 @@
 from flask.views import View
 from flask import Response, request, redirect, render_template, url_for
-from flask_login import LoginManager, login_user
+from flask_login import LoginManager, login_user, logout_user, login_required
 from flask_bcrypt import Bcrypt
 
 from app.database.models import kitchen as models
@@ -47,3 +47,11 @@ class LoginView(View):
 
 
         return render_template(self.template, form=form)
+
+
+class LogoutView(View):
+
+    @login_required
+    def dispatch_request(self) -> Response:
+        logout_user()
+        return redirect(url_for("auth.logout"))
