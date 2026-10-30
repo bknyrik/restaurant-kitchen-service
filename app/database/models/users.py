@@ -16,6 +16,21 @@ class UserGroupModel(db.Model):
     name = db.Column(db.Enum(UserGroupEnum), unique=True, nullable=False)
 
 
+class UserGroupMixin:
+
+    @db.declared_attr
+    def group_id(cls):
+        return db.Column(
+            db.Integer,
+            db.ForeignKey("user_groups.id", ondelete="CASCADE"),
+            nullable=False
+        )
+
+    @db.declared_attr
+    def group(cls):
+        return db.relationship(UserGroupModel)
+
+
 @db.declarative_mixin
 class AbstractUserModel(db.Model):
     __abstract__ = True
