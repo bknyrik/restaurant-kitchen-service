@@ -1,13 +1,13 @@
 from app.database.models import kitchen as models
 from app.forms import kitchen as forms
-from app.views import shortcuts
+from app.views import shortcuts, mixins
 
 
 class IndexView(shortcuts.TemplateView):
     template = "index.html"
 
 
-class DishTypeListView(shortcuts.ListView):
+class DishTypeListView(mixins.LoginRequiredMixin, shortcuts.ListView):
     model = models.DishTypeModel
     template = "kitchen/dish_type_list.html"
 
