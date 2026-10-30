@@ -53,3 +53,6 @@ class AbstractUserModel(UserMixin, UserGroupMixin, db.Model):
         onupdate=db.func.now(),
         nullable=False
     )
+
+    def get_id(self) -> str:
+        return str(self.id)
