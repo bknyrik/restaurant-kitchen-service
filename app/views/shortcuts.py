@@ -29,11 +29,8 @@ class DetailView(View):
     model: type[Model]
     template: str
 
-    def get_object(self, id: int) -> Model:
-        return db.get_or_404(self.model, id)
-
     def dispatch_request(self, id: int) -> str:
-        object_ = self.get_object(id)
+        object_ = db.get_or_404(self.model, id)
         return render_template(self.template, object=object_)
 
 
