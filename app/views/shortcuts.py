@@ -6,6 +6,13 @@ from flask_sqlalchemy.model import Model
 from app.database.config import db
 
 
+class TemplateView(View):
+    template: str
+
+    def dispatch_request(self) -> str:
+        return render_template(self.template)
+
+
 class ListView(View):
     model: type[Model]
     template: str
