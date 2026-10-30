@@ -18,7 +18,6 @@ def load_user(user_id: str) -> models.CookModel:
 
 class LoginView(View):
     methods = ("GET", "POST")
-
     template = "authentication/login.html"
 
     def dispatch_request(self) -> str | Response:
@@ -39,6 +38,12 @@ class LoginView(View):
             if cook and bcrypt.check_password_hash(cook.password, password):
                 login_user(cook)
                 return redirect(url_for("kitchen.index"))
+            else:
+                return render_template(
+                    "authentication/login.html",
+                    error="Invalid account credentials",
+                    form=form
+                )
 
 
         return render_template(self.template, form=form)
