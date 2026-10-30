@@ -47,7 +47,7 @@ class DishModel(db.Model):
     )
     dish_type = db.relationship(
         DishTypeModel,
-        cascade="all, delete",
+        cascade="all, delete-orphan",
         backref="dishes"
     )
     ingredients = db.relationship(
