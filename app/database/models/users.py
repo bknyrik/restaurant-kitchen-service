@@ -47,6 +47,6 @@ class AbstractUserModel(db.Model):
     def group(cls):
         return db.relationship(
             UserGroupModel,
-            cascade="all, delete",
+            cascade="all, delete-orphan",
             uselist=False
         )
