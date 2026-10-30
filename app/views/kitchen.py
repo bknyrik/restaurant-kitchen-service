@@ -51,13 +51,13 @@ class IngredientUpdateView(mixins.LoginRequiredMixin, shortcuts.UpdateView):
     success_url_name = "kitchen.ingredient_list"
 
 
-class IngredientDeleteView(shortcuts.DeleteView):
+class IngredientDeleteView(mixins.LoginRequiredMixin, shortcuts.DeleteView):
     model = models.IngredientModel
     template = "kitchen/ingredient_delete_form.html"
     success_url_name = "kitchen.ingredient_list"
 
 
-class DishListView(shortcuts.ListView):
+class DishListView(mixins.LoginRequiredMixin, shortcuts.ListView):
     model = models.DishModel
     template = "kitchen/dish_list.html"
 
