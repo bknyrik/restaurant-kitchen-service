@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}
+  <title>Login</title>
+{% endblock %}
+{% block content %}
+  <h1>Login</h1>
+  <p class="fw-bold text-danger mb-3">{{ error }}</p>
+  <form action="{{ url_for("auth.login") }}" method="post">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+    <div class="mb-3">
+    {{ form.username.label(class="form-label") }}: {{ form.username(class="form-control") }}
+    </div>
+    <div class="mb-3">
+    {{ form.password.label(class="form-label") }}: {{ form.password(class="form-control") }}
+    </div>
+    <input class="btn btn-primary" type="submit" value="Log in">
+  </form>
+{% endblock %}
