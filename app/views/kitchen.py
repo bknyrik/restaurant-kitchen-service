@@ -37,14 +37,14 @@ class IngredientListView(mixins.LoginRequiredMixin, shortcuts.ListView):
     template = "kitchen/ingredient_list.html"
 
 
-class IngredientCreateView(shortcuts.CreateView):
+class IngredientCreateView(mixins.LoginRequiredMixin, shortcuts.CreateView):
     model = models.IngredientModel
     template = "kitchen/ingredient_form.html"
     form_class = forms.IngredientForm
     success_url_name = "kitchen.ingredient_list"
 
 
-class IngredientUpdateView(shortcuts.UpdateView):
+class IngredientUpdateView(mixins.LoginRequiredMixin, shortcuts.UpdateView):
     model = models.IngredientModel
     template = "kitchen/ingredient_form.html"
     form_class = forms.IngredientForm
