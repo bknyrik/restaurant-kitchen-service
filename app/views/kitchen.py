@@ -3,7 +3,7 @@ from app.forms import kitchen as forms
 from app.views import shortcuts, mixins
 
 
-class IndexView(shortcuts.TemplateView):
+class IndexView(mixins.LoginRequiredMixin, shortcuts.TemplateView):
     template = "index.html"
 
     def get_context_data(self) -> dict:
