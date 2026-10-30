@@ -1,9 +1,7 @@
 <nav class="navbar navbar-dark bg-dark">
   <div class="container-fluid">
     <ul class="nav align-items-center">
-      <li class="nav-item">
-        <p class="navbar-brand d-inline">Restaurant Kitchen</p>
-      </li>
+      <li class="nav-item"><p class="navbar-brand d-inline">Restaurant Kitchen</p></li>
       <li class="nav-item">
         <a class="nav-link text-white" href="{{ url_for("kitchen.index") }}">Home</a>
       </li>
@@ -20,5 +18,13 @@
         <a class="nav-link text-white" href="#">Cooks</a>
       </li>
     </ul>
+    {% if current_user.is_authenticated %}
+      <form action="{{ url_for("auth.logout") }}">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+        <input class="btn btn-danger" type="submit" value="Log out">
+      </form>
+    {% else %}
+      <a class="btn btn-primary" href="{{ url_for("auth.login") }}">Log in</a>
+    {% endif %}
   </div>
 </nav>
