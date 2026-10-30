@@ -5,6 +5,7 @@ from flask_wtf.csrf import CSRFProtect
 from app.database.config import db, SQLALCHEMY_DATABASE_URI
 from app.blueprints import kitchen
 from app.settings import settings
+from app.views.authentication import login_manager, bcrypt
 
 
 csrf = CSRFProtect()
@@ -19,6 +20,8 @@ def create_app() -> Flask:
     csrf.init_app(app)
 
     migrate = Migrate(app, db, directory="app/database/migrations")
+    login_manager.init_app(app)
+    bcrypt.init_app(app, db)
 
     app.register_blueprint(kitchen.blueprint)
     return app
