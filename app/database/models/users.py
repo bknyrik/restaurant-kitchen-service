@@ -1,5 +1,7 @@
 from enum import StrEnum, auto
 
+from flask_login import UserMixin
+
 from app.database.config import db
 
 
@@ -31,7 +33,7 @@ class UserGroupMixin:
         return db.relationship(UserGroupModel)
 
 
-class AbstractUserModel(UserGroupMixin, db.Model):
+class AbstractUserModel(UserMixin, UserGroupMixin, db.Model):
     __abstract__ = True
 
     id = db.Column(db.Integer, primary_key=True, index=True)
