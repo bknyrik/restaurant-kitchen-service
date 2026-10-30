@@ -31,8 +31,7 @@ class UserGroupMixin:
         return db.relationship(UserGroupModel)
 
 
-@db.declarative_mixin
-class AbstractUserModel(db.Model):
+class AbstractUserModel(UserGroupMixin, db.Model):
     __abstract__ = True
 
     id = db.Column(db.Integer, primary_key=True, index=True)
@@ -52,16 +51,3 @@ class AbstractUserModel(db.Model):
         onupdate=db.func.now(),
         nullable=False
     )
-    group_id = db.Column(
-        db.Integer,
-        db.ForeignKey("user_groups.id", ondelete="CASCADE"),
-        nullable=False
-    )
-
-    @db.declared_attr
-    def group(cls):
-        return db.relationship(
-            UserGroupModel,
-            cascade="all, delete-orphan",
-            uselist=False
-        )
