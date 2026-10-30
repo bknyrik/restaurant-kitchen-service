@@ -6,6 +6,14 @@ from app.views import shortcuts, mixins
 class IndexView(shortcuts.TemplateView):
     template = "index.html"
 
+    def get_context_data(self) -> dict:
+        return {
+            "count_dish_types": models.DishTypeModel.query.count(),
+            "count_ingredients": models.IngredientModel.query.count(),
+            "count_dishes": models.DishModel.query.count(),
+            "count_cooks": models.CookModel.query.count(),
+        }
+
 
 class DishTypeListView(mixins.LoginRequiredMixin, shortcuts.ListView):
     model = models.DishTypeModel
