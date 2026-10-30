@@ -98,3 +98,8 @@ class DishDeleteView(mixins.LoginRequiredMixin, shortcuts.DeleteView):
 class CookListView(mixins.LoginRequiredMixin, shortcuts.ListView):
     model = models.CookModel
     template = "kitchen/cook_list.html"
+
+
+class CookDetailView(mixins.LoginRequiredMixin, shortcuts.DetailView):
+    model = models.CookModel
+    template = "kitchen/cook_detail.html"
