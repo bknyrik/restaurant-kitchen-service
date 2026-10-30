@@ -12,7 +12,7 @@ bcrypt = Bcrypt()
 
 @login_manager.user_loader
 def load_user(user_id: str) -> models.CookModel:
-    return models.CookModel.query.get(user_id)
+    return models.CookModel.query.get(int(user_id))
 
 
 class LoginView(View):
