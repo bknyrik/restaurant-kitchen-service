@@ -40,7 +40,8 @@ class IngredientForm(ModelForm):
         validators=[
             validators.Length(min=4, max=25),
             Unique(models.IngredientModel.name, get_session=lambda: db.session)
-        ]
+        ],
+        render_kw={"class": "form-control"}
     )
 
 
