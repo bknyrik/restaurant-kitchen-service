@@ -8,6 +8,14 @@
   </div>
   <div class="me-auto p-2"><a class="text-white text-decoration-none" href="{{ url_for("kitchen.cook_list") }}">Cooks</a></div>
   {% if current_user.is_authenticated %}
+    <div class="p-2">
+      <a
+          class="fs-5 text-white text-decoration-none"
+          href="{{ url_for("kitchen.cook_detail", id=current_user.id) }}"
+      >
+        {{ current_user.username }}
+      </a>
+    </div>
     <div class="p-2"><a class="fs-5 btn btn-danger" href="{{ url_for("auth.logout") }}">Log out</a></div>
   {% else %}
     <div class="p-2"><a class="fs-5 btn btn-primary" href="{{ url_for("auth.login") }}">Log in</a></div>
