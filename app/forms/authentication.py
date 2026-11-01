@@ -19,3 +19,10 @@ class LoginForm(Form):
 class RegistrationForm(ModelForm):
     class Meta:
         model = CookModel
+        only = (
+            "username",
+            "first_name",
+            "last_name",
+            "email",
+            "password",
+        )
