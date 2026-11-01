@@ -63,7 +63,7 @@ class SignupView(View):
     methods = ("GET", "POST")
     template = "authentication/signup.html"
     model = models.CookModel
-    form_class = forms.RegistrationForm
+    form_class = forms.SignupForm
     success_url_name = "kitchen.index"
 
     def dispatch_request(self) -> str | Response:

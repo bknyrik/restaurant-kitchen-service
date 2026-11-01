@@ -16,7 +16,7 @@ class LoginForm(Form):
     )
 
 
-class RegistrationForm(ModelForm):
+class SignupForm(ModelForm):
     class Meta:
         model = CookModel
         only = (
