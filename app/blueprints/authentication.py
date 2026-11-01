@@ -16,3 +16,7 @@ blueprint.add_url_rule(
     "/logout/",
     view_func=views.LogoutView.as_view("logout")
 )
+blueprint.add_url_rule(
+    "/signup/",
+    view_func=views.SignupView.as_view("signup")
+)
