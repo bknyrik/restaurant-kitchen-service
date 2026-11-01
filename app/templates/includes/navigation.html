@@ -6,7 +6,7 @@
   </div>
   <div class="p-2"><a class="text-white text-decoration-none" href="{{ url_for("kitchen.dish_list") }}">Dishes</a>
   </div>
-  <div class="me-auto p-2"><a class="text-white text-decoration-none" href="#">Cooks</a></div>
+  <div class="me-auto p-2"><a class="text-white text-decoration-none" href="{{ url_for("kitchen.cook_list") }}">Cooks</a></div>
   {% if current_user.is_authenticated %}
     <div class="p-2"><a class="fs-5 btn btn-danger" href="{{ url_for("auth.logout") }}">Log out</a></div>
   {% else %}
