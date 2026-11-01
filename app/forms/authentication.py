@@ -1,7 +1,8 @@
 from flask_wtf import Form
-from wtforms_alchemy import ModelForm
-from wtforms import StringField, PasswordField, validators
+from wtforms_alchemy import ModelForm, Unique
+from wtforms import StringField, PasswordField, EmailField, validators
 
+from app.database.config import db
 from app.database.models.kitchen import CookModel
 
 
@@ -26,3 +27,46 @@ class SignupForm(ModelForm):
             "email",
             "password",
         )
+
+
+    username = StringField(
+        label="Username",
+        validators=[
+            validators.DataRequired(),
+            validators.Length(min=6, max=15),
+            Unique(CookModel.username, get_session=lambda: db.session)
+        ],
+        render_kw={"class": "form-control"}
+    )
+    first_name = StringField(
+        label="First name",
+        validators=[
+            validators.DataRequired(),
+            validators.Length(min=2, max=20),
+        ],
+        render_kw={"class": "form-control"}
+    )
+    last_name = StringField(
+        label="Last name",
+        validators=[
+            validators.DataRequired(),
+            validators.Length(min=2, max=20),
+        ],
+        render_kw={"class": "form-control"}
+    )
+    email = EmailField(
+        label="Email",
+        validators=[
+            validators.DataRequired(),
+            validators.Length(min=6, max=25),
+        ],
+        render_kw={"class": "form-control"}
+    )
+    password = PasswordField(
+        label="Password",
+        validators=[
+            validators.DataRequired(),
+            validators.Length(min=8, max=20),
+        ],
+        render_kw={"class": "form-control"}
+    )
