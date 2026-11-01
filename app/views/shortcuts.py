@@ -4,6 +4,7 @@ from flask_wtf import Form
 from flask_sqlalchemy.model import Model
 
 from app.database.config import db
+from app.views import mixins
 
 
 class TemplateView(View):
@@ -28,12 +29,12 @@ class ListView(View):
         return render_template(self.template, object_list=object_list)
 
 
-class DetailView(View):
+class DetailView(mixins.DetailMixin, View):
     model: type[Model]
     template: str
 
     def dispatch_request(self, id: int) -> str:
-        object_ = db.get_or_404(self.model, id)
+        object_ = self.get_object(id)
         return render_template(self.template, object=object_)
 
 
