@@ -5,6 +5,7 @@ from flask_bcrypt import Bcrypt
 
 from app.database.config import db
 from app.database.models import kitchen as models
+from app.database.models.users import UserGroupModel
 from app.forms import authentication as forms
 
 
@@ -71,7 +72,17 @@ class SignupView(View):
         if request.method == "POST" and form.validate():
             object_ = self.model()
             form.populate_obj(object_)
+
+            group = UserGroupModel.query.filter(
+                UserGroupModel.name == "USER"
+            ).first()
+
+            object_.group = group
+
+            db.session.add(object_)
             db.session.commit()
+            db.session.refresh(object_)
+
             login_user(object_)
             return redirect(url_for(self.success_url_name))
 
