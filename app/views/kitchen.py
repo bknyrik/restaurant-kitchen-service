@@ -103,3 +103,9 @@ class CookListView(mixins.LoginRequiredMixin, shortcuts.ListView):
 class CookDetailView(mixins.LoginRequiredMixin, shortcuts.DetailView):
     model = models.CookModel
     template = "kitchen/cook_detail.html"
+
+
+class CookDeleteView(mixins.LoginRequiredMixin, shortcuts.DeleteView):
+    model = models.CookModel
+    template = "kitchen/cook_delete_form.html"
+    success_url_name = "kitchen.cook_list"
