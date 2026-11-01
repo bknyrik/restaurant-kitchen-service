@@ -56,7 +56,8 @@ class DishForm(ModelForm):
             validators.DataRequired(),
             validators.Length(min=5, max=50),
             Unique(models.DishModel.name, get_session=lambda: db.session)
-        ]
+        ],
+        render_kw={"class": "form-control"}
     )
     dish_type = QuerySelectField(
         "Dish type",
