@@ -25,7 +25,8 @@ class DishTypeForm(ModelForm):
         validators=[
             validators.Length(min=4, max=255),
             Unique(models.DishTypeModel.name, get_session=lambda: db.session)
-        ]
+        ],
+        render_kw={"class": "form-control"}
     )
 
 
