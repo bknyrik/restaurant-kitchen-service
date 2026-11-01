@@ -81,4 +81,7 @@ class DishForm(ModelForm):
         ],
         render_kw={"class": "form-control"}
     )
-    description = TextAreaField("Description")
+    description = TextAreaField(
+        "Description",
+        render_kw={"class": "form-control"}
+    )
