@@ -70,7 +70,8 @@ class DishForm(ModelForm):
         label="Ingredients",
         query_factory=lambda: db.session.query(models.IngredientModel),
         get_label=lambda ingredient: ingredient.name,
-        get_pk=lambda ingredient: int(ingredient.id)
+        get_pk=lambda ingredient: int(ingredient.id),
+        render_kw={"class": "form-select"}
     )
     price = DecimalField(
         "Price",
