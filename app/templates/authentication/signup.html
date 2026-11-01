@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}
+  <title>Sign up</title>
+{% endblock %}
+{% block content %}
+  <h1>Sign up</h1>
+  <form action="{{ url_for("auth.signup") }}" method="post">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+    {% for field in form._fields.values() %}
+      <div class="mb-3">
+        {{ field.label(class="form-label") }}: {{ field() }}
+        {% if field.description %}
+          <div class="form-text">{{ field.description }}</div>
+        {% endif %}
+        {% for error in field.errors %}
+          <span class="text-danger">{{ error }}</span>
+        {% endfor %}
+      </div>
+    {% endfor %}
+    <input class="btn btn-primary" type="submit" value="Sign up">
+  </form>
+{% endblock %}
