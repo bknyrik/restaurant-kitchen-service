@@ -26,6 +26,7 @@
     </div>
     <div class="p-2"><a class="fs-5 btn btn-danger" href="{{ url_for("auth.logout") }}">Log out</a></div>
   {% else %}
+    <div class="p-2"><a class="fs-5 btn btn-primary" href="{{ url_for("auth.signup") }}">Sign up</a></div>
     <div class="p-2"><a class="fs-5 btn btn-primary" href="{{ url_for("auth.login") }}">Log in</a></div>
   {% endif %}
 </div>
