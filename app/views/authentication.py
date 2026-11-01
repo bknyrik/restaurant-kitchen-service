@@ -73,6 +73,11 @@ class SignupView(View):
             object_ = self.model()
             form.populate_obj(object_)
 
+            object_.password = (
+                bcrypt
+                .generate_password_hash(form.password.data)
+                .decode()
+            )
             group = UserGroupModel.query.filter(
                 UserGroupModel.name == "USER"
             ).first()
