@@ -78,6 +78,7 @@ class DishForm(ModelForm):
         validators=[
             validators.DataRequired(),
             validators.NumberRange(min=1)
-        ]
+        ],
+        render_kw={"class": "form-control"}
     )
     description = TextAreaField("Description")
