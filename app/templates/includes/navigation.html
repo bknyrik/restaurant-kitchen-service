@@ -1,4 +1,12 @@
 <div class="fs-5 d-flex bg-dark align-items-center">
+  <div>
+    <img
+      src="{{ url_for("static", filename="kitchen.png") }}"
+      width="50"
+      height="50"
+      alt="Kitchen"
+    >
+  </div>
   <div class="p-2"><a class="text-white text-decoration-none" href="{{ url_for("kitchen.index") }}">Home</a></div>
   <div class="p-2"><a class="text-white text-decoration-none" href="{{ url_for("kitchen.dish_type_list") }}">Dish
     types</a></div>
