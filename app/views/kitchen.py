@@ -1,4 +1,4 @@
-from flask import request, render_template, Response
+from flask import request, Response, render_template
 from flask_login import current_user, login_required
 
 from app.database.config import db
@@ -79,6 +79,7 @@ class DishDetailView(mixins.LoginRequiredMixin, shortcuts.DetailView):
     model = models.DishModel
     template = "kitchen/dish_detail.html"
 
+    @login_required
     def dispatch_request(self, *args, **kwargs) -> str | Response:
         object_ = self.get_object(kwargs["id"])
 
@@ -90,7 +91,7 @@ class DishDetailView(mixins.LoginRequiredMixin, shortcuts.DetailView):
 
             db.session.commit()
 
-        return super().dispatch_request(*args, **kwargs)
+        return render_template(self.template, object=object_)
 
 
 class DishCreateView(mixins.LoginRequiredMixin, shortcuts.CreateView):
