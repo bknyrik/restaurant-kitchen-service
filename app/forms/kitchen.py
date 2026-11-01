@@ -63,7 +63,8 @@ class DishForm(ModelForm):
         "Dish type",
         query_factory=lambda: db.session.query(models.DishTypeModel),
         get_label=lambda dish_type: dish_type.name,
-        get_pk=lambda dish_type: int(dish_type.id)
+        get_pk=lambda dish_type: int(dish_type.id),
+        render_kw={"class": "form-select"}
     )
     ingredients = QuerySelectMultipleField(
         label="Ingredients",
