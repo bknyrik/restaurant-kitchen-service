@@ -8,6 +8,9 @@
   {% for field in form._fields.values() %}
     <div class="mb-3">
       {{ field.label(class="form-label") }}: {{ field() }}
+      {% if field.description %}
+        <div class="form-text">{{ field.description }}</div>
+      {% endif %}
       {% for error in field.errors %}
         <span class="text-danger">{{ error }}</span>
       {% endfor %}
