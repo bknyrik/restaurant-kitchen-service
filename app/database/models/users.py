@@ -17,6 +17,9 @@ class UserGroupModel(db.Model):
     id = db.Column(db.Integer, primary_key=True, index=True)
     name = db.Column(db.Enum(UserGroupEnum), unique=True, nullable=False)
 
+    def __str__(self) -> str:
+        return self.name
+
 
 class UserGroupMixin:
 
