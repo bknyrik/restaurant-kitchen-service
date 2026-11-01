@@ -1,3 +1,7 @@
+from flask import request, render_template, Response
+from flask_login import current_user, login_required
+
+from app.database.config import db
 from app.database.models import kitchen as models
 from app.forms import kitchen as forms
 from app.views import shortcuts, mixins
@@ -71,8 +75,22 @@ class DishListView(mixins.LoginRequiredMixin, shortcuts.ListView):
 
 
 class DishDetailView(mixins.LoginRequiredMixin, shortcuts.DetailView):
+    methods = ("GET", "POST")
     model = models.DishModel
     template = "kitchen/dish_detail.html"
+
+    def dispatch_request(self, *args, **kwargs) -> str | Response:
+        object_ = self.get_object(kwargs["id"])
+
+        if request.method == "POST":
+            if current_user not in object_.cooks:
+                object_.cooks.append(current_user)
+            else:
+                object_.cooks.remove(current_user)
+
+            db.session.commit()
+
+        return super().dispatch_request(*args, **kwargs)
 
 
 class DishCreateView(mixins.LoginRequiredMixin, shortcuts.CreateView):
