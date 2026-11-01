@@ -75,6 +75,9 @@ class DishForm(ModelForm):
     )
     price = DecimalField(
         "Price",
-        validators=[validators.DataRequired()]
+        validators=[
+            validators.DataRequired(),
+            validators.NumberRange(min=1)
+        ]
     )
     description = TextAreaField("Description")
