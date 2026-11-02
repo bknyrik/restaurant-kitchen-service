@@ -1,4 +1,4 @@
-from flask import request, Response, render_template
+from flask import request, Response, render_template, redirect, url_for
 from flask_login import current_user, login_required
 from wtforms import Form
 
@@ -93,6 +93,7 @@ class DishDetailView(mixins.LoginRequiredMixin, shortcuts.DetailView):
                 object_.cooks.remove(current_user)
 
             db.session.commit()
+            return redirect(url_for("kitchen.dish_detail", id=object_.id))
 
         return render_template(self.template, object=object_)
 
