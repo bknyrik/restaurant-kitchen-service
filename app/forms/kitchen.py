@@ -85,3 +85,15 @@ class DishForm(ModelForm):
         "Description",
         render_kw={"class": "form-control"}
     )
+
+
+class CookCreateForm(ModelForm):
+    class Meta:
+        model = models.CookModel
+        only = (
+            "username",
+            "first_name",
+            "last_name",
+            "email",
+            "password"
+        )
