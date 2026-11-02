@@ -13,6 +13,7 @@ from wtforms import (
 
 from app.database.config import db
 from app.database.models import kitchen as models
+from app.database.models.users import UserGroupModel
 
 
 class DishTypeForm(ModelForm):
@@ -100,5 +101,9 @@ class CookCreateForm(ModelForm):
 
 
 class CookAdminCreateForm(CookCreateForm):
-    class Meta(CookCreateForm.Meta):
-        only = CookCreateForm.Meta.only + ("group",)
+    group = QuerySelectField(
+        label="Group",
+        get_pk=lambda item: item.id,
+        query_factory=lambda: db.session.query(UserGroupModel),
+        render_kw={"class": "form-select"},
+    )
