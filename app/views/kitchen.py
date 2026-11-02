@@ -135,7 +135,7 @@ class CookCreateView(mixins.LoginRequiredMixin, shortcuts.CreateView):
     def get_form_class(
         self
     ) -> type[forms.CookCreateForm | forms.CookAdminCreateForm]:
-        if current_user.group == "admin":
+        if current_user.group.name == "admin":
             return forms.CookAdminCreateForm
 
         return forms.CookCreateForm
@@ -151,7 +151,7 @@ class CookCreateView(mixins.LoginRequiredMixin, shortcuts.CreateView):
             ).decode()
         )
 
-        if current_user.group != "admin":
+        if current_user.group.name != "admin":
             group = db.session.query(UserGroupModel).filter(
                 UserGroupModel.name == "USER"
             ).first()
