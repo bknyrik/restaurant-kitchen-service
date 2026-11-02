@@ -3,4 +3,19 @@
   <title>Home</title>
 {% endblock %}
 {% block content %}
+  <div class="container text-center mt-5 fs-5">
+    <h1>Welcome to Restaurant Kitchen Service!</h1>
+    <div class="row mt-5">
+      <div class="col">Dish types</div>
+      <div class="col">Ingredients</div>
+      <div class="col">Dishes</div>
+      <div class="col">Cooks</div>
+    </div>
+    <div class="row mt-2">
+      <div class="col">{{ count_dish_types }}</div>
+      <div class="col">{{ count_ingredients }}</div>
+      <div class="col">{{ count_dishes }}</div>
+      <div class="col">{{ count_cooks }}</div>
+    </div>
+  </div>
 {% endblock %}
