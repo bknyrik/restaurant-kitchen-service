@@ -5,6 +5,9 @@
 {% block content %}
   <h1>Cook {{ object.username }}</h1>
   <section class="fs-5">
+    {% if current_user.id == object.id %}
+      <a class="btn btn-primary" href="{{ url_for("accounts.change_password") }}">Change password</a>
+    {% endif %}
     <hr>
     <h2 class="mb-3">Personal information</h2>
     <p><span class="fw-bold">First name: </span>{{ object.first_name|default("Absent", True) }}</p>
