@@ -112,7 +112,7 @@ class ChangePasswordView(View):
         if request.method == "POST" and form.validate():
             current_user.password = (
                 bcrypt.generate_password_hash(form.data["new_password"])
-                .encode()
+                .decode()
             )
 
             db.session.commit()
