@@ -78,7 +78,7 @@ class UpdateView(View):
         return self.form_class
 
     def get_form(self, object_: Model) -> Form:
-        form = self.form_class(obj=object_)
+        form = self.get_form_class()(obj=object_)
 
         if request.method == "POST":
             form.process(request.form)
