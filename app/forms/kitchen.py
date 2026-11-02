@@ -97,7 +97,8 @@ class CookCreateForm(ModelForm):
             "first_name",
             "last_name",
             "email",
-            "password"
+            "password",
+            "years_of_experience"
         )
 
 
@@ -108,7 +109,8 @@ class CookUpdateForm(ModelForm):
             "username",
             "first_name",
             "last_name",
-            "email"
+            "email",
+            "years_of_experience"
         )
 
 
