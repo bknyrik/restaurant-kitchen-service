@@ -134,9 +134,9 @@ class CookCreateView(mixins.LoginRequiredMixin, shortcuts.CreateView):
 
     def get_form_class(
         self
-    ) -> type[forms.CookCreateForm | forms.CookAdminCreateForm]:
+    ) -> type[forms.CookCreateForm | forms.CookAdminForm]:
         if current_user.group.name == "admin":
-            return forms.CookAdminCreateForm
+            return forms.CookAdminForm
 
         return forms.CookCreateForm
 

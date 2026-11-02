@@ -111,7 +111,7 @@ class CookUpdateForm(ModelForm):
         )
 
 
-class CookAdminCreateForm(CookCreateForm):
+class CookAdminForm(CookCreateForm):
     group = QuerySelectField(
         label="Group",
         get_pk=lambda item: item.id,
