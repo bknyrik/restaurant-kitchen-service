@@ -85,6 +85,10 @@ class UpdateView(View):
 
         return form
 
+    def update_object(self, form: Form, object_: Model) -> None:
+        form.populate_obj(object_)
+        db.session.commit()
+
     def dispatch_request(self, id: int) -> str | Response:
         object_ = db.get_or_404(self.model, id)
         form = self.get_form(object_)
