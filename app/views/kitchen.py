@@ -176,6 +176,15 @@ class CookUpdateView(mixins.LoginRequiredMixin, shortcuts.UpdateView):
 
         return forms.CookUpdateForm
 
+    def update_object(self, form: Form, object_: models.CookModel) -> None:
+        form.populate_obj(object_)
+
+        object_.password = bcrypt.generate_password_hash(
+            form.data["new_password"]
+        ).decode()
+
+        db.session.commit()
+
 
 class CookDeleteView(mixins.LoginRequiredMixin, shortcuts.DeleteView):
     model = models.CookModel
