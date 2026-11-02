@@ -124,6 +124,20 @@ class CookDetailView(mixins.LoginRequiredMixin, shortcuts.DetailView):
     template = "kitchen/cook_detail.html"
 
 
+class CookCreateView(mixins.LoginRequiredMixin, shortcuts.CreateView):
+    model = models.CookModel
+    template = "kitchen/cook_form.html"
+    success_url_name = "kitchen.cook_list"
+
+    def get_form_class(
+        self
+    ) -> type[forms.CookCreateForm | forms.CookAdminCreateForm]:
+        if current_user.group == "admin":
+            return forms.CookAdminCreateForm
+
+        return forms.CookCreateForm
+
+
 class CookDeleteView(mixins.LoginRequiredMixin, shortcuts.DeleteView):
     model = models.CookModel
     template = "kitchen/cook_delete_form.html"
