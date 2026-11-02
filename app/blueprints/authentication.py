@@ -1,6 +1,6 @@
 from flask import Blueprint
 
-from app.views import authentication as views
+from app.views import accounts as views
 
 
 blueprint = Blueprint(

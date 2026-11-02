@@ -5,7 +5,7 @@ from flask_wtf.csrf import CSRFProtect
 from app.database.config import db, SQLALCHEMY_DATABASE_URI
 from app.blueprints import kitchen, authentication
 from app.settings import settings
-from app.views.authentication import login_manager, bcrypt
+from app.views.accounts import login_manager, bcrypt
 
 
 csrf = CSRFProtect()
