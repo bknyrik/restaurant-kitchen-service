@@ -20,7 +20,7 @@ def load_user(user_id: str) -> models.CookModel:
 
 class LoginView(View):
     methods = ("GET", "POST")
-    template = "authentication/login.html"
+    template = "accounts/login.html"
 
     def dispatch_request(self) -> str | Response:
         form = forms.LoginForm(request.form)
@@ -42,7 +42,7 @@ class LoginView(View):
                 return redirect(url_for("kitchen.index"))
             else:
                 return render_template(
-                    "authentication/login.html",
+                    "accounts/login.html",
                     error="Invalid account credentials",
                     form=form
                 )
@@ -61,7 +61,7 @@ class LogoutView(View):
 
 class SignupView(View):
     methods = ("GET", "POST")
-    template = "authentication/signup.html"
+    template = "accounts/signup.html"
     model = models.CookModel
     form_class = forms.SignupForm
     success_url_name = "kitchen.index"
