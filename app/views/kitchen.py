@@ -163,6 +163,12 @@ class CookCreateView(mixins.LoginRequiredMixin, shortcuts.CreateView):
         db.session.refresh(object_)
 
 
+class CookUpdateView(mixins.LoginRequiredMixin, shortcuts.UpdateView):
+    model = models.CookModel
+    template = "kitchen/cook_form.html"
+    success_url_name = "kitchen.cook_list"
+
+
 class CookDeleteView(mixins.LoginRequiredMixin, shortcuts.DeleteView):
     model = models.CookModel
     template = "kitchen/cook_delete_form.html"
