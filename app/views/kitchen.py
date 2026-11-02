@@ -1,10 +1,13 @@
 from flask import request, Response, render_template
 from flask_login import current_user, login_required
+from wtforms import Form
 
 from app.database.config import db
 from app.database.models import kitchen as models
+from app.database.models.users import UserGroupModel
 from app.forms import kitchen as forms
 from app.views import shortcuts, mixins
+from app.views.accounts import bcrypt
 
 
 class IndexView(mixins.LoginRequiredMixin, shortcuts.TemplateView):
@@ -136,6 +139,28 @@ class CookCreateView(mixins.LoginRequiredMixin, shortcuts.CreateView):
             return forms.CookAdminCreateForm
 
         return forms.CookCreateForm
+
+    def create_object(self, form: Form) -> None:
+        object_ = self.model()
+
+        form.populate_obj(object_)
+
+        object_.password = (
+            bcrypt.generate_password_hash(
+                form.data["password"]
+            ).decode()
+        )
+
+        if current_user.group != "admin":
+            group = db.session.query(UserGroupModel).filter(
+                UserGroupModel.name == "USER"
+            ).first()
+
+            object_.group = group
+
+        db.session.add(object_)
+        db.session.commit()
+        db.session.refresh(object_)
 
 
 class CookDeleteView(mixins.LoginRequiredMixin, shortcuts.DeleteView):
