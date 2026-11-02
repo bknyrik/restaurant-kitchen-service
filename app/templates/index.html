@@ -12,6 +12,12 @@
       <div class="col">Cooks</div>
     </div>
     <div class="row mt-2">
+      <div class="col"><img src="{{ url_for("static", filename="dish_type.png") }}" alt="Dish type"></div>
+      <div class="col"><img src="{{ url_for("static", filename="ingredient.png") }}" alt="Ingredient"></div>
+      <div class="col"><img src="{{ url_for("static", filename="dish.png") }}" alt="Dish"></div>
+      <div class="col"><img src="{{ url_for("static", filename="cook.png") }}" alt="Cook"></div>
+    </div>
+    <div class="row mt-3">
       <div class="col">{{ count_dish_types }}</div>
       <div class="col">{{ count_ingredients }}</div>
       <div class="col">{{ count_dishes }}</div>
