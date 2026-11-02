@@ -6,6 +6,7 @@ from wtforms_alchemy import (
 )
 from wtforms import (
     StringField,
+    PasswordField,
     DecimalField,
     TextAreaField,
     validators,
@@ -112,6 +113,19 @@ class CookUpdateForm(ModelForm):
 
 
 class CookAdminForm(CookCreateForm):
+    group = QuerySelectField(
+        label="Group",
+        get_pk=lambda item: item.id,
+        query_factory=lambda: db.session.query(UserGroupModel),
+        render_kw={"class": "form-select"},
+    )
+
+
+class CookAdminUpdateForm(CookUpdateForm):
+    new_password = PasswordField(
+        label="New password",
+        render_kw={"class": "form-control"}
+    )
     group = QuerySelectField(
         label="Group",
         get_pk=lambda item: item.id,
