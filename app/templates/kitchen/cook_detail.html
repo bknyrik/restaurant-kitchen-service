@@ -5,6 +5,9 @@
 {% block content %}
   <h1>Cook {{ object.username }}</h1>
   <section class="fs-5">
+    {% if current_user.id == object.id or current_user.group.name in ("moderator", "admin") %}
+      <a class="btn btn-success" href="{{ url_for("kitchen.cook_update", id=object.id) }}">Update</a>
+    {% endif %}
     {% if current_user.id == object.id %}
       <a class="btn btn-primary" href="{{ url_for("accounts.change_password") }}">Change password</a>
     {% endif %}
