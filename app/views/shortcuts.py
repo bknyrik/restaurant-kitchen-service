@@ -49,7 +49,7 @@ class CreateView(View):
         return self.form_class
 
     def dispatch_request(self) -> str | Response:
-        form = self.form_class(request.form)
+        form = self.get_form_class()(request.form)
 
         if request.method == "POST" and form.validate():
             object_ = self.model()
