@@ -92,9 +92,18 @@ class SignupForm(ModelForm):
 
 class ChangePasswordForm(Form):
 
-    old_password = PasswordField("Old password")
-    new_password = PasswordField("New password")
-    confirm_password = PasswordField("Confirm new password")
+    old_password = PasswordField(
+        label="Old password",
+        render_kw={"class": "form-control"}
+    )
+    new_password = PasswordField(
+        label="New password",
+        render_kw={"class": "form-control"}
+    )
+    confirm_password = PasswordField(
+        label="Confirm new password",
+        render_kw={"class": "form-control"}
+    )
 
     def validate_old_password(self, old_password: PasswordField) -> None:
         if (
