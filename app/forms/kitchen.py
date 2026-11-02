@@ -7,6 +7,8 @@ from wtforms_alchemy import (
 from wtforms import (
     StringField,
     PasswordField,
+    EmailField,
+    IntegerField,
     DecimalField,
     TextAreaField,
     validators,
@@ -100,6 +102,53 @@ class CookCreateForm(ModelForm):
             "password",
             "years_of_experience"
         )
+
+    username = StringField(
+        label="Username",
+        validators=[
+            validators.DataRequired(),
+            validators.Length(min=6, max=25),
+            Unique(models.CookModel.username, get_session=lambda: db.session)
+        ],
+        render_kw={"class": "form-control"}
+    )
+    first_name = StringField(
+        label="First name",
+        validators=[
+            validators.DataRequired(),
+            validators.Length(min=2, max=20),
+        ],
+        render_kw={"class": "form-control"}
+    )
+    last_name = StringField(
+        label="Last name",
+        validators=[
+            validators.DataRequired(),
+            validators.Length(min=2, max=20),
+        ],
+        render_kw={"class": "form-control"}
+    )
+    email = EmailField(
+        label="Email",
+        validators=[
+            validators.DataRequired(),
+            validators.Length(min=6, max=25),
+        ],
+        render_kw={"class": "form-control"}
+    )
+    password = PasswordField(
+        label="Password",
+        validators=[
+            validators.DataRequired(),
+            validators.Length(min=8, max=20),
+        ],
+        render_kw={"class": "form-control"}
+    )
+    years_of_experience = IntegerField(
+        label="Years of experience",
+        validators=[validators.NumberRange(min=1)],
+        render_kw={"class": "form-control"}
+    )
 
 
 class CookUpdateForm(ModelForm):
