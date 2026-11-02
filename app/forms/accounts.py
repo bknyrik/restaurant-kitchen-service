@@ -1,7 +1,9 @@
 from flask_wtf import Form
 from wtforms_alchemy import ModelForm, Unique
 from wtforms import StringField, PasswordField, EmailField, validators
+from flask_login import current_user
 
+from app.views.accounts import bcrypt
 from app.database.config import db
 from app.database.models.kitchen import CookModel
 
@@ -86,3 +88,26 @@ class SignupForm(ModelForm):
             raise validators.ValidationError(
                 "The passwords are not matching"
             )
+
+
+class ChangePasswordForm(Form):
+
+    old_password = PasswordField("Old password")
+    new_password = PasswordField("New password")
+    confirm_password = PasswordField("Confirm new password")
+
+    def validate_old_password(self, old_password: PasswordField) -> None:
+        if (
+            not bcrypt.check_password_hash(
+                pw_hash=current_user.password,
+                password=old_password.data
+            )
+        ):
+            raise validators.ValidationError("Enter the correct password")
+
+    def validate_confirm_password(
+        self,
+        confirm_password: PasswordField
+    ) -> None:
+        if confirm_password.data != self.new_password.data:
+            raise validators.ValidationError("The passwords are not matching")
