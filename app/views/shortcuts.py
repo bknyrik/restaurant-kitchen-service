@@ -74,6 +74,9 @@ class UpdateView(View):
     success_url_name: str
     form_class: type[Form]
 
+    def get_form_class(self) -> type[Form]:
+        return self.form_class
+
     def get_form(self, object_: Model) -> Form:
         form = self.form_class(obj=object_)
 
