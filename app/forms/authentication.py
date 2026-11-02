@@ -70,3 +70,10 @@ class SignupForm(ModelForm):
         ],
         render_kw={"class": "form-control"}
     )
+    confirm_password = PasswordField(
+        label="Confirm password",
+        validators=[
+            validators.Length(min=8, max=20)
+        ],
+        render_kw={"class": "form-control"}
+    )
