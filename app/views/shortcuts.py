@@ -55,6 +55,7 @@ class CreateView(View):
 
         db.session.add(object_)
         db.session.commit()
+        db.session.refresh(object_)
 
     def dispatch_request(self) -> str | Response:
         form = self.get_form_class()(request.form)
