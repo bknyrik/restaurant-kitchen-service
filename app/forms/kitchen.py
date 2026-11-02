@@ -99,8 +99,8 @@ class CookCreateForm(ModelForm):
             "first_name",
             "last_name",
             "email",
+            "years_of_experience",
             "password",
-            "years_of_experience"
         )
 
     username = StringField(
@@ -136,17 +136,17 @@ class CookCreateForm(ModelForm):
         ],
         render_kw={"class": "form-control"}
     )
+    years_of_experience = IntegerField(
+        label="Years of experience",
+        validators=[validators.NumberRange(min=1)],
+        render_kw={"class": "form-control"}
+    )
     password = PasswordField(
         label="Password",
         validators=[
             validators.DataRequired(),
             validators.Length(min=8, max=20),
         ],
-        render_kw={"class": "form-control"}
-    )
-    years_of_experience = IntegerField(
-        label="Years of experience",
-        validators=[validators.NumberRange(min=1)],
         render_kw={"class": "form-control"}
     )
 
