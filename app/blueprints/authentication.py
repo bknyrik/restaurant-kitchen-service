@@ -4,9 +4,9 @@ from app.views import authentication as views
 
 
 blueprint = Blueprint(
-    name="auth",
+    name="accounts",
     import_name=__name__,
-    url_prefix="/auth"
+    url_prefix="/accounts"
 )
 blueprint.add_url_rule(
     "/login/",

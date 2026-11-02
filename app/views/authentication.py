@@ -56,7 +56,7 @@ class LogoutView(View):
     @login_required
     def dispatch_request(self) -> Response:
         logout_user()
-        return redirect(url_for("auth.login"))
+        return redirect(url_for("accounts.login"))
 
 
 class SignupView(View):
