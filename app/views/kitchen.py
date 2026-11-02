@@ -172,7 +172,7 @@ class CookUpdateView(mixins.LoginRequiredMixin, shortcuts.UpdateView):
         self
     ) -> type[forms.CookUpdateForm | forms.CookAdminForm]:
         if current_user.group.name == "admin":
-            return forms.CookAdminForm
+            return forms.CookAdminUpdateForm
 
         return forms.CookUpdateForm
 
