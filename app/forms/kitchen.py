@@ -100,6 +100,17 @@ class CookCreateForm(ModelForm):
         )
 
 
+class CookUpdateForm(ModelForm):
+    class Meta:
+        model = models.CookModel
+        only = (
+            "username",
+            "first_name",
+            "last_name",
+            "email"
+        )
+
+
 class CookAdminCreateForm(CookCreateForm):
     group = QuerySelectField(
         label="Group",
