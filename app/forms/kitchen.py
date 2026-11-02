@@ -97,3 +97,8 @@ class CookCreateForm(ModelForm):
             "email",
             "password"
         )
+
+
+class CookAdminCreateForm(CookCreateForm):
+    class Meta(CookCreateForm.Meta):
+        only = CookCreateForm.Meta.only + ("group",)
