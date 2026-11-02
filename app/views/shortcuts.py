@@ -94,8 +94,7 @@ class UpdateView(View):
         form = self.get_form(object_)
 
         if request.method == "POST" and form.validate():
-            form.populate_obj(object_)
-            db.session.commit()
+            self.update_object(form, object_)
             return redirect(url_for(self.success_url_name))
 
         return render_template(self.template, form=form, object=object_)
