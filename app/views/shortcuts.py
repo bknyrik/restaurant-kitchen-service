@@ -60,13 +60,7 @@ class CreateView(View):
         form = self.get_form_class()(request.form)
 
         if request.method == "POST" and form.validate():
-            object_ = self.model()
-
-            form.populate_obj(object_)
-
-            db.session.add(object_)
-            db.session.commit()
-
+            self.create_object(form)
             return redirect(url_for(self.success_url_name))
 
         return render_template(self.template, form=form)
