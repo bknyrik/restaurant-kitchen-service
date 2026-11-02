@@ -33,7 +33,7 @@ class SignupForm(ModelForm):
         label="Username",
         validators=[
             validators.DataRequired(),
-            validators.Length(min=6, max=15),
+            validators.Length(min=6, max=25),
             Unique(CookModel.username, get_session=lambda: db.session)
         ],
         render_kw={"class": "form-control"}
