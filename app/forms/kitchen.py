@@ -89,6 +89,13 @@ class DishForm(ModelForm):
         "Description",
         render_kw={"class": "form-control"}
     )
+    cooks = QuerySelectMultipleField(
+        label="Cooks",
+        query_factory=lambda: db.session.query(models.CookModel),
+        get_label=lambda cook: cook.username,
+        get_pk=lambda cook: cook.id,
+        render_kw={"class": "form-select"}
+    )
 
 
 class CookCreateForm(ModelForm):
