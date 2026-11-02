@@ -1,6 +1,12 @@
 from flask.views import View
 from flask import Response, request, redirect, render_template, url_for
-from flask_login import LoginManager, login_user, logout_user, login_required
+from flask_login import (
+    LoginManager,
+    login_user,
+    logout_user,
+    login_required,
+    current_user
+)
 from flask_bcrypt import Bcrypt
 
 from app.database.config import db
@@ -90,5 +96,28 @@ class SignupView(View):
 
             login_user(object_)
             return redirect(url_for(self.success_url_name))
+
+        return render_template(self.template, form=form)
+
+
+class ChangePasswordView(View):
+    methods = ("GET", "POST")
+    form_class = forms.ChangePasswordForm
+    template = "accounts/change_password.html"
+
+    @login_required
+    def dispatch_request(self) -> str | Response:
+        form = self.form_class(request.form)
+
+        if request.method == "POST" and form.validate():
+            current_user.password = (
+                bcrypt.generate_password_hash(form.data["new_password"])
+                .encode()
+            )
+
+            db.session.commit()
+            return redirect(
+                url_for("kitchen.cook_detail", id=current_user.id)
+            )
 
         return render_template(self.template, form=form)
