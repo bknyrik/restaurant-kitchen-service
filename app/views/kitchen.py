@@ -168,6 +168,14 @@ class CookUpdateView(mixins.LoginRequiredMixin, shortcuts.UpdateView):
     template = "kitchen/cook_form.html"
     success_url_name = "kitchen.cook_list"
 
+    def get_form_class(
+        self
+    ) -> type[forms.CookUpdateForm | forms.CookAdminForm]:
+        if current_user.group.name == "admin":
+            return forms.CookAdminForm
+
+        return forms.CookUpdateForm
+
 
 class CookDeleteView(mixins.LoginRequiredMixin, shortcuts.DeleteView):
     model = models.CookModel
