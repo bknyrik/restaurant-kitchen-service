@@ -48,6 +48,14 @@ class CreateView(View):
     def get_form_class(self) -> type[Form]:
         return self.form_class
 
+    def create_object(self, form: Form) -> None:
+        object_ = self.model()
+
+        form.populate_obj(object_)
+
+        db.session.add(object_)
+        db.session.commit()
+
     def dispatch_request(self) -> str | Response:
         form = self.get_form_class()(request.form)
 
