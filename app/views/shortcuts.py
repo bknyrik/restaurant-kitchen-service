@@ -45,6 +45,9 @@ class CreateView(View):
     success_url_name: str
     form_class: type[Form]
 
+    def get_form_class(self) -> type[Form]:
+        return self.form_class
+
     def dispatch_request(self) -> str | Response:
         form = self.form_class(request.form)
 
