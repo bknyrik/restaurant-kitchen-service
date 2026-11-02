@@ -77,3 +77,12 @@ class SignupForm(ModelForm):
         ],
         render_kw={"class": "form-control"}
     )
+
+    def validate_confirm_password(
+        self,
+        confirm_password: PasswordField
+    ) -> None:
+        if self.password.data != confirm_password.data:
+            raise validators.ValidationError(
+                "The passwords are not matching"
+            )
