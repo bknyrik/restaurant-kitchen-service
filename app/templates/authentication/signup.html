@@ -3,7 +3,7 @@
   <title>Sign up</title>
 {% endblock %}
 {% block content %}
-  <h1>Sign up</h1>
+  <h1 class="mb-3">Sign up</h1>
   <form action="{{ url_for("auth.signup") }}" method="post">
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
     {% for field in form._fields.values() %}
