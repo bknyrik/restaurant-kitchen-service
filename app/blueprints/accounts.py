@@ -20,3 +20,7 @@ blueprint.add_url_rule(
     "/signup/",
     view_func=views.SignupView.as_view("signup")
 )
+blueprint.add_url_rule(
+    "/change_password/",
+    view_func=views.ChangePasswordView.as_view("change_password")
+)
