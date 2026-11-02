@@ -6,7 +6,7 @@ from flask_bcrypt import Bcrypt
 from app.database.config import db
 from app.database.models import kitchen as models
 from app.database.models.users import UserGroupModel
-from app.forms import authentication as forms
+from app.forms import accounts as forms
 
 
 login_manager = LoginManager()
