@@ -124,6 +124,7 @@ class DishDeleteView(mixins.LoginRequiredMixin, shortcuts.DeleteView):
 class CookListView(mixins.LoginRequiredMixin, shortcuts.ListView):
     model = models.CookModel
     template = "kitchen/cook_list.html"
+    paginate_by = 10
 
 
 class CookDetailView(mixins.LoginRequiredMixin, shortcuts.DetailView):
