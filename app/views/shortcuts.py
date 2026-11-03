@@ -1,7 +1,9 @@
 from flask import render_template, redirect, url_for, request, Response
 from flask.views import View
 from flask_wtf import Form
+from flask_sqlalchemy.pagination import Pagination
 from flask_sqlalchemy.model import Model
+from sqlalchemy import select
 
 from app.database.config import db
 from app.views import mixins
@@ -20,8 +22,16 @@ class TemplateView(View):
 class ListView(View):
     model: type[Model]
     template: str
+    paginate_by: int | None = None
 
-    def get_object_list(self) -> list[Model]:
+    def get_object_list(self) -> list[Model] | Pagination:
+        if self.paginate_by is not None:
+            pagination = db.paginate(
+                select=select(self.model),
+                per_page=self.paginate_by
+            )
+            return pagination
+
         return self.model.query.all()
 
     def dispatch_request(self) -> str:
