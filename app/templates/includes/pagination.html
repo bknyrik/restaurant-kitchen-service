@@ -1,0 +1,27 @@
+<div>
+  <ul class="pagination">
+    <li class="page-item">
+      <a
+          href="{{ url_for(endpoint, page=pagination.page - 1) }}"
+          class="page-link {% if not pagination.has_prev %} disabled {% endif %}"
+      >Previous
+      </a>
+    </li>
+    {% for page in pagination.iter_pages() %}
+      <li class="page-item">
+        <a
+            href="{{ url_for(endpoint, page=page) }}"
+            class="page-link {% if pagination.page == page %} active {% endif %}"
+        >{{ page }}
+        </a>
+      </li>
+    {% endfor %}
+    <li class="page-item">
+      <a
+          href="{{ url_for(endpoint, page=pagination.page + 1) }}"
+          class="page-link {% if not pagination.has_next %} disabled {% endif %}"
+      >Next
+      </a>
+    </li>
+  </ul>
+</div>
