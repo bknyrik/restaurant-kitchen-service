@@ -110,6 +110,7 @@ class DishDetailView(
     @login_required
     def dispatch_request(self, *args, **kwargs) -> str | Response:
         object_ = self.get_object(kwargs["id"])
+        object_list = self.get_object_list(id=kwargs["id"])
 
         if request.method == "POST":
             if current_user not in object_.cooks:
@@ -120,7 +121,11 @@ class DishDetailView(
             db.session.commit()
             return redirect(url_for("kitchen.dish_detail", id=object_.id))
 
-        return render_template(self.template, object=object_)
+        return render_template(
+            self.template,
+            object=object_,
+            object_list=object_list
+        )
 
 
 class DishCreateView(mixins.LoginRequiredMixin, shortcuts.CreateView):
