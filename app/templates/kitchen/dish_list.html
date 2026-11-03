@@ -30,5 +30,8 @@
       {% endfor %}
       </tbody>
     </table>
+    {% with pagination=object_list, endpoint="kitchen.dish_list" %}
+      {% include "includes/pagination.html" %}
+    {% endwith %}
   {% endif %}
 {% endblock %}
