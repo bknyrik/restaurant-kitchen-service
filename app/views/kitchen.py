@@ -25,6 +25,7 @@ class IndexView(mixins.LoginRequiredMixin, shortcuts.TemplateView):
 class DishTypeListView(mixins.LoginRequiredMixin, shortcuts.ListView):
     model = models.DishTypeModel
     template = "kitchen/dish_type_list.html"
+    paginate_by = 10
 
 
 class DishTypeCreateView(mixins.LoginRequiredMixin, shortcuts.CreateView):
