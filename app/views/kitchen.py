@@ -91,6 +91,7 @@ class DishDetailView(
     methods = ("GET", "POST")
     model = models.DishModel
     template = "kitchen/dish_detail.html"
+    paginate_by = 10
 
     def get_object_list(
         self,
