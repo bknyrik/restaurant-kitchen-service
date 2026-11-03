@@ -1,6 +1,9 @@
 from flask import request, Response, render_template, redirect, url_for
 from flask_login import current_user, login_required
+from flask_sqlalchemy.model import Model
+from flask_sqlalchemy.pagination import Pagination
 from wtforms import Form
+from sqlalchemy import select
 
 from app.database.config import db
 from app.database.models import kitchen as models
@@ -80,10 +83,29 @@ class DishListView(mixins.LoginRequiredMixin, shortcuts.ListView):
     paginate_by = 10
 
 
-class DishDetailView(mixins.LoginRequiredMixin, shortcuts.DetailView):
+class DishDetailView(
+    mixins.LoginRequiredMixin,
+    shortcuts.ListView,
+    shortcuts.DetailView
+):
     methods = ("GET", "POST")
     model = models.DishModel
     template = "kitchen/dish_detail.html"
+
+    def get_object_list(
+        self,
+        *args,
+        **kwargs
+    ) -> list[Model] | Pagination:
+        object_list = db.paginate(
+            select=(
+                select(models.CookModel)
+                .join(models.CookDishesModel)
+                .where(models.CookDishesModel.c.dish_id == kwargs["id"])
+            ),
+            per_page=self.paginate_by
+        )
+        return object_list
 
     @login_required
     def dispatch_request(self, *args, **kwargs) -> str | Response:
