@@ -51,7 +51,7 @@
             </th>
             <td>{{ object_.username }}</td>
             <td>{{ object_.first_name|default("Absent", True) }}</td>
-            <td>{{ object_.first_name|default("Absent", True) }}</td>
+            <td>{{ object_.last_name|default("Absent", True) }}</td>
           </tr>
         {% endfor %}
         </tbody>
