@@ -29,8 +29,8 @@
       <tr>
         <th scope="col">Id</th>
         <th scope="col">Username</th>
-        <th scope="col">Email</th>
-        <th scope="col">Group</th>
+        <th scope="col">First name</th>
+        <th scope="col">Last name</th>
       </tr>
       </thead>
       <tbody>
@@ -40,8 +40,8 @@
             <a href="{{ url_for("kitchen.cook_detail", id=object.id) }}" class="btn btn-info">{{ object.id }}</a>
           </th>
           <th>{{ object.username }}</th>
-          <th>{{ object.email|default("Absent", True) }}</th>
-          <th>{{ object.group }}</th>
+          <th>{{ object.first_name|default("Absent", True) }}</th>
+          <th>{{ object.first_name|default("Absent", True) }}</th>
         </tr>
       {% endfor %}
       </tbody>
