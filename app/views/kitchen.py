@@ -163,6 +163,16 @@ class CookDetailView(
     model = models.CookModel
     template = "kitchen/cook_detail.html"
 
+    def get_object_list(self, *args, **kwargs) -> list[Model] | Pagination:
+        return db.paginate(
+            select=(
+                select(models.DishModel)
+                .join(models.CookDishesModel)
+                .where(models.CookDishesModel.c.cook_id == kwargs["id"])
+            ),
+            per_page=self.paginate_by
+        )
+
 
 class CookCreateView(mixins.LoginRequiredMixin, shortcuts.CreateView):
     model = models.CookModel
