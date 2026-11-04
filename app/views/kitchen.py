@@ -162,6 +162,7 @@ class CookDetailView(
 ):
     model = models.CookModel
     template = "kitchen/cook_detail.html"
+    paginate_by = 10
 
     def get_object_list(self, *args, **kwargs) -> list[Model] | Pagination:
         return db.paginate(
