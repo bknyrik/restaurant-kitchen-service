@@ -173,6 +173,17 @@ class CookDetailView(
             per_page=self.paginate_by
         )
 
+    @login_required
+    def dispatch_request(self, *args, **kwargs) -> str | Response:
+        object_ = self.get_object(kwargs["id"])
+        object_list = self.get_object_list(id=kwargs["id"])
+
+        return render_template(
+            self.template,
+            object=object_,
+            object_list=object_list
+        )
+
 
 class CookCreateView(mixins.LoginRequiredMixin, shortcuts.CreateView):
     model = models.CookModel
