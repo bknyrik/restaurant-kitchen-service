@@ -155,7 +155,11 @@ class CookListView(mixins.LoginRequiredMixin, shortcuts.ListView):
     paginate_by = 10
 
 
-class CookDetailView(mixins.LoginRequiredMixin, shortcuts.DetailView):
+class CookDetailView(
+    mixins.LoginRequiredMixin,
+    shortcuts.ListView,
+    shortcuts.DetailView
+):
     model = models.CookModel
     template = "kitchen/cook_detail.html"
 
