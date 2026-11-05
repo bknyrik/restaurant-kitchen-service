@@ -98,6 +98,13 @@ class DishForm(ModelForm):
     )
 
 
+PASSWORD_REGEX_PATTERN = r"^(?=.*[a-z])(?=.*[A-Z])(?=(.*\d){4,}).{8,}$"
+PASSWORD_REGEX_ERROR_MESSAGE = (
+    "Password must have 8 characters and more, "
+    "one upper case letter, one lower case letter and 4 digits and more."
+)
+
+
 class CookCreateForm(ModelForm):
     class Meta:
         model = models.CookModel
@@ -152,7 +159,10 @@ class CookCreateForm(ModelForm):
         label="Password",
         validators=[
             validators.DataRequired(),
-            validators.Length(min=8, max=20),
+            validators.Regexp(
+                regex=PASSWORD_REGEX_PATTERN,
+                message=PASSWORD_REGEX_ERROR_MESSAGE
+            )
         ],
         render_kw={"class": "form-control"}
     )
