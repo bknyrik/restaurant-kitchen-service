@@ -3,7 +3,11 @@ from wtforms import StringField, PasswordField, validators
 from flask_login import current_user
 from flask_bcrypt import check_password_hash
 
-from app.forms.kitchen import CookCreateForm
+from app.forms.kitchen import (
+    CookCreateForm,
+    PASSWORD_REGEX_PATTERN,
+    PASSWORD_REGEX_ERROR_MESSAGE
+)
 
 
 class LoginForm(Form):
@@ -46,6 +50,13 @@ class ChangePasswordForm(Form):
     )
     new_password = PasswordField(
         label="New password",
+        validators=[
+            validators.DataRequired(),
+            validators.Regexp(
+                regex=PASSWORD_REGEX_PATTERN,
+                message=PASSWORD_REGEX_ERROR_MESSAGE
+            )
+        ],
         render_kw={"class": "form-control"}
     )
     confirm_password = PasswordField(
