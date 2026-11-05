@@ -61,6 +61,7 @@ class ChangePasswordForm(Form):
     )
     confirm_password = PasswordField(
         label="Confirm new password",
+        validators=[validators.DataRequired()],
         render_kw={"class": "form-control"}
     )
 
