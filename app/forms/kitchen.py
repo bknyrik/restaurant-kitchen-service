@@ -231,6 +231,13 @@ class CookAdminCreateForm(CookCreateForm):
 class CookAdminUpdateForm(CookUpdateForm):
     new_password = PasswordField(
         label="New password",
+        validators=[
+            validators.DataRequired(),
+            validators.Regexp(
+                regex=PASSWORD_REGEX_PATTERN,
+                message=PASSWORD_REGEX_ERROR_MESSAGE
+            )
+        ],
         render_kw={"class": "form-control"}
     )
     group = QuerySelectField(
