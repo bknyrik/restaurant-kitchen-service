@@ -41,6 +41,7 @@ class ChangePasswordForm(Form):
 
     old_password = PasswordField(
         label="Old password",
+        validators=[validators.DataRequired()],
         render_kw={"class": "form-control"}
     )
     new_password = PasswordField(
