@@ -25,9 +25,7 @@ class SignupForm(CookCreateForm):
 
     confirm_password = PasswordField(
         label="Confirm password",
-        validators=[
-            validators.Length(min=8, max=20)
-        ],
+        validators=[validators.DataRequired()],
         render_kw={"class": "form-control"}
     )
 
