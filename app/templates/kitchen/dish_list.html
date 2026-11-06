@@ -31,7 +31,7 @@
       {% endfor %}
       </tbody>
     </table>
-    {% with pagination=object_list, endpoint="kitchen.dish_list", endpoint_params={"name": request.args["name"], "dish_type": request.args["dish_type"]} %}
+    {% with pagination=object_list, endpoint="kitchen.dish_list" %}
       {% include "includes/pagination.html" %}
     {% endwith %}
   {% endif %}
