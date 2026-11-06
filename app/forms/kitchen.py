@@ -208,7 +208,7 @@ class CookUpdateForm(ModelForm):
         label="Email",
         validators=[
             validators.DataRequired(),
-            validators.Length(min=6, max=25),
+            validators.Length(min=6, max=40),
         ],
         render_kw={"class": "form-control"}
     )
