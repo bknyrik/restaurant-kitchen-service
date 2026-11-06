@@ -80,6 +80,20 @@ class IngredientListView(mixins.LoginRequiredMixin, shortcuts.ListView):
         context["search_form"] = forms.IngredientSearchForm(request.args)
         return context
 
+    def get_object_list(self) -> list[Model] | Pagination:
+        search_form = self.get_context_data()["search_form"]
+
+        query = self.model.query
+        name = search_form.name.data
+
+        if name:
+            query = query.filter(self.model.name.icontains(name))
+
+        return (
+            query.all() if self.paginate_by is None
+            else query.paginate(per_page=self.paginate_by)
+        )
+
 
 class IngredientCreateView(mixins.LoginRequiredMixin, shortcuts.CreateView):
     model = models.IngredientModel
