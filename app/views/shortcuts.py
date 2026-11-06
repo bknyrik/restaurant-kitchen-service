@@ -3,7 +3,6 @@ from flask.views import View
 from flask_wtf import Form
 from flask_sqlalchemy.pagination import Pagination
 from flask_sqlalchemy.model import Model
-from sqlalchemy import select
 
 from app.database.config import db
 from app.views import mixins
@@ -29,8 +28,7 @@ class ListView(View):
 
     def get_object_list(self, *args, **kwargs) -> list[Model] | Pagination:
         if self.paginate_by is not None:
-            pagination = db.paginate(
-                select=select(self.model),
+            pagination = self.model.query.paginate(
                 per_page=self.paginate_by
             )
             return pagination
