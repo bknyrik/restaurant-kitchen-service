@@ -4,6 +4,7 @@
 {% endblock %}
 {% block content %}
   <h1>Dish types</h1>
+  {% include "includes/search_form.html" %}
   <div class="mb-3 mt-3">
     <a class="btn btn-primary" href="{{ url_for("kitchen.dish_type_create") }}">Create</a>
   </div>
