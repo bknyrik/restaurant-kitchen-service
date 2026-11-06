@@ -26,16 +26,14 @@ class ListView(View):
     def get_context_data(self) -> dict:
         return {}
 
-    def get_paginated_object_list(self) -> Pagination:
-        return self.model.query.paginate(
-            per_page=self.paginate_by
-        )
-
     def get_object_list(self, *args, **kwargs) -> list[Model] | Pagination:
-        if self.paginate_by is not None:
-            return self.get_paginated_object_list()
+        query = self.model.query
 
-        return self.model.query.all()
+        return (
+            query.all()
+            if self.paginate_by is None
+            else query.paginate(per_page=self.paginate_by)
+        )
 
     def dispatch_request(self) -> str:
         object_list = self.get_object_list()
