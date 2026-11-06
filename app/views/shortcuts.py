@@ -24,6 +24,9 @@ class ListView(View):
     template: str
     paginate_by: int | None = None
 
+    def get_context_data(self) -> dict:
+        return {}
+
     def get_object_list(self, *args, **kwargs) -> list[Model] | Pagination:
         if self.paginate_by is not None:
             pagination = db.paginate(
