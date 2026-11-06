@@ -52,7 +52,8 @@ class CookSearchForm(Form):
         get_label=lambda group: group.name,
         query_factory=lambda: db.session.query(UserGroupModel),
         allow_blank=True,
-        blank_text="Search by group"
+        blank_text="Search by group",
+        render_kw={"class": "form-select"}
     )
 
 
