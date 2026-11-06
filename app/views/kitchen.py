@@ -120,6 +120,11 @@ class DishListView(mixins.LoginRequiredMixin, shortcuts.ListView):
     template = "kitchen/dish_list.html"
     paginate_by = 10
 
+    def get_context_data(self) -> dict:
+        context = super().get_context_data()
+        context["search_form"] = forms.DishSearchForm(request.args)
+        return context
+
 
 class DishDetailView(
     mixins.LoginRequiredMixin,
