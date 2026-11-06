@@ -40,6 +40,22 @@ class DishSearchForm(mixins.SearchByNameMixin, Form):
     )
 
 
+class CookSearchForm(Form):
+    username = StringField(
+        render_kw={
+            "class": "form-class",
+            "placeholder": "Search by username"
+        }
+    )
+    group = QuerySelectField(
+        get_pk=lambda group: group.id,
+        get_label=lambda group: group.name,
+        query_factory=lambda: db.session.query(UserGroupModel),
+        allow_blank=True,
+        blank_text="Search by group"
+    )
+
+
 class DishTypeForm(ModelForm):
 
     class Meta:
