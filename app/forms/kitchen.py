@@ -25,6 +25,10 @@ class DishTypeSearchForm(mixins.SearchByNameMixin, Form):
     ...
 
 
+class IngredientSearchForm(mixins.SearchByNameMixin, Form):
+    ...
+
+
 class DishTypeForm(ModelForm):
 
     class Meta:
