@@ -30,6 +30,11 @@ class DishTypeListView(mixins.LoginRequiredMixin, shortcuts.ListView):
     template = "kitchen/dish_type_list.html"
     paginate_by = 10
 
+    def get_context_data(self) -> dict:
+        context = super().get_context_data()
+        context["search_form"] = forms.DishTypeSearchForm(request.args)
+        return context
+
 
 class DishTypeCreateView(mixins.LoginRequiredMixin, shortcuts.CreateView):
     model = models.DishTypeModel
