@@ -3,11 +3,12 @@
   <title>Cooks</title>
 {% endblock %}
 {% block content %}
-  <h1>Cooks</h1>
+  <h1 class="mb-3">Cooks</h1>
+  {% include "includes/search_form.html" %}
   <div class="mb-3 mt-3">
     <a class="btn btn-primary" href="{{ url_for("kitchen.cook_create") }}">Create</a>
   </div>
-  {% if not object_list %}
+  {% if not object_list or not object_list.total %}
     <p>There are no dishes in the system.</p>
   {% else %}
     <table class="table table-dark table-striped">
