@@ -183,7 +183,7 @@ class CookUpdateForm(ModelForm):
         label="Username",
         validators=[
             validators.DataRequired(),
-            validators.Length(min=6, max=25),
+            validators.Length(min=5, max=25),
             Unique(models.CookModel.username, get_session=lambda: db.session)
         ],
         render_kw={"class": "form-control"}
