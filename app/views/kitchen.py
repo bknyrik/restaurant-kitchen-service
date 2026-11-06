@@ -125,6 +125,26 @@ class DishListView(mixins.LoginRequiredMixin, shortcuts.ListView):
         context["search_form"] = forms.DishSearchForm(request.args)
         return context
 
+    def get_object_list(self, *args, **kwargs) -> list[Model] | Pagination:
+        search_form = self.get_context_data()["search_form"]
+
+        query = self.model.query
+        name = search_form.name.data
+        dish_type = search_form.dish_type.data
+
+        if name:
+            query = query.filter(self.model.name.icontains(name))
+
+        if dish_type is not None:
+            query = query.filter(
+                self.model.dish_type_id == dish_type.id
+            )
+
+        return (
+            query.all() if self.paginate_by is None
+            else query.paginate(per_page=self.paginate_by)
+        )
+
 
 class DishDetailView(
     mixins.LoginRequiredMixin,
