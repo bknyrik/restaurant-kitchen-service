@@ -43,7 +43,7 @@ class DishSearchForm(mixins.SearchByNameMixin, Form):
 class CookSearchForm(Form):
     username = StringField(
         render_kw={
-            "class": "form-class",
+            "class": "form-control",
             "placeholder": "Search by username"
         }
     )
