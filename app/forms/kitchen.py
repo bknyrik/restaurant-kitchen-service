@@ -30,7 +30,14 @@ class IngredientSearchForm(mixins.SearchByNameMixin, Form):
 
 
 class DishSearchForm(mixins.SearchByNameMixin, Form):
-    ...
+    dish_type = QuerySelectField(
+        query_factory=lambda: db.session.query(models.DishTypeModel),
+        get_label=lambda dish_type: dish_type.name,
+        get_pk=lambda dish_type: int(dish_type.id),
+        render_kw={"class": "form-select"},
+        allow_blank=True,
+        blank_text="Search by dish type",
+    )
 
 
 class DishTypeForm(ModelForm):
