@@ -8,7 +8,7 @@
   <div class="mb-3 mt-3">
     <a class="btn btn-primary" href="{{ url_for("kitchen.dish_type_create") }}">Create</a>
   </div>
-  {% if not object_list %}
+  {% if not object_list or not object_list.total %}
     <p>There are no dish types in the system.</p>
   {% else %}
     <table class="table table-dark table-striped">
