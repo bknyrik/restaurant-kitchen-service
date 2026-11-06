@@ -35,6 +35,17 @@ class DishTypeListView(mixins.LoginRequiredMixin, shortcuts.ListView):
         context["search_form"] = forms.DishTypeSearchForm(request.args)
         return context
 
+    def get_paginated_object_list(self) -> Pagination:
+        search_form = self.get_context_data()["search_form"]
+
+        query = self.model.query
+        name = search_form.name.data
+
+        if name:
+            query = query.filter(self.model.name.icontains(name))
+
+        return query.paginate(per_page=self.paginate_by)
+
 
 class DishTypeCreateView(mixins.LoginRequiredMixin, shortcuts.CreateView):
     model = models.DishTypeModel
