@@ -2,6 +2,7 @@ from flask import request, Response, render_template, redirect, url_for
 from flask_login import current_user, login_required
 from flask_sqlalchemy.model import Model
 from flask_sqlalchemy.pagination import Pagination
+from sqlalchemy.sql.functions import user
 from wtforms import Form
 from sqlalchemy import select
 
@@ -221,6 +222,24 @@ class CookListView(mixins.LoginRequiredMixin, shortcuts.ListView):
         context = super().get_context_data()
         context["search_form"] = forms.CookSearchForm(request.args)
         return context
+
+    def get_object_list(self, *args, **kwargs) -> list[Model] | Pagination:
+        search_form = self.get_context_data()["search_form"]
+
+        query = self.model.query
+        username = search_form.username.data
+        group = search_form.group.data
+
+        if username:
+            query = query.filter(self.model.username.icontains(username))
+
+        if group is not None:
+            query = query.filter(self.model.group_id == group.id)
+
+        return (
+            query.all() if self.paginate_by is None
+            else query.paginate(per_page=self.paginate_by)
+        )
 
 
 class CookDetailView(
