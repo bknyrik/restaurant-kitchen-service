@@ -1,4 +1,5 @@
 from wtforms_alchemy import (
+    Form,
     ModelForm,
     Unique,
     QuerySelectField,
@@ -17,6 +18,13 @@ from wtforms import (
 from app.database.config import db
 from app.database.models import kitchen as models
 from app.database.models.users import UserGroupModel
+
+
+class DishTypeSearchForm(Form):
+    name = StringField(
+        label="Search by name",
+        render_kw={"class": "form-control"}
+    )
 
 
 class DishTypeForm(ModelForm):
