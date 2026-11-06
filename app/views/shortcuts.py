@@ -39,7 +39,11 @@ class ListView(View):
 
     def dispatch_request(self) -> str:
         object_list = self.get_object_list()
-        return render_template(self.template, object_list=object_list)
+        return render_template(
+            self.template,
+            object_list=object_list,
+            **self.get_context_data()
+        )
 
 
 class DetailView(mixins.DetailMixin, View):
