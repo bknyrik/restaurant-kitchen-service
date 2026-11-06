@@ -23,7 +23,7 @@ from app.database.models.users import UserGroupModel
 class DishTypeSearchForm(Form):
     name = StringField(
         label="Search by name",
-        render_kw={"class": "form-control"}
+        render_kw={"class": "form-control", "placeholder": "Search by name"}
     )
 
 
