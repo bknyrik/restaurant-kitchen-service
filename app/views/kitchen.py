@@ -248,11 +248,18 @@ class DishCreateView(
         return current_user.group.name in ("admin", "moderator")
 
 
-class DishUpdateView(mixins.LoginRequiredMixin, shortcuts.UpdateView):
+class DishUpdateView(
+    mixins.LoginRequiredMixin,
+    mixins.PermissionRequiredMixin,
+    shortcuts.UpdateView
+):
     model = models.DishModel
     template = "kitchen/dish_form.html"
     form_class = forms.DishForm
     success_url_name = "kitchen.dish_list"
+
+    def has_permissions(self, *args, **kwargs) -> bool:
+        return current_user.group.name in ("admin", "moderator")
 
 
 class DishDeleteView(mixins.LoginRequiredMixin, shortcuts.DeleteView):
