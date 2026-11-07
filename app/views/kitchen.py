@@ -1,4 +1,4 @@
-from flask import request, Response, render_template, redirect, url_for
+from flask import request, Response, render_template, redirect, url_for, abort
 from flask_login import current_user, login_required
 from flask_sqlalchemy.model import Model
 from flask_sqlalchemy.pagination import Pagination
@@ -50,11 +50,18 @@ class DishTypeListView(mixins.LoginRequiredMixin, shortcuts.ListView):
         )
 
 
-class DishTypeCreateView(mixins.LoginRequiredMixin, shortcuts.CreateView):
+class DishTypeCreateView(
+    mixins.LoginRequiredMixin,
+    mixins.PermissionRequiredMixin,
+    shortcuts.CreateView
+):
     model = models.DishTypeModel
     template = "kitchen/dish_type_form.html"
     form_class = forms.DishTypeForm
     success_url_name = "kitchen.dish_type_list"
+
+    def has_permissions(self, *args, **kwargs) -> bool:
+        return current_user.group.name in ("admin", "moderator")
 
 
 class DishTypeUpdateView(mixins.LoginRequiredMixin, shortcuts.UpdateView):
