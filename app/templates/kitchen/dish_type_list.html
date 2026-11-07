@@ -21,7 +21,9 @@
         {% if current_user.group.name in ("moderator", "admin") %}
           <th scope="col">Update</th>
         {% endif %}
-        <th scope="col">Delete</th>
+        {% if current_user.group.name == "admin" %}
+          <th scope="col">Delete</th>
+        {% endif %}
       </tr>
       </thead>
       <tbody>
@@ -34,8 +36,11 @@
               <a class="btn btn-success" href="{{ url_for("kitchen.dish_type_update", id=object.id) }}">Update</a>
             </td>
           {% endif %}
-          <td><a class="btn btn-danger" href="{{ url_for("kitchen.dish_type_delete", id=object.id) }}">Delete</a>
-          </td>
+          {% if current_user.group.name == "admin" %}
+            <td>
+              <a class="btn btn-danger" href="{{ url_for("kitchen.dish_type_delete", id=object.id) }}">Delete</a>
+            </td>
+          {% endif %}
         </tr>
       {% endfor %}
       </tbody>
