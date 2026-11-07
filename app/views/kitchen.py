@@ -203,15 +203,15 @@ class DishDetailView(
         *args,
         **kwargs
     ) -> list[Model] | Pagination:
-        object_list = db.paginate(
-            select=(
-                select(models.CookModel)
-                .join(models.CookDishesModel)
-                .where(models.CookDishesModel.c.dish_id == kwargs["id"])
-            ),
-            per_page=self.paginate_by
+        return (
+            models.CookModel
+            .query
+            .join(models.CookDishesModel)
+            .where(models.CookDishesModel.c.dish_id == kwargs["id"])
+            .paginate(
+                per_page=self.paginate_by
+            )
         )
-        return object_list
 
     @login_required
     def dispatch_request(self, *args, **kwargs) -> str | Response:
