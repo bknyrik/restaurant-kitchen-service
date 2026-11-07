@@ -375,10 +375,7 @@ class CookCreateView(
         db.session.refresh(object_)
 
     def has_permissions(self, *args, **kwargs) -> bool:
-        return (
-            current_user.id == kwargs["id"]
-            or current_user.group.name == "admin"
-        )
+        return current_user.group.name in ("admin", "moderator")
 
 
 class CookUpdateView(
