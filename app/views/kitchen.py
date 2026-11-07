@@ -2,7 +2,6 @@ from flask import request, Response, render_template, redirect, url_for
 from flask_login import current_user, login_required
 from flask_sqlalchemy.model import Model
 from flask_sqlalchemy.pagination import Pagination
-from sqlalchemy.sql.functions import user
 from wtforms import Form
 from sqlalchemy import select
 
