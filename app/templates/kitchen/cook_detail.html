@@ -19,6 +19,9 @@
     <p><span class="fw-bold">First name: </span>{{ object.first_name|default("Absent", True) }}</p>
     <p><span class="fw-bold">Last name: </span>{{ object.last_name|default("Absent", True) }}</p>
     <p><span class="fw-bold">Email: </span>{{ object.email|default("Absent", True) }}</p>
+    <p><span class="fw-bold">Created at: </span>{{ object.created_at.strftime("%F %T") }}</p>
+    <p><span class="fw-bold">Updated at: </span>{{ object.updated_at.strftime("%F %T") }}</p>
+    <p><span class="fw-bold">Group: </span>{{ object.group.name }}</p>
     <hr>
     <h2 class="mt-3">Dishes</h2>
     {% if not object_list|list|length %}
