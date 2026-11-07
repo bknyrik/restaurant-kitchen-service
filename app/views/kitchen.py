@@ -371,7 +371,11 @@ class CookCreateView(mixins.LoginRequiredMixin, shortcuts.CreateView):
         db.session.refresh(object_)
 
 
-class CookUpdateView(mixins.LoginRequiredMixin, shortcuts.UpdateView):
+class CookUpdateView(
+    mixins.LoginRequiredMixin,
+    mixins.PermissionRequiredMixin,
+    shortcuts.UpdateView
+):
     model = models.CookModel
     template = "kitchen/cook_form.html"
     success_url_name = "kitchen.cook_list"
@@ -393,6 +397,12 @@ class CookUpdateView(mixins.LoginRequiredMixin, shortcuts.UpdateView):
             ).decode()
 
         db.session.commit()
+
+    def has_permissions(self, *args, **kwargs) -> bool:
+        return (
+            current_user.id == kwargs["id"]
+            or current_user.group.name == "admin"
+        )
 
 
 class CookDeleteView(mixins.LoginRequiredMixin, shortcuts.DeleteView):
