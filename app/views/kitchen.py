@@ -335,7 +335,11 @@ class CookDetailView(
         )
 
 
-class CookCreateView(mixins.LoginRequiredMixin, shortcuts.CreateView):
+class CookCreateView(
+    mixins.LoginRequiredMixin,
+    mixins.PermissionRequiredMixin,
+    shortcuts.CreateView
+):
     model = models.CookModel
     template = "kitchen/cook_form.html"
     success_url_name = "kitchen.cook_list"
@@ -369,6 +373,12 @@ class CookCreateView(mixins.LoginRequiredMixin, shortcuts.CreateView):
         db.session.add(object_)
         db.session.commit()
         db.session.refresh(object_)
+
+    def has_permissions(self, *args, **kwargs) -> bool:
+        return (
+            current_user.id == kwargs["id"]
+            or current_user.group.name == "admin"
+        )
 
 
 class CookUpdateView(
