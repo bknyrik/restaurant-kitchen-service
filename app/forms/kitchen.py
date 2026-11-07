@@ -273,7 +273,7 @@ class CookAdminUpdateForm(CookUpdateForm):
     new_password = PasswordField(
         label="New password",
         validators=[
-            validators.DataRequired(),
+            validators.Optional(),
             validators.Regexp(
                 regex=PASSWORD_REGEX_PATTERN,
                 message=PASSWORD_REGEX_ERROR_MESSAGE
