@@ -220,7 +220,7 @@ class CookUpdateForm(ModelForm):
     username = StringField(
         label="Username",
         validators=[
-            validators.DataRequired(),
+            validators.Optional(),
             validators.Length(min=5, max=25),
             Unique(models.CookModel.username, get_session=lambda: db.session)
         ],
@@ -229,7 +229,7 @@ class CookUpdateForm(ModelForm):
     first_name = StringField(
         label="First name",
         validators=[
-            validators.DataRequired(),
+            validators.Optional(),
             validators.Length(min=2, max=20),
         ],
         render_kw={"class": "form-control"}
@@ -237,7 +237,7 @@ class CookUpdateForm(ModelForm):
     last_name = StringField(
         label="Last name",
         validators=[
-            validators.DataRequired(),
+            validators.Optional(),
             validators.Length(min=2, max=20),
         ],
         render_kw={"class": "form-control"}
@@ -245,14 +245,17 @@ class CookUpdateForm(ModelForm):
     email = EmailField(
         label="Email",
         validators=[
-            validators.DataRequired(),
+            validators.Optional(),
             validators.Length(min=6, max=40),
         ],
         render_kw={"class": "form-control"}
     )
     years_of_experience = IntegerField(
         label="Years of experience",
-        validators=[validators.NumberRange(min=1)],
+        validators=[
+            validators.Optional(),
+            validators.NumberRange(min=1)
+        ],
         render_kw={"class": "form-control"}
     )
 
