@@ -220,7 +220,7 @@ class CookUpdateForm(ModelForm):
     username = StringField(
         label="Username",
         validators=[
-            validators.Optional(),
+            validators.DataRequired(),
             validators.Length(min=5, max=25),
             Unique(models.CookModel.username, get_session=lambda: db.session)
         ],
