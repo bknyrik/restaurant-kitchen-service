@@ -408,7 +408,7 @@ class CookUpdateView(
     def has_permissions(self, *args, **kwargs) -> bool:
         return (
             current_user.id == kwargs["id"]
-            or current_user.group.name == "admin"
+            or current_user.group.name in ("moderator", "admin")
         )
 
 
