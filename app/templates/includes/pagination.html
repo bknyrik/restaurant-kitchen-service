@@ -9,13 +9,17 @@
         </a>
       </li>
       {% for page in pagination.iter_pages() %}
-        <li class="page-item">
-          <a
-              href="{{ url_for(endpoint, **endpoint_params|d({}, True)) + request|query_transform(page=page) }}"
-              class="page-link {% if pagination.page == page %} active {% endif %}"
-          >{{ page }}
-          </a>
-        </li>
+        {% if page %}
+          <li class="page-item">
+            <a
+                href="{{ url_for(endpoint, **endpoint_params|d({}, True)) + request|query_transform(page=page) }}"
+                class="page-link {% if pagination.page == page %} active {% endif %}"
+            >{{ page }}
+            </a>
+          </li>
+        {% else %}
+          <li class="page-item"><p class="page-link disabled">...</p></li>
+        {% endif %}
       {% endfor %}
       <li class="page-item">
         <a
