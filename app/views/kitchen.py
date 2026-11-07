@@ -3,7 +3,6 @@ from flask_login import current_user, login_required
 from flask_sqlalchemy.model import Model
 from flask_sqlalchemy.pagination import Pagination
 from wtforms import Form
-from sqlalchemy import select
 
 from app.database.config import db
 from app.database.models import kitchen as models
@@ -314,13 +313,14 @@ class CookDetailView(
     paginate_by = 10
 
     def get_object_list(self, *args, **kwargs) -> list[Model] | Pagination:
-        return db.paginate(
-            select=(
-                select(models.DishModel)
-                .join(models.CookDishesModel)
-                .where(models.CookDishesModel.c.cook_id == kwargs["id"])
-            ),
-            per_page=self.paginate_by
+        return (
+            models.DishModel
+            .query
+            .join(models.CookDishesModel)
+            .where(models.CookDishesModel.c.cook_id == kwargs["id"])
+            .paginate(
+                per_page=self.paginate_by
+            )
         )
 
     @login_required
