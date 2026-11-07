@@ -7,7 +7,7 @@ from app.blueprints import kitchen, accounts
 from app.settings import settings
 from app.views.accounts import login_manager, bcrypt
 from app.templatetags import filters
-
+from app.views.error_handlers import page_not_found_404
 
 csrf = CSRFProtect()
 
@@ -29,4 +29,6 @@ def create_app() -> Flask:
 
     app.register_blueprint(kitchen.blueprint)
     app.register_blueprint(accounts.blueprint)
+
+    app.register_error_handler(404, page_not_found_404)
     return app
