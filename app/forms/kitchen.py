@@ -183,14 +183,17 @@ class CookCreateForm(ModelForm):
     email = EmailField(
         label="Email",
         validators=[
-            validators.DataRequired(),
+            validators.Optional(),
             validators.Length(min=6, max=40),
         ],
         render_kw={"class": "form-control"}
     )
     years_of_experience = IntegerField(
         label="Years of experience",
-        validators=[validators.NumberRange(min=1)],
+        validators=[
+            validators.Optional(),
+            validators.NumberRange(min=1)
+        ],
         render_kw={"class": "form-control"}
     )
     password = PasswordField(
