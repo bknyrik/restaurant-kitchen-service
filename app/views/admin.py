@@ -36,14 +36,14 @@ class DishTypeModelView(AdminView):
     form = forms.DishTypeForm
 
 
-class IngredientModelView(sqla.ModelView):
+class IngredientModelView(AdminView):
     column_list = ("id", "name")
     column_sortable_list = ("id", "name")
     column_filters = ("name",)
     form = forms.IngredientForm
 
 
-class DishModelView(sqla.ModelView):
+class DishModelView(AdminView):
     column_list = ("id", "name", "price", "dish_type")
     column_sortable_list = (
         "id",
@@ -55,7 +55,7 @@ class DishModelView(sqla.ModelView):
     form = forms.DishForm
 
 
-class CookModelView(sqla.ModelView):
+class CookModelView(AdminView):
     column_list = ("id", "username", "email", "group")
     column_sortable_list = (
         "id",
