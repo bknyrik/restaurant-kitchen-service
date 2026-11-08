@@ -15,7 +15,8 @@ admin.add_view(
     views.DishTypeModelView(
         name="Dish type",
         model=models.DishTypeModel,
-        session=db.session
+        session=db.session,
+        url="dish_type"
     )
 )
 admin.add_view(
