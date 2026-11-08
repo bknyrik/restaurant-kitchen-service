@@ -1,12 +1,14 @@
 import typing
 
-from flask import redirect, url_for, abort
+from flask import redirect, url_for, abort, flash
 from flask.typing import ResponseReturnValue
 from flask_login import current_user
 from flask_admin.contrib import sqla
+from flask_admin.babel import gettext
 from wtforms import Form
 
 from app.forms import kitchen as forms
+from app.authentication import bcrypt
 
 
 class AdminView(sqla.ModelView):
@@ -65,6 +67,37 @@ class CookModelView(AdminView):
         ("group", "group.name")
     )
     column_filters = ("username", "email", "group")
+
+    def create_model(self, form: Form) -> bool | typing.Any:
+        session = self.session
+        try:
+            model = self.build_new_instance()
+
+            form.populate_obj(model)
+
+            model.password = (
+                bcrypt.generate_password_hash(form.data["password"])
+                .decode()
+            )
+
+            session.add(model)
+            self._on_model_change(form, model, True)
+            session.commit()
+        except Exception as ex:
+            if not self.handle_view_exception(ex):
+                flash(
+                    gettext("Failed to create record. %(error)s", error=str(ex)),
+                    "error",
+                )
+                sqla.view.log.exception("Failed to create record.")
+
+            session.rollback()
+
+            return False
+        else:
+            self.after_model_change(form, model, True)
+
+        return model
 
     def get_create_form(self) -> type[Form]:
         return forms.CookAdminCreateForm
