@@ -4,6 +4,7 @@ from flask_admin.theme import Bootstrap4Theme
 from app.database.config import db
 from app.views import admin as views
 from app.database.models import kitchen as models
+from app.database.models.users import UserGroupModel
 
 
 admin = Admin(
@@ -36,5 +37,12 @@ admin.add_view(
         name="Cook",
         model=models.CookModel,
         session=db.session
+    )
+)
+admin.add_view(
+    views.UserGroupModelView(
+        name="User group",
+        model=UserGroupModel,
+        session=db.session,
     )
 )
