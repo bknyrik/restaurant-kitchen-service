@@ -36,7 +36,8 @@ admin.add_view(
     views.CookModelView(
         name="Cook",
         model=models.CookModel,
-        session=db.session
+        session=db.session,
+        url="cook"
     )
 )
 admin.add_view(
