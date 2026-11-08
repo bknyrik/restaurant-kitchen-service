@@ -30,6 +30,9 @@ class DishTypeModel(db.Model):
         back_populates="dish_type"
     )
 
+    def __str__(self) -> str:
+        return self.name
+
 
 class IngredientModel(db.Model):
     __tablename__ = "ingredients"
