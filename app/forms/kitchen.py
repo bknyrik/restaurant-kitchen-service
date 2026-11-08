@@ -65,6 +65,7 @@ class DishTypeForm(ModelForm):
     name = StringField(
         label="Name",
         validators=[
+            validators.DataRequired(),
             validators.Length(min=4, max=25),
             Unique(models.DishTypeModel.name, get_session=lambda: db.session)
         ],
