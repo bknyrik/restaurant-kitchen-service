@@ -19,7 +19,12 @@ class IngredientModelView(sqla.ModelView):
 
 class DishModelView(sqla.ModelView):
     column_list = ("id", "name", "price", "dish_type")
-    column_sortable_list = ("id", "name", "price", "dish_type")
+    column_sortable_list = (
+        "id",
+        "name",
+        "price",
+        ("dish_type", "dish_type.name")
+    )
     column_filters = ("name", "price", "dish_type")
     form = forms.DishForm
 
