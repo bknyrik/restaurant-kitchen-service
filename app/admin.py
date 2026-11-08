@@ -22,7 +22,8 @@ admin.add_view(
     views.IngredientModelView(
         name="Ingredient",
         model=models.IngredientModel,
-        session=db.session
+        session=db.session,
+        url="ingredient"
     )
 )
 admin.add_view(
