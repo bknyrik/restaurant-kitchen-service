@@ -26,4 +26,5 @@ class DishModelView(sqla.ModelView):
 
 class CookModelView(sqla.ModelView):
     column_list = ("id", "username", "email", "group")
+    column_sortable_list = ("id", "username", "email", "group")
     column_filters = ("username", "email", "group")
