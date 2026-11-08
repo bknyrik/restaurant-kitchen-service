@@ -29,7 +29,8 @@ admin.add_view(
     views.DishModelView(
         name="Dish",
         model=models.DishModel,
-        session=db.session
+        session=db.session,
+        url="dish"
     )
 )
 admin.add_view(
