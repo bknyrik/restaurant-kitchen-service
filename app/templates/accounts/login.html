@@ -10,10 +10,10 @@
   <form action="{{ url_for("accounts.login") }}" method="post">
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
     <div class="mb-3">
-      {{ form.username.label(class="form-label") }}: {{ form.username(class="form-control") }}
+      {{ form.username.label(class="form-label") }} {{ form.username(class="form-control") }}
     </div>
     <div class="mb-3">
-      {{ form.password.label(class="form-label") }}: {{ form.password(class="form-control") }}
+      {{ form.password.label(class="form-label") }} {{ form.password(class="form-control") }}
     </div>
     <input class="btn btn-primary" type="submit" value="Log in">
   </form>
