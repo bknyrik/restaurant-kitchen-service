@@ -138,3 +138,4 @@ class CookModelView(AdminView):
 
 class UserGroupModelView(sqla.ModelView):
     column_display_pk = True
+    can_delete = False
