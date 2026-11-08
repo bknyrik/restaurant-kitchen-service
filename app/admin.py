@@ -24,3 +24,10 @@ admin.add_view(
         session=db.session
     )
 )
+admin.add_view(
+    views.DishModelView(
+        name="Dish",
+        model=models.DishModel,
+        session=db.session
+    )
+)
