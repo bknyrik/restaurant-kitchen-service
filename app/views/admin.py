@@ -134,3 +134,7 @@ class CookModelView(AdminView):
 
     def get_edit_form(self) -> type[Form]:
         return forms.CookAdminUpdateForm
+
+
+class UserGroupModelView(sqla.ModelView):
+    ...
