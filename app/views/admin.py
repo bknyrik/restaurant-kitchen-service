@@ -1,9 +1,12 @@
 from flask_admin.contrib import sqla
 
+from app.forms import kitchen as forms
+
 
 class DishTypeModelView(sqla.ModelView):
     column_list = ("id", "name")
     column_filters = ("name",)
+    form = forms.DishTypeForm
 
 
 class IngredientModelView(sqla.ModelView):
