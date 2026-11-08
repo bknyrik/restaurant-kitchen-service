@@ -1,27 +1,17 @@
 from flask.views import View
 from flask import Response, request, redirect, render_template, url_for
 from flask_login import (
-    LoginManager,
     login_user,
     logout_user,
     login_required,
     current_user
 )
-from flask_bcrypt import Bcrypt
 
 from app.database.config import db
 from app.database.models import kitchen as models
 from app.database.models.users import UserGroupModel
 from app.forms import accounts as forms
-
-
-login_manager = LoginManager()
-bcrypt = Bcrypt()
-
-
-@login_manager.user_loader
-def load_user(user_id: str) -> models.CookModel:
-    return models.CookModel.query.get(int(user_id))
+from app.authentication import bcrypt
 
 
 class LoginView(View):

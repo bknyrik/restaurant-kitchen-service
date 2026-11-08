@@ -6,7 +6,7 @@ from app.admin import admin
 from app.database.config import db, SQLALCHEMY_DATABASE_URI
 from app.blueprints import kitchen, accounts
 from app.settings import settings
-from app.views.accounts import login_manager, bcrypt
+from app.authentication import login_manager, bcrypt
 from app.templatetags import filters
 from app.views import error_handlers as eh
 

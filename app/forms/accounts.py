@@ -8,7 +8,6 @@ from wtforms import (
     validators
 )
 from flask_login import current_user
-from flask_bcrypt import check_password_hash
 
 from app.database.config import db
 from app.database.models import kitchen as models
@@ -16,6 +15,7 @@ from app.forms.kitchen import (
     PASSWORD_REGEX_PATTERN,
     PASSWORD_REGEX_ERROR_MESSAGE
 )
+from app.authentication import bcrypt
 
 
 class LoginForm(Form):
@@ -135,7 +135,7 @@ class ChangePasswordForm(Form):
 
     def validate_old_password(self, old_password: PasswordField) -> None:
         if (
-            not check_password_hash(
+            not bcrypt.check_password_hash(
                 pw_hash=current_user.password,
                 password=old_password.data
             )
