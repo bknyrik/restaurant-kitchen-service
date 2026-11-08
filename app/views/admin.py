@@ -4,6 +4,7 @@ from flask import redirect, url_for, abort
 from flask.typing import ResponseReturnValue
 from flask_login import current_user
 from flask_admin.contrib import sqla
+from wtforms import Form
 
 from app.forms import kitchen as forms
 
@@ -64,3 +65,9 @@ class CookModelView(AdminView):
         ("group", "group.name")
     )
     column_filters = ("username", "email", "group")
+
+    def get_create_form(self) -> type[Form]:
+        return forms.CookAdminCreateForm
+
+    def get_edit_form(self) -> type[Form]:
+        return forms.CookAdminUpdateForm
