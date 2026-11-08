@@ -8,7 +8,7 @@ from app.database.models import kitchen as models
 
 admin = Admin(
     name="Restaurant Kitchen",
-    theme=Bootstrap4Theme(swatch="darkly")
+    theme=Bootstrap4Theme(swatch="superhero")
 )
 admin.add_view(
     views.DishTypeModelView(
