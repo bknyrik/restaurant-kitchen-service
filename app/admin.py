@@ -31,3 +31,10 @@ admin.add_view(
         session=db.session
     )
 )
+admin.add_view(
+    views.CookModelView(
+        name="Cook",
+        model=models.CookModel,
+        session=db.session
+    )
+)
