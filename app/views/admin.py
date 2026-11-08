@@ -7,3 +7,7 @@ class DishTypeModelView(sqla.ModelView):
 
 class IngredientModelView(sqla.ModelView):
     column_list = ("id", "name")
+
+
+class DishModelView(sqla.ModelView):
+    column_list = ("id", "name", "price", "dish_type")
