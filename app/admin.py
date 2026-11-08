@@ -44,5 +44,6 @@ admin.add_view(
         name="User group",
         model=UserGroupModel,
         session=db.session,
+        url="user_group"
     )
 )
