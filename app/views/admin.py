@@ -7,6 +7,7 @@ from flask_admin.contrib import sqla
 from flask_admin.babel import gettext
 from wtforms import Form
 
+from app.database.models import kitchen as models
 from app.forms import kitchen as forms
 from app.authentication import bcrypt
 
@@ -98,6 +99,35 @@ class CookModelView(AdminView):
             self.after_model_change(form, model, True)
 
         return model
+
+    def update_model(self, form: Form, model: models.CookModel) -> bool:
+        session = self.session
+        try:
+            form.populate_obj(model)
+
+            if form.data["new_password"]:
+                model.password = (
+                    bcrypt.generate_password_hash(form.data["new_password"])
+                    .decode()
+                )
+
+            self._on_model_change(form, model, False)
+            session.commit()
+        except Exception as ex:
+            if not self.handle_view_exception(ex):
+                flash(
+                    gettext("Failed to update record. %(error)s", error=str(ex)),
+                    "error",
+                )
+                sqla.view.log.exception("Failed to update record.")
+
+            session.rollback()
+
+            return False
+        else:
+            self.after_model_change(form, model, False)
+
+        return True
 
     def get_create_form(self) -> type[Form]:
         return forms.CookAdminCreateForm
