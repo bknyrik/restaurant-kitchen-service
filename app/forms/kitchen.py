@@ -81,6 +81,7 @@ class IngredientForm(ModelForm):
     name = StringField(
         label="Name",
         validators=[
+            validators.DataRequired(),
             validators.Length(min=4, max=25),
             Unique(models.IngredientModel.name, get_session=lambda: db.session)
         ],
