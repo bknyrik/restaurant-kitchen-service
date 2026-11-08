@@ -167,7 +167,7 @@ class CookCreateForm(ModelForm):
     first_name = StringField(
         label="First name",
         validators=[
-            validators.DataRequired(),
+            validators.Optional(),
             validators.Length(min=2, max=20),
         ],
         render_kw={"class": "form-control"}
@@ -175,7 +175,7 @@ class CookCreateForm(ModelForm):
     last_name = StringField(
         label="Last name",
         validators=[
-            validators.DataRequired(),
+            validators.Optional(),
             validators.Length(min=2, max=20),
         ],
         render_kw={"class": "form-control"}
