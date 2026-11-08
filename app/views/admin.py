@@ -8,6 +8,7 @@ class DishTypeModelView(sqla.ModelView):
 
 class IngredientModelView(sqla.ModelView):
     column_list = ("id", "name")
+    column_filters = ("name",)
 
 
 class DishModelView(sqla.ModelView):
