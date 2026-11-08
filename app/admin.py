@@ -17,3 +17,10 @@ admin.add_view(
         session=db.session
     )
 )
+admin.add_view(
+    views.IngredientModelView(
+        name="Ingredient",
+        model=models.IngredientModel,
+        session=db.session
+    )
+)
