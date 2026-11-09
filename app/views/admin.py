@@ -71,6 +71,16 @@ class IngredientModelView(AdminView):
 
 class DishModelView(AdminView):
     column_list = ("id", "name", "price", "dish_type")
+    can_view_details = True
+    column_details_list = (
+        "id",
+        "name",
+        "price",
+        "description",
+        "dish_type",
+        "ingredients",
+        "cooks"
+    )
     column_sortable_list = (
         "id",
         "name",
