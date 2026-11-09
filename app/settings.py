@@ -12,6 +12,7 @@ class Settings:
         f"@{os.getenv("DB_HOST")}:"
         f"{os.getenv("DB_PORT")}/{os.getenv("DB_NAME")}"
     )
+    TEST_DATABASE_URI = "sqlite://"
     SECRET_KEY = os.getenv("SECRET_KEY")
 
 
