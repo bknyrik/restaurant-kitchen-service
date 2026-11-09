@@ -3,6 +3,7 @@ import typing
 from flask import redirect, url_for, abort, flash
 from flask.typing import ResponseReturnValue
 from flask_login import current_user
+from flask_admin import AdminIndexView
 from flask_admin.contrib import sqla
 from flask_admin.babel import gettext
 from wtforms import Form
@@ -13,6 +14,27 @@ from app.authentication import bcrypt
 
 
 class AdminView(sqla.ModelView):
+    def is_accessible(self) -> bool:
+        return (
+            current_user.is_authenticated
+            and current_user.group.name ==  "admin"
+        )
+
+    def inaccessible_callback(
+        self,
+        name: typing.Any,
+        **kwargs: typing.Any
+    ) -> ResponseReturnValue:
+        if (
+            current_user.is_authenticated
+            and current_user.group.name != "admin"
+        ):
+            abort(403)
+
+        return redirect(url_for("accounts.login"))
+
+
+class HomeAdminView(AdminIndexView):
     def is_accessible(self) -> bool:
         return (
             current_user.is_authenticated
