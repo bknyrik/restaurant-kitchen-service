@@ -1,6 +1,6 @@
 from flask.views import View
 from flask.typing import ResponseReturnValue
-from flask import Response, request, redirect, render_template, url_for
+from flask import request, redirect, render_template, url_for
 from flask_login import (
     login_user,
     logout_user,
