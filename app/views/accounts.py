@@ -63,7 +63,7 @@ class SignupView(View):
     form_class = forms.SignupForm
     success_url_name = "kitchen.index"
 
-    def dispatch_request(self) -> str | Response:
+    def dispatch_request(self) -> ResponseReturnValue:
         form = self.form_class(request.form)
 
         if request.method == "POST" and form.validate():
@@ -97,7 +97,7 @@ class ChangePasswordView(View):
     template = "accounts/change_password.html"
 
     @login_required
-    def dispatch_request(self) -> str | Response:
+    def dispatch_request(self) -> ResponseReturnValue:
         form = self.form_class(request.form)
 
         if request.method == "POST" and form.validate():
