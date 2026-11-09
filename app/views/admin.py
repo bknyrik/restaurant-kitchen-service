@@ -93,6 +93,17 @@ class DishModelView(AdminView):
 
 class CookModelView(AdminView):
     column_list = ("id", "username", "email", "group")
+    can_view_details = True
+    column_details_list = (
+        "id",
+        "username",
+        "first_name",
+        "last_name",
+        "email",
+        "created_at",
+        "updated_at",
+        "group"
+    )
     column_sortable_list = (
         "id",
         "username",
