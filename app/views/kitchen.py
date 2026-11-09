@@ -13,7 +13,7 @@ from app.views import shortcuts, mixins
 
 
 class IndexView(mixins.LoginRequiredMixin, shortcuts.TemplateView):
-    template = "index.html"
+    template = "kitchen/index.html"
 
     def get_context_data(self) -> dict:
         return {
