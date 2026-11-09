@@ -3,7 +3,7 @@ from flask_migrate import Migrate
 from flask_wtf.csrf import CSRFProtect
 
 from app.admin import admin
-from app.database.config import db, SQLALCHEMY_DATABASE_URI
+from app.database.config import db
 from app.blueprints import kitchen, accounts
 from app.settings import settings
 from app.authentication import login_manager, bcrypt
@@ -17,7 +17,7 @@ csrf = CSRFProtect()
 def create_app() -> Flask:
     app = Flask(__name__)
     app.secret_key = settings.SECRET_KEY
-    app.config["SQLALCHEMY_DATABASE_URI"] = SQLALCHEMY_DATABASE_URI
+    app.config["SQLALCHEMY_DATABASE_URI"] = settings.SQLALCHEMY_DATABASE_URI
 
     app.jinja_env.filters["query_transform"] = filters.query_transform
 
