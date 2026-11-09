@@ -26,7 +26,7 @@ class AdminView(sqla.ModelView):
     ) -> ResponseReturnValue:
         if (
             current_user.is_authenticated
-            and current_user.group.name not in ("moderator", "admin")
+            and current_user.group.name != "admin"
         ):
             abort(403)
 
