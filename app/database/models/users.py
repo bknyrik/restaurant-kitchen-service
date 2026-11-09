@@ -59,3 +59,6 @@ class AbstractUserModel(UserMixin, UserGroupMixin, db.Model):
 
     def get_id(self) -> str:
         return str(self.id)
+
+    def __str__(self) -> str:
+        return self.username
