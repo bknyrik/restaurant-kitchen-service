@@ -7,7 +7,6 @@ from flask_admin.theme import Bootstrap4Theme
 from flask_login import LoginManager
 from flask_bcrypt import Bcrypt
 
-from app.blueprints import kitchen, accounts
 from app.settings import settings
 from app.templatetags import filters
 from app.views import error_handlers as eh
@@ -36,9 +35,13 @@ def create_app(testing: bool = False) -> Flask:
     app.jinja_env.filters["query_transform"] = filters.query_transform
 
     db.init_app(app)
+    migrate = Migrate(app, db, directory="app/database/migrations")
+
     csrf.init_app(app)
+
     login_manager.init_app(app)
     login_manager.login_view = "accounts.login"
+
     bcrypt.init_app(app)
 
     from app.database.models import kitchen as models
@@ -49,7 +52,7 @@ def create_app(testing: bool = False) -> Flask:
 
     admin.init_app(app)
 
-    migrate = Migrate(app, db, directory="app/database/migrations")
+    from app.blueprints import kitchen, accounts
 
     app.register_blueprint(kitchen.blueprint)
     app.register_blueprint(accounts.blueprint)
