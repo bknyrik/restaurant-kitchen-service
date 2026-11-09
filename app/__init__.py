@@ -10,7 +10,6 @@ from flask_bcrypt import Bcrypt
 from app.settings import settings
 from app.templatetags import filters
 from app.views import error_handlers as eh
-from app.views import admin as admin_views
 
 
 db = SQLAlchemy()
@@ -18,7 +17,6 @@ csrf = CSRFProtect()
 admin = Admin(
     name="Restaurant Kitchen",
     theme=Bootstrap4Theme(swatch="superhero"),
-    index_view=admin_views.HomeAdminView()
 )
 login_manager = LoginManager()
 bcrypt = Bcrypt()
@@ -45,12 +43,55 @@ def create_app(testing: bool = False) -> Flask:
     bcrypt.init_app(app)
 
     from app.database.models import kitchen as models
+    from app.database.models.users import UserGroupModel
 
     @login_manager.user_loader
     def load_user(user_id: str) -> models.CookModel:
         return models.CookModel.query.get(int(user_id))
 
-    admin.init_app(app)
+    from app.views import admin as admin_views
+    admin.init_app(app, index_view=admin_views.HomeAdminView())
+
+    admin.add_view(
+        admin_views.DishTypeModelView(
+            name="Dish type",
+            model=models.DishTypeModel,
+            session=db.session,
+            url="dish_type"
+        )
+    )
+    admin.add_view(
+        admin_views.IngredientModelView(
+            name="Ingredient",
+            model=models.IngredientModel,
+            session=db.session,
+            url="ingredient"
+        )
+    )
+    admin.add_view(
+        admin_views.DishModelView(
+            name="Dish",
+            model=models.DishModel,
+            session=db.session,
+            url="dish"
+        )
+    )
+    admin.add_view(
+        admin_views.CookModelView(
+            name="Cook",
+            model=models.CookModel,
+            session=db.session,
+            url="cook"
+        )
+    )
+    admin.add_view(
+        admin_views.UserGroupModelView(
+            name="User group",
+            model=UserGroupModel,
+            session=db.session,
+            url="user_group"
+        )
+    )
 
     from app.blueprints import kitchen, accounts
 
