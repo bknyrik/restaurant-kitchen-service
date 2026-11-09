@@ -1,17 +1,9 @@
-from flask_admin import Admin
-from flask_admin.theme import Bootstrap4Theme
-
-from app import db
+from app import db, admin
 from app.views import admin as views
 from app.database.models import kitchen as models
 from app.database.models.users import UserGroupModel
 
 
-admin = Admin(
-    name="Restaurant Kitchen",
-    theme=Bootstrap4Theme(swatch="superhero"),
-    index_view=views.HomeAdminView()
-)
 admin.add_view(
     views.DishTypeModelView(
         name="Dish type",

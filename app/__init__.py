@@ -2,17 +2,24 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_wtf.csrf import CSRFProtect
+from flask_admin import Admin
+from flask_admin.theme import Bootstrap4Theme
 
-from app.admin import admin
 from app.blueprints import kitchen, accounts
 from app.settings import settings
 from app.authentication import login_manager, bcrypt
 from app.templatetags import filters
 from app.views import error_handlers as eh
+from app.views import admin as admin_views
 
 
 db = SQLAlchemy()
 csrf = CSRFProtect()
+admin = Admin(
+    name="Restaurant Kitchen",
+    theme=Bootstrap4Theme(swatch="superhero"),
+    index_view=admin_views.HomeAdminView()
+)
 
 
 def create_app(testing: bool = False) -> Flask:
