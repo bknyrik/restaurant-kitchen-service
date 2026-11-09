@@ -1,4 +1,5 @@
-from flask import request, Response, render_template, redirect, url_for
+from flask import request, render_template, redirect, url_for
+from flask.typing import ResponseReturnValue
 from flask_login import current_user, login_required
 from flask_sqlalchemy.model import Model
 from flask_sqlalchemy.pagination import Pagination
@@ -213,7 +214,7 @@ class DishDetailView(
         )
 
     @login_required
-    def dispatch_request(self, *args, **kwargs) -> str | Response:
+    def dispatch_request(self, *args, **kwargs) -> ResponseReturnValue:
         object_ = self.get_object(kwargs["id"])
         object_list = self.get_object_list(id=kwargs["id"])
 
@@ -324,7 +325,7 @@ class CookDetailView(
         )
 
     @login_required
-    def dispatch_request(self, *args, **kwargs) -> str | Response:
+    def dispatch_request(self, *args, **kwargs) -> ResponseReturnValue:
         object_ = self.get_object(kwargs["id"])
         object_list = self.get_object_list(id=kwargs["id"])
 
