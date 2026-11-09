@@ -14,10 +14,13 @@ from app.views import error_handlers as eh
 csrf = CSRFProtect()
 
 
-def create_app() -> Flask:
+def create_app(testing: bool = False) -> Flask:
     app = Flask(__name__)
     app.config["SECRET_KEY"] = settings.SECRET_KEY
-    app.config["SQLALCHEMY_DATABASE_URI"] = settings.SQLALCHEMY_DATABASE_URI
+    app.config["SQLALCHEMY_DATABASE_URI"] = (
+        settings.SQLALCHEMY_DATABASE_URI
+        if not testing else settings.TEST_DATABASE_URI
+    )
 
     app.jinja_env.filters["query_transform"] = filters.query_transform
 
