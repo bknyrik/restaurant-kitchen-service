@@ -1,4 +1,4 @@
-from app.database.config import db
+from app import db
 from app.database.models.users import AbstractUserModel
 
 

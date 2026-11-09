@@ -15,7 +15,7 @@ from wtforms import (
     validators,
 )
 
-from app.database.config import db
+from app import db
 from app.database.models import kitchen as models
 from app.database.models.users import UserGroupModel
 from app.forms import mixins

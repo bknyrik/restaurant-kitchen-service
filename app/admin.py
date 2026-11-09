@@ -1,7 +1,7 @@
 from flask_admin import Admin
 from flask_admin.theme import Bootstrap4Theme
 
-from app.database.config import db
+from app import db
 from app.views import admin as views
 from app.database.models import kitchen as models
 from app.database.models.users import UserGroupModel

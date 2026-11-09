@@ -5,7 +5,7 @@ from flask_sqlalchemy.model import Model
 from flask_sqlalchemy.pagination import Pagination
 from wtforms import Form
 
-from app.database.config import db
+from app import db
 from app.database.models import kitchen as models
 from app.database.models.users import UserGroupModel
 from app.forms import kitchen as forms

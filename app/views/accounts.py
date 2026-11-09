@@ -8,7 +8,7 @@ from flask_login import (
     current_user
 )
 
-from app.database.config import db
+from app import db
 from app.database.models import kitchen as models
 from app.database.models.users import UserGroupModel
 from app.forms import accounts as forms

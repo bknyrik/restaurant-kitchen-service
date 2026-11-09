@@ -2,7 +2,7 @@ from flask import abort
 from flask_sqlalchemy.model import Model
 from flask_login import login_required
 
-from app.database.config import db
+from app import db
 
 
 class LoginRequiredMixin:

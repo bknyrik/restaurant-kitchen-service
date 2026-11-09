@@ -9,7 +9,7 @@ from wtforms import (
 )
 from flask_login import current_user
 
-from app.database.config import db
+from app import db
 from app.database.models import kitchen as models
 from app.forms.kitchen import (
     PASSWORD_REGEX_PATTERN,
