@@ -1,1 +1,11 @@
 {% extends "admin/master.html" %}
+{% block body %}
+  <h1>Welcome, {{ current_user.username }}!!!</h1>
+  <p><span class="fw-bold">First name: </span>{{ current_user.first_name|d("Absent", True) }}</p>
+  <p><span class="fw-bold">Last name: </span>{{ current_user.last_name|d("Absent", True) }}</p>
+  <p><span class="fw-bold">Email: </span>{{ current_user.email|d("Absent", True) }}</p>
+  <p><span class="fw-bold">Created at: </span>{{ current_user.created_at.strftime("%F %T") }}</p>
+  <p><span class="fw-bold">Updated at: </span>{{ current_user.updated_at.strftime("%F %T") }}</p>
+  <p><span class="">Group: </span>{{ current_user.group.name }}</p>
+  <a class="btn btn-danger" href="{{ url_for("accounts.logout") }}">Logout</a>
+{% endblock %}
