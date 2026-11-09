@@ -27,7 +27,7 @@ def create_app(testing: bool = False) -> Flask:
     app.config["SECRET_KEY"] = settings.SECRET_KEY
     app.config["SQLALCHEMY_DATABASE_URI"] = (
         settings.SQLALCHEMY_DATABASE_URI
-        if not testing else settings.TEST_DATABASE_URI
+        if not testing else settings.SQLALCHEMY_TEST_DATABASE_URI
     )
 
     app.jinja_env.filters["query_transform"] = filters.query_transform
