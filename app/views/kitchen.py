@@ -5,12 +5,11 @@ from flask_sqlalchemy.model import Model
 from flask_sqlalchemy.pagination import Pagination
 from wtforms import Form
 
-from app import db
+from app import db, bcrypt
 from app.database.models import kitchen as models
 from app.database.models.users import UserGroupModel
 from app.forms import kitchen as forms
 from app.views import shortcuts, mixins
-from app.views.accounts import bcrypt
 
 
 class IndexView(mixins.LoginRequiredMixin, shortcuts.TemplateView):

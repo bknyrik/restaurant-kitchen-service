@@ -8,9 +8,9 @@ from flask_admin.contrib import sqla
 from flask_admin.babel import gettext
 from wtforms import Form
 
+from app import bcrypt
 from app.database.models import kitchen as models
 from app.forms import kitchen as forms
-from app.authentication import bcrypt
 
 
 class AdminView(sqla.ModelView):

@@ -8,11 +8,10 @@ from flask_login import (
     current_user
 )
 
-from app import db
+from app import db, bcrypt
 from app.database.models import kitchen as models
 from app.database.models.users import UserGroupModel
 from app.forms import accounts as forms
-from app.authentication import bcrypt
 
 
 class LoginView(View):
