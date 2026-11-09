@@ -1,4 +1,5 @@
 from flask.views import View
+from flask.typing import ResponseReturnValue
 from flask import Response, request, redirect, render_template, url_for
 from flask_login import (
     login_user,
@@ -18,7 +19,7 @@ class LoginView(View):
     methods = ("GET", "POST")
     template = "accounts/login.html"
 
-    def dispatch_request(self) -> str | Response:
+    def dispatch_request(self) -> ResponseReturnValue:
         form = forms.LoginForm(request.form)
 
         if request.method == "POST" and form.validate():
@@ -50,7 +51,7 @@ class LoginView(View):
 class LogoutView(View):
 
     @login_required
-    def dispatch_request(self) -> Response:
+    def dispatch_request(self) -> ResponseReturnValue:
         logout_user()
         return redirect(url_for("accounts.login"))
 
