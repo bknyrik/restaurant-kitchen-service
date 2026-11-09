@@ -9,7 +9,8 @@ from app.database.models.users import UserGroupModel
 
 admin = Admin(
     name="Restaurant Kitchen",
-    theme=Bootstrap4Theme(swatch="superhero")
+    theme=Bootstrap4Theme(swatch="superhero"),
+    index_view=views.HomeAdminView()
 )
 admin.add_view(
     views.DishTypeModelView(
