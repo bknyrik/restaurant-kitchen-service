@@ -16,7 +16,7 @@ class AdminView(sqla.ModelView):
     def is_accessible(self) -> bool:
         return (
             current_user.is_authenticated
-            and current_user.group.name in ("moderator", "admin")
+            and current_user.group.name ==  "admin"
         )
 
     def inaccessible_callback(
