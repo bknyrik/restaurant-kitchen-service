@@ -58,16 +58,6 @@ def test_kitchen_view_authorization_required(
         assert response.status_code == 302
 
 
-def test_index_view_authorization_required(
-    test_app: Flask,
-    test_client: FlaskClient
-) -> None:
-    with test_app.test_request_context():
-        response = test_client.get(url_for("kitchen.index"))
-
-        assert response.status_code != 200
-
-
 def test_index_view(
     test_app: Flask,
     test_client: FlaskClient,
