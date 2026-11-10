@@ -1,3 +1,5 @@
+import pytest
+
 from flask import Flask, url_for
 from flask_login import login_user, logout_user
 from flask.testing import FlaskClient
@@ -12,6 +14,48 @@ from app.tests.conftest import (
     test_dish_type_porridge,
     test_dish_type_salad
 )
+
+
+@pytest.mark.parametrize(
+    "endpoint",
+    (
+        pytest.param("kitchen.index", id="Home"),
+        pytest.param("kitchen.dish_type_list", id="Dish type list"),
+        pytest.param("kitchen.dish_type_create", id="Create dish type"),
+        pytest.param("kitchen.dish_type_update", id="Update dish type"),
+        pytest.param("kitchen.dish_type_delete", id="Delete dish type"),
+        pytest.param("kitchen.ingredient_list", id="Ingredient list"),
+        pytest.param("kitchen.ingredient_create", id="Create ingredient"),
+        pytest.param("kitchen.ingredient_update", id="Update ingredient"),
+        pytest.param("kitchen.ingredient_delete", id="Delete ingredient"),
+        pytest.param("kitchen.dish_list", id="Dish list"),
+        pytest.param("kitchen.dish_detail", id="Dish detail"),
+        pytest.param("kitchen.dish_create", id="Create dish"),
+        pytest.param("kitchen.dish_update", id="Update dish"),
+        pytest.param("kitchen.dish_delete", id="Delete dish"),
+        pytest.param("kitchen.cook_list", id="Cook list"),
+        pytest.param("kitchen.cook_detail", id="Cook detail"),
+        pytest.param("kitchen.cook_create", id="Create cook"),
+        pytest.param("kitchen.cook_update", id="Update cook"),
+        pytest.param("kitchen.cook_delete", id="Delete cook"),
+    )
+)
+def test_kitchen_view_authorization_required(
+    endpoint: str,
+    test_app: Flask,
+    test_client: FlaskClient
+) -> None:
+    with test_app.test_request_context():
+        if (
+            endpoint.endswith("detail")
+            or endpoint.endswith("update")
+            or endpoint.endswith("delete")
+        ):
+            response = test_client.get(url_for(endpoint, id=999))
+        else:
+            response = test_client.get(url_for(endpoint))
+
+        assert response.status_code == 302
 
 
 def test_index_view_authorization_required(
