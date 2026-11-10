@@ -1,8 +1,11 @@
+from typing import Sequence
+
 import pytest
 from flask import Flask
 from flask.testing import FlaskClient
 
 from app import create_app, db
+from app.database.models.users import UserGroupModel, UserGroupEnum
 
 
 @pytest.fixture(scope="module")
@@ -18,3 +21,17 @@ def test_app():
 @pytest.fixture
 def test_client(test_app: Flask) -> FlaskClient:
     return test_app.test_client()
+
+
+@pytest.fixture
+def test_user_groups(test_app: Flask) -> Sequence[UserGroupModel]:
+    with test_app.app_context():
+        result = db.session.execute(
+            db.insert(UserGroupModel),
+            tuple(
+                {"name": value for value in UserGroupEnum}
+            )
+        )
+        db.session.commit()
+
+        return result.scalars().all()
