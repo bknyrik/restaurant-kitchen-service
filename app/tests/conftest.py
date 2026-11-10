@@ -3,7 +3,7 @@ from flask import Flask
 from flask.testing import FlaskClient
 
 from app import create_app, db, bcrypt
-from app.database.models.kitchen import CookModel
+from app.database.models import kitchen as models
 from app.database.models.users import UserGroupModel, UserGroupEnum
 
 
@@ -31,13 +31,13 @@ def test_client(test_app: Flask) -> FlaskClient:
 
 
 @pytest.fixture
-def test_user(test_app: Flask) -> CookModel:
+def test_user(test_app: Flask) -> models.CookModel:
     with test_app.app_context():
         group = UserGroupModel.query.filter_by(
             name=UserGroupEnum.USER
         ).first()
 
-        user = CookModel(
+        user = models.CookModel(
             username="testuser",
             password=bcrypt.generate_password_hash("Userpass12345").decode(),
             group=group
