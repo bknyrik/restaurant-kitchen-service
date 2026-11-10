@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 import pytest
 from flask import Flask
 from flask.testing import FlaskClient
@@ -149,3 +151,22 @@ def test_dish_type_salad(test_app: Flask) -> models.DishTypeModel:
         db.session.refresh(dish_type)
 
         return dish_type
+
+
+@pytest.fixture(scope="module")
+def test_dish_salad_by_korean(
+    test_app: Flask,
+    test_dish_type_salad: models.DishTypeModel
+) -> models.DishModel:
+    with test_app.app_context():
+        dish = models.DishModel(
+            name="The salad by korean",
+            price=Decimal("9.99"),
+            dish_type=test_dish_type_salad
+        )
+
+        db.session.add(dish)
+        db.session.commit()
+        db.session.refresh(dish, attribute_names=("dish_type", "ingredients"))
+
+        return dish
