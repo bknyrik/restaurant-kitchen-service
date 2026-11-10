@@ -1,4 +1,5 @@
 from flask import render_template, redirect, url_for, request, Response
+from flask.typing import ResponseReturnValue
 from flask.views import View
 from flask_wtf import Form
 from flask_sqlalchemy.pagination import Pagination
@@ -14,7 +15,7 @@ class TemplateView(View):
     def get_context_data(self) -> dict:
         return dict()
 
-    def dispatch_request(self) -> str:
+    def dispatch_request(self) -> ResponseReturnValue:
         return render_template(self.template, **self.get_context_data())
 
 
@@ -35,7 +36,7 @@ class ListView(View):
             else query.paginate(per_page=self.paginate_by)
         )
 
-    def dispatch_request(self) -> str:
+    def dispatch_request(self) -> ResponseReturnValue:
         object_list = self.get_object_list()
         return render_template(
             self.template,
