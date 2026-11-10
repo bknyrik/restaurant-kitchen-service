@@ -58,6 +58,7 @@ def test_dish_type_list_view(
         response = test_client.get(url_for("kitchen.dish_type_list"))
 
         assert response.status_code == 200
+        assert "<title>Dish types</title>" in response.get_data(as_text=True)
         assert test_dish_type_porridge.name in response.get_data(as_text=True)
 
 
