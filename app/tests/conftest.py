@@ -42,12 +42,11 @@ def test_group_user(test_app: Flask) -> UserGroupModel:
 
 
 @pytest.fixture(scope="module")
-def test_user(test_app: Flask) -> models.CookModel:
+def test_user(
+    test_app: Flask,
+    test_group_user: UserGroupModel,
+) -> models.CookModel:
     with test_app.app_context():
-        group = UserGroupModel.query.filter_by(
-            name=UserGroupEnum.USER
-        ).first()
-
         user = models.CookModel(
             username="testuser",
             password=(
@@ -55,7 +54,7 @@ def test_user(test_app: Flask) -> models.CookModel:
                 .generate_password_hash("Userpass12345")
                 .decode()
             ),
-            group=group
+            group=test_group_user
         )
 
         db.session.add(user)
