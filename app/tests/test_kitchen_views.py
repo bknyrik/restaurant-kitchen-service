@@ -32,8 +32,8 @@ def test_index_view(
         response = test_client.get(url_for("kitchen.index"))
 
         assert response.status_code == 200
-        assert b"<title>Home</title>" in response.data
-        assert test_user.username.encode() in response.data
+        assert "<title>Home</title>" in response.get_data(as_text=True)
+        assert test_user.username in response.get_data(as_text=True)
 
 
 def test_dish_type_list_view_authorization_required(
