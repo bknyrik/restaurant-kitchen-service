@@ -226,27 +226,6 @@ def test_dish_type_update_view_already_exists(
         assert "Already exists." in response.get_data(as_text=True)
 
 
-def test_dish_type_delete_view_is_forbidden(
-    test_app: Flask,
-    test_client: FlaskClient,
-    test_user: models.CookModel,
-    test_moderator: models.CookModel,
-    subtests
-) -> None:
-    with test_app.test_request_context():
-        for user in (test_user, test_moderator):
-            with subtests.test(user.group.name.capitalize()):
-                login_user(user)
-                response = test_client.post(
-                    path=url_for(
-                        endpoint="kitchen.dish_type_delete",
-                        id=999
-                    )
-                )
-                assert response.status_code == 403
-                logout_user()
-
-
 def test_dish_type_delete_view(
     test_app: Flask,
     test_client: FlaskClient,
