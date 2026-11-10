@@ -30,6 +30,18 @@ def test_client(test_app: Flask) -> FlaskClient:
 
 
 @pytest.fixture(scope="module")
+def test_group_user(test_app: Flask) -> UserGroupModel:
+    with test_app.test_request_context():
+        group = UserGroupModel(name=UserGroupEnum.USER)
+
+        db.session.add(group)
+        db.session.commit()
+        db.session.refresh(group)
+
+        return group
+
+
+@pytest.fixture(scope="module")
 def test_user(test_app: Flask) -> models.CookModel:
     with test_app.app_context():
         group = UserGroupModel.query.filter_by(
