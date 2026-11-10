@@ -112,12 +112,11 @@ def test_moderator(
 
 
 @pytest.fixture(scope="module")
-def test_admin(test_app: Flask) -> models.CookModel:
+def test_admin(
+    test_app: Flask,
+    test_group_admin: UserGroupModel
+) -> models.CookModel:
     with test_app.app_context():
-        group = UserGroupModel.query.filter_by(
-            name=UserGroupEnum.ADMIN
-        ).first()
-
         admin = models.CookModel(
             username="testadmin",
             password=(
@@ -125,7 +124,7 @@ def test_admin(test_app: Flask) -> models.CookModel:
                 .generate_password_hash("Useradmin12345")
                 .decode()
             ),
-            group=group
+            group=test_group_admin
         )
 
         db.session.add(admin)
