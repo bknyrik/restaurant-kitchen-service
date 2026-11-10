@@ -247,6 +247,35 @@ def test_kitchen_detail_view(
         assert instance_name in response.get_data(as_text=True)
 
 
+def test_dish_detail_view_add_cook_to_dish(
+    test_app: Flask,
+    test_client: FlaskClient,
+    test_dish_salad_by_korean: models.DishModel,
+    test_user: models.CookModel
+) -> None:
+    with test_app.test_request_context():
+        login_user(test_user)
+
+        response = test_client.post(
+            url_for(
+                endpoint="kitchen.dish_detail",
+                id=test_dish_salad_by_korean.id
+            ),
+            follow_redirects=True
+        )
+
+        test_dish_salad_by_korean = (
+            models.DishModel.query
+            .options(db.joinedload(models.DishModel.cooks))
+            .get(test_dish_salad_by_korean.id)
+        )
+
+        assert response.status_code == 200
+        assert len(response.history) == 1
+        assert test_user.username in response.get_data(as_text=True)
+        assert test_user in test_dish_salad_by_korean.cooks
+
+
 def test_dish_type_list_view_filter_by_name(
     test_app: Flask,
     test_client: FlaskClient,
