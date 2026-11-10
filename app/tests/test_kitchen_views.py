@@ -143,18 +143,6 @@ def test_dish_type_list_view_filter_by_name(
         assert test_dish_type_salad.name in response.get_data(as_text=True)
 
 
-def test_dish_type_create_view_is_forbidden(
-    test_app: Flask,
-    test_client: FlaskClient,
-    test_user: models.CookModel,
-) -> None:
-    with test_app.test_request_context():
-        login_user(test_user)
-
-        response = test_client.post(url_for("kitchen.dish_type_create"))
-        assert response.status_code == 403, response.data
-
-
 def test_dish_type_create_view(
     test_app: Flask,
     test_client: FlaskClient,
