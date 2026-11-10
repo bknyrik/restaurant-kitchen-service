@@ -5,7 +5,7 @@ from flask.testing import FlaskClient
 from app import create_app, db
 
 
-@pytest.fixture
+@pytest.fixture(scope="module")
 def test_app():
     test_app = create_app(testing=True)
 
