@@ -1,16 +1,22 @@
+from decimal import Decimal
+
 import pytest
 
 from flask import Flask, url_for
+from flask_sqlalchemy.model import Model
 from flask_login import login_user
 from flask.testing import FlaskClient
 
+from app import db, bcrypt
 from app.database.models import kitchen as models
+from app.database.models.users import UserGroupModel
 from app.tests.conftest import (
     test_app,
     test_client,
     test_user,
     test_moderator,
     test_admin,
+    test_group_user,
     test_dish_type_porridge,
     test_dish_type_salad
 )
@@ -127,6 +133,84 @@ def test_index_view(
         assert response.status_code == 200
         assert "<title>Home</title>" in response.get_data(as_text=True)
         assert test_user.username in response.get_data(as_text=True)
+
+
+@pytest.mark.parametrize(
+    "endpoint,model,title,data",
+    (
+        pytest.param(
+            "kitchen.dish_type_list",
+            models.DishTypeModel,
+            "Dish types",
+            {"name": "Test dish type"},
+            id="Dish type list"
+        ),
+        pytest.param(
+            "kitchen.ingredient_list",
+            models.IngredientModel,
+            "Ingredients",
+            {"name": "Test ingredient"},
+            id="Ingredient list"
+        ),
+        pytest.param(
+            "kitchen.dish_list",
+            models.DishModel,
+            "Dishes",
+            {"name": "Test dish", "price": Decimal("9.99")},
+            id="Dish list"
+        ),
+        pytest.param(
+            "kitchen.cook_list",
+            models.CookModel,
+            "Cooks",
+            {"username": "testcook", "password": "Userpass1234"},
+            id="Cook list"
+        ),
+    )
+)
+def test_kitchen_list_view(
+    endpoint: str,
+    model: type[Model],
+    title: str,
+    data: dict,
+    test_app: Flask,
+    test_client: FlaskClient,
+    test_moderator: models.CookModel,
+    test_group_user: UserGroupModel,
+    test_dish_type_salad: models.DishTypeModel
+) -> None:
+    with test_app.test_request_context():
+        login_user(test_moderator)
+
+        match model:
+            case models.CookModel:
+                data["password"] = (
+                    bcrypt
+                    .generate_password_hash(data["password"])
+                    .decode()
+                )
+                data["group"] = test_group_user
+            case models.DishModel:
+                data["dish_type"] = test_dish_type_salad
+
+        instance = model(**data)
+
+        db.session.add(instance)
+        db.session.commit()
+        db.session.refresh(instance)
+
+        instance_name: str = (
+            instance.username
+            if isinstance(instance, models.CookModel)
+            else instance.name
+        )
+
+        response = test_client.get(url_for(endpoint))
+
+        assert response.status_code == 200
+        assert f"<title>{title}</title>" in response.get_data(as_text=True)
+        assert instance_name in response.get_data(as_text=True)
+        assert str(instance.id) in response.get_data(as_text=True)
 
 
 def test_dish_type_list_view(
