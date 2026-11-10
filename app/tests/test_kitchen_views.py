@@ -8,6 +8,7 @@ from app.tests.conftest import (
     test_client,
     test_user,
     test_moderator,
+    test_admin,
     test_dish_type_porridge,
     test_dish_type_salad
 )
@@ -217,3 +218,27 @@ def test_dish_type_delete_view_is_forbidden(
                 )
                 assert response.status_code == 403
                 logout_user()
+
+
+def test_dish_type_delete_view(
+    test_app: Flask,
+    test_client: FlaskClient,
+    test_admin: models.CookModel,
+    test_dish_type_salad: models.DishTypeModel
+) -> None:
+    with test_app.test_request_context():
+        login_user(test_admin)
+
+        response = test_client.post(
+            url_for(
+                endpoint="kitchen.dish_type_delete",
+                id=test_dish_type_salad.id
+            )
+        )
+
+        dish_type = models.DishTypeModel.query.get(
+            ident=test_dish_type_salad.id
+        )
+
+        assert response.status_code == 302
+        assert dish_type is None
