@@ -59,3 +59,21 @@ def test_dish_type_list_view(
 
         assert response.status_code == 200
         assert test_dish_type.name in response.get_data(as_text=True)
+
+
+def test_dish_type_list_view_filter_by_name(
+    test_app: Flask,
+    test_client: FlaskClient,
+    test_user: models.CookModel,
+    test_dish_type: models.DishTypeModel
+) -> None:
+    with test_app.test_request_context():
+        login_user(test_user)
+
+        response = test_client.get(
+            path=url_for("kitchen.dish_type_list"),
+            query_string={"name": "A"}
+        )
+
+        assert response.status_code == 200
+        assert test_dish_type.name not in response.get_data(as_text=True)
