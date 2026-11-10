@@ -131,3 +131,22 @@ def test_dish_type_create_view_already_exists(
         )
 
         assert "Already exists." in response.get_data(as_text=True)
+
+
+def test_dish_type_update_view_is_forbidden(
+    test_app: Flask,
+    test_client: FlaskClient,
+    test_user: models.CookModel,
+    test_dish_type_salad: models.DishTypeModel
+) -> None:
+    with test_app.test_request_context():
+        login_user(test_user)
+
+        response = test_client.post(
+            path=url_for(
+                endpoint="kitchen.dish_type_update",
+                id=test_dish_type_salad.id
+            )
+        )
+
+        assert response.status_code == 403
