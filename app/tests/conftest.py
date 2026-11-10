@@ -29,7 +29,7 @@ def test_client(test_app: Flask) -> FlaskClient:
     return test_app.test_client()
 
 
-@pytest.fixture
+@pytest.fixture(scope="module")
 def test_user(test_app: Flask) -> models.CookModel:
     with test_app.app_context():
         group = UserGroupModel.query.filter_by(
@@ -38,13 +38,17 @@ def test_user(test_app: Flask) -> models.CookModel:
 
         user = models.CookModel(
             username="testuser",
-            password=bcrypt.generate_password_hash("Userpass12345").decode(),
+            password=(
+                bcrypt
+                .generate_password_hash("Userpass12345")
+                .decode()
+            ),
             group=group
         )
 
         db.session.add(user)
         db.session.commit()
-        db.session.refresh(user)
+        db.session.refresh(user, attribute_names=("group",))
 
         return user
 
