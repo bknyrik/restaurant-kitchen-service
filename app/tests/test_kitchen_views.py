@@ -7,6 +7,7 @@ from app.tests.conftest import (
     test_app,
     test_client,
     test_user,
+    test_moderator,
     test_dish_type_porridge,
     test_dish_type_salad
 )
@@ -93,3 +94,23 @@ def test_dish_type_create_view_is_forbidden(
 
         response = test_client.post(url_for("kitchen.dish_type_create"))
         assert response.status_code == 403, response.data
+
+
+def test_dish_type_create_view(
+    test_app: Flask,
+    test_client: FlaskClient,
+    test_moderator: models.CookModel,
+) -> None:
+    with test_app.test_request_context():
+        login_user(test_moderator)
+
+        data = {"name": "Soup"}
+
+        response = test_client.post(
+            path=url_for("kitchen.dish_type_create"),
+            data=data
+        )
+        dish_type = models.DishTypeModel.query.filter_by(**data).first()
+
+        assert response.status_code == 302
+        assert dish_type is not None and dish_type.name == data["name"]
