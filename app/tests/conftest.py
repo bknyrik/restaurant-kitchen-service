@@ -20,7 +20,6 @@ def test_app():
             )
         )
         db.session.commit()
-        db.session.close()
 
     yield test_app
 
@@ -46,7 +45,6 @@ def test_user(test_app: Flask) -> models.CookModel:
         db.session.add(user)
         db.session.commit()
         db.session.refresh(user)
-        db.session.close()
 
         return user
 
@@ -59,6 +57,5 @@ def test_dish_type(test_app: Flask) -> models.DishTypeModel:
         db.session.add(dish_type)
         db.session.commit()
         db.session.refresh(dish_type)
-        db.session.close()
 
         return dish_type
