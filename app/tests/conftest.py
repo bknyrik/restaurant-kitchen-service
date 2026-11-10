@@ -42,6 +42,18 @@ def test_group_user(test_app: Flask) -> UserGroupModel:
 
 
 @pytest.fixture(scope="module")
+def test_group_moderator(test_app: Flask) -> UserGroupModel:
+    with test_app.test_request_context():
+        group = UserGroupModel(name=UserGroupEnum.MODERATOR)
+
+        db.session.add(group)
+        db.session.commit()
+        db.session.refresh(group)
+
+        return group
+
+
+@pytest.fixture(scope="module")
 def test_user(
     test_app: Flask,
     test_group_user: UserGroupModel,
