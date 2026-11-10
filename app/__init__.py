@@ -30,6 +30,9 @@ def create_app(*, testing: bool = False) -> Flask:
         else settings.SQLALCHEMY_TEST_DATABASE_URI
     )
 
+    if testing:
+        app.config["WTF_CSRF_ENABLED"] = False
+
     app.jinja_env.filters["query_transform"] = filters.query_transform
 
     db.init_app(app)
