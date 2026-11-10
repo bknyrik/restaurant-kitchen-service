@@ -114,3 +114,20 @@ def test_dish_type_create_view(
 
         assert response.status_code == 302
         assert dish_type is not None and dish_type.name == data["name"]
+
+
+def test_dish_type_create_view_already_exists(
+    test_app: Flask,
+    test_client: FlaskClient,
+    test_moderator: models.CookModel
+) -> None:
+    with test_app.test_request_context():
+        login_user(test_moderator)
+
+        data = {"name": "Salad"}
+        response = test_client.post(
+            path=url_for("kitchen.dish_type_create"),
+            data=data
+        )
+
+        assert "Already exists." in response.get_data(as_text=True)
