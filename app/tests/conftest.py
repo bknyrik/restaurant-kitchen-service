@@ -37,23 +37,15 @@ def test_user(test_app: Flask) -> CookModel:
             name=UserGroupEnum.USER
         ).first()
 
-        result = db.session.execute(
-            db.insert(CookModel)
-            .values(
-                username="testuser",
-                password=(
-                    bcrypt
-                    .generate_password_hash("testuser12345")
-                    .decode()
-                ),
-                group=group
-            )
-            .returning(CookModel)
+        user = CookModel(
+            username="testuser",
+            password=bcrypt.generate_password_hash("Userpass12345").decode(),
+            group=group
         )
+
+        db.session.add(user)
         db.session.commit()
-
-        user = result.scalars().one()
-
+        db.session.refresh(user)
         db.session.close()
 
-    return user
+        return user
