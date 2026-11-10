@@ -49,7 +49,7 @@ class DetailView(mixins.DetailMixin, View):
     model: type[Model]
     template: str
 
-    def dispatch_request(self, id: int) -> str:
+    def dispatch_request(self, id: int) -> ResponseReturnValue:
         object_ = self.get_object(id)
         return render_template(self.template, object=object_)
 
@@ -73,7 +73,7 @@ class CreateView(View):
         db.session.commit()
         db.session.refresh(object_)
 
-    def dispatch_request(self) -> str | Response:
+    def dispatch_request(self) -> ResponseReturnValue:
         form = self.get_form_class()(request.form)
 
         if request.method == "POST" and form.validate():
