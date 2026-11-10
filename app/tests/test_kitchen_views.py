@@ -176,3 +176,23 @@ def test_dish_type_update_view(
 
         assert response.status_code == 302
         assert dish_type.name == data["name"]
+
+
+def test_dish_type_update_view_already_exists(
+    test_app: Flask,
+    test_client: FlaskClient,
+    test_moderator: models.CookModel,
+    test_dish_type_salad: models.DishTypeModel
+) -> None:
+    with test_app.test_request_context():
+        login_user(test_moderator)
+
+        response = test_client.post(
+            path=url_for(
+                endpoint="kitchen.dish_type_update",
+                id=test_dish_type_salad.id
+            ),
+            data={"name": "Porridge"}
+        )
+
+        assert "Already exists." in response.get_data(as_text=True)
