@@ -49,3 +49,16 @@ def test_user(test_app: Flask) -> models.CookModel:
         db.session.close()
 
         return user
+
+
+@pytest.fixture
+def test_dish_type(test_app: Flask) -> models.DishTypeModel:
+    with test_app.app_context():
+        dish_type = models.DishTypeModel(name="Test dish type")
+
+        db.session.add(dish_type)
+        db.session.commit()
+        db.session.refresh(dish_type)
+        db.session.close()
+
+        return dish_type
