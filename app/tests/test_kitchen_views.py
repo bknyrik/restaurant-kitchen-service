@@ -29,3 +29,13 @@ def test_index_view(
         assert response.status_code == 200
         assert b"<title>Home</title>" in response.data
         assert test_user.username.encode() in response.data
+
+
+def test_dish_type_list_view_authorization_required(
+    test_app: Flask,
+    test_client: FlaskClient
+) -> None:
+    with test_app.test_request_context():
+        response = test_client.get(url_for("kitchen.dish_type_list"))
+
+        assert response.status_code != 200
