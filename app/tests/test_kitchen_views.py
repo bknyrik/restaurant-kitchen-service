@@ -7,7 +7,8 @@ from app.tests.conftest import (
     test_app,
     test_client,
     test_user,
-    test_dish_type_porridge
+    test_dish_type_porridge,
+    test_dish_type_salad
 )
 
 
@@ -66,7 +67,8 @@ def test_dish_type_list_view_filter_by_name(
     test_app: Flask,
     test_client: FlaskClient,
     test_user: models.CookModel,
-    test_dish_type_porridge: models.DishTypeModel
+    test_dish_type_porridge: models.DishTypeModel,
+    test_dish_type_salad: models.DishTypeModel
 ) -> None:
     with test_app.test_request_context():
         login_user(test_user)
@@ -78,3 +80,4 @@ def test_dish_type_list_view_filter_by_name(
 
         assert response.status_code == 200
         assert test_dish_type_porridge.name not in response.get_data(as_text=True)
+        assert test_dish_type_salad.name in response.get_data(as_text=True)
