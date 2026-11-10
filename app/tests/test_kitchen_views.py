@@ -7,7 +7,7 @@ from app.tests.conftest import (
     test_app,
     test_client,
     test_user,
-    test_dish_type
+    test_dish_type_porridge
 )
 
 
@@ -50,7 +50,7 @@ def test_dish_type_list_view(
     test_app: Flask,
     test_client: FlaskClient,
     test_user: models.CookModel,
-    test_dish_type: models.DishTypeModel
+    test_dish_type_porridge: models.DishTypeModel
 ) -> None:
     with test_app.test_request_context():
         login_user(test_user)
@@ -58,14 +58,14 @@ def test_dish_type_list_view(
         response = test_client.get(url_for("kitchen.dish_type_list"))
 
         assert response.status_code == 200
-        assert test_dish_type.name in response.get_data(as_text=True)
+        assert test_dish_type_porridge.name in response.get_data(as_text=True)
 
 
 def test_dish_type_list_view_filter_by_name(
     test_app: Flask,
     test_client: FlaskClient,
     test_user: models.CookModel,
-    test_dish_type: models.DishTypeModel
+    test_dish_type_porridge: models.DishTypeModel
 ) -> None:
     with test_app.test_request_context():
         login_user(test_user)
@@ -76,4 +76,4 @@ def test_dish_type_list_view_filter_by_name(
         )
 
         assert response.status_code == 200
-        assert test_dish_type.name not in response.get_data(as_text=True)
+        assert test_dish_type_porridge.name not in response.get_data(as_text=True)

@@ -54,7 +54,7 @@ def test_user(test_app: Flask) -> models.CookModel:
 
 
 @pytest.fixture(scope="module")
-def test_dish_type(test_app: Flask) -> models.DishTypeModel:
+def test_dish_type_porridge(test_app: Flask) -> models.DishTypeModel:
     with test_app.app_context():
         dish_type = models.DishTypeModel(name="Porridge")
 
