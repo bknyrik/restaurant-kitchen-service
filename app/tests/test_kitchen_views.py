@@ -18,7 +18,8 @@ from app.tests.conftest import (
     test_admin,
     test_group_user,
     test_dish_type_porridge,
-    test_dish_type_salad
+    test_dish_type_salad,
+    test_dish_salad_by_korean
 )
 
 
@@ -211,6 +212,39 @@ def test_kitchen_list_view(
         assert f"<title>{title}</title>" in response.get_data(as_text=True)
         assert instance_name in response.get_data(as_text=True)
         assert str(instance.id) in response.get_data(as_text=True)
+
+
+@pytest.mark.parametrize(
+    "endpoint,title",
+    (
+        pytest.param("kitchen.dish_detail","Dish"),
+        pytest.param("kitchen.cook_detail", "Cook")
+    )
+)
+def test_kitchen_detail_view(
+    endpoint: str,
+    title: str,
+    test_app: Flask,
+    test_client: FlaskClient,
+    test_user: models.CookModel,
+    test_dish_salad_by_korean: models.DishModel
+) -> None:
+    with test_app.test_request_context():
+        login_user(test_user)
+
+        match title:
+            case "Cook":
+                instance = test_user
+                instance_name = instance.username
+            case "Dish":
+                instance = test_dish_salad_by_korean
+                instance_name = instance.name
+
+        response = test_client.get(url_for(endpoint, id=instance.id))
+
+        assert response.status_code == 200
+        assert f"<title>{title} {instance_name}</title>" in response.get_data(as_text=True)
+        assert instance_name in response.get_data(as_text=True)
 
 
 def test_dish_type_list_view_filter_by_name(
