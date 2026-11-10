@@ -78,6 +78,30 @@ def test_moderator(test_app: Flask) -> models.CookModel:
 
 
 @pytest.fixture(scope="module")
+def test_admin(test_app: Flask) -> models.CookModel:
+    with test_app.app_context():
+        group = UserGroupModel.query.filter_by(
+            name=UserGroupEnum.ADMIN
+        ).first()
+
+        admin = models.CookModel(
+            username="testadmin",
+            password=(
+                bcrypt
+                .generate_password_hash("Useradmin12345")
+                .decode()
+            ),
+            group=group
+        )
+
+        db.session.add(admin)
+        db.session.commit()
+        db.session.refresh(admin, attribute_names=("group",))
+
+        return admin
+
+
+@pytest.fixture(scope="module")
 def test_dish_type_porridge(test_app: Flask) -> models.DishTypeModel:
     with test_app.app_context():
         dish_type = models.DishTypeModel(name="Porridge")
