@@ -63,3 +63,15 @@ def test_dish_type_porridge(test_app: Flask) -> models.DishTypeModel:
         db.session.refresh(dish_type)
 
         return dish_type
+
+
+@pytest.fixture(scope="module")
+def test_dish_type_salad(test_app: Flask) -> models.DishTypeModel:
+    with test_app.app_context():
+        dish_type = models.DishTypeModel(name="Salad")
+
+        db.session.add(dish_type)
+        db.session.commit()
+        db.session.refresh(dish_type)
+
+        return dish_type
