@@ -1,4 +1,4 @@
-from flask import render_template, redirect, url_for, request, Response
+from flask import render_template, redirect, url_for, request
 from flask.typing import ResponseReturnValue
 from flask.views import View
 from flask_wtf import Form
@@ -105,7 +105,7 @@ class UpdateView(View):
         form.populate_obj(object_)
         db.session.commit()
 
-    def dispatch_request(self, id: int) -> str | Response:
+    def dispatch_request(self, id: int) -> ResponseReturnValue:
         object_ = db.get_or_404(self.model, id)
         form = self.get_form(object_)
 
@@ -122,7 +122,7 @@ class DeleteView(View):
     template: str
     success_url_name: str
 
-    def dispatch_request(self, id: int) -> str | Response:
+    def dispatch_request(self, id: int) -> ResponseReturnValue:
         object_ = db.get_or_404(self.model, id)
 
         if request.method == "POST":
