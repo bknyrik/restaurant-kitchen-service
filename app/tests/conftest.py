@@ -13,13 +13,6 @@ def test_app():
 
     with test_app.app_context():
         db.create_all()
-        db.session.execute(
-            db.insert(UserGroupModel),
-            tuple(
-                {"name": group} for group in UserGroupEnum
-            )
-        )
-        db.session.commit()
 
     yield test_app
 
