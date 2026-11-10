@@ -1,7 +1,7 @@
 import pytest
 
 from flask import Flask, url_for
-from flask_login import login_user, logout_user
+from flask_login import login_user
 from flask.testing import FlaskClient
 
 from app.database.models import kitchen as models
@@ -88,6 +88,28 @@ def test_kitchen_view_user_is_forbidden(
             response = test_client.get(url_for(endpoint, id=999))
         else:
             response = test_client.get(url_for(endpoint))
+
+        assert response.status_code == 403
+
+
+@pytest.mark.parametrize(
+    "endpoint",
+    (
+        pytest.param("kitchen.dish_type_delete", id="Dish type delete"),
+        pytest.param("kitchen.ingredient_delete", id="Ingredient delete"),
+        pytest.param("kitchen.dish_delete", id="Dish delete"),
+        pytest.param("kitchen.cook_delete", id="Cook delete"),
+    )
+)
+def test_kitchen_delete_view_moderator_is_forbidden(
+    endpoint: str,
+    test_app: Flask,
+    test_client: FlaskClient,
+    test_moderator: models.CookModel
+) -> None:
+    with test_app.test_request_context():
+        login_user(test_moderator)
+        response = test_client.get(url_for(endpoint, id=999))
 
         assert response.status_code == 403
 
