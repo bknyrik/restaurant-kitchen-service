@@ -287,6 +287,10 @@ class CookAdminCreateForm(CookCreateForm):
         render_kw={"class": "form-select"},
     )
 
+    def populate_obj(self, obj: models.CookModel) -> None:
+        super().populate_obj(obj)
+        self.group.populate_obj(obj, "group")
+
 
 class CookAdminUpdateForm(CookUpdateForm):
     new_password = PasswordField(
