@@ -19,7 +19,8 @@ from app.tests.conftest import (
     test_group_user,
     test_dish_type_porridge,
     test_dish_type_salad,
-    test_dish_salad_by_korean
+    test_dish_salad_by_korean,
+    test_ingredient_cheese
 )
 
 
@@ -454,3 +455,62 @@ def test_ingredient_create_view(
         assert response.status_code == 200
         assert len(response.history) == 1
         assert db.session.query(query).scalar() == True
+
+
+@pytest.mark.parametrize(
+    "endpoint,model",
+    (
+        pytest.param(
+            "kitchen.dish_type_delete",
+            models.DishTypeModel,
+            id="Dish type delete"
+        ),
+        pytest.param(
+            "kitchen.ingredient_delete",
+            models.IngredientModel,
+            id="Ingredient delete"
+        ),
+        pytest.param(
+            "kitchen.dish_delete",
+            models.DishModel,
+            id="Dish delete"
+        ),
+        pytest.param(
+            "kitchen.cook_delete",
+            models.CookModel,
+            id="Cook delete"
+        ),
+    )
+)
+def test_kitchen_delete_view(
+    endpoint: str,
+    model: type[Model],
+    test_app: Flask,
+    test_client: FlaskClient,
+    test_user: models.CookModel,
+    test_admin: models.CookModel,
+    test_dish_type_salad: models.DishTypeModel,
+    test_dish_salad_by_korean: models.DishModel,
+    test_ingredient_cheese: models.IngredientModel
+) -> None:
+    with test_app.test_request_context():
+        login_user(test_admin)
+
+        match model:
+            case models.DishTypeModel:
+                instance = test_dish_type_salad
+            case models.IngredientModel:
+                instance = test_ingredient_cheese
+            case models.DishModel:
+                instance = test_dish_salad_by_korean
+            case models.CookModel:
+                instance = test_user
+
+        response = test_client.post(
+            path=url_for(endpoint, id=instance.id),
+            follow_redirects=True
+        )
+
+        assert response.status_code == 200
+        assert len(response.history) == 1
+        assert instance not in model.query.all()
