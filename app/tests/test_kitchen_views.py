@@ -6,9 +6,12 @@ from flask import Flask, url_for
 from flask_sqlalchemy.model import Model
 from flask_login import login_user
 from flask.testing import FlaskClient
+from wtforms.validators import input_required
+from wtforms_alchemy import ModelForm
 
 from app import db, bcrypt
 from app.database.models import kitchen as models
+from app.forms import kitchen as forms
 from app.database.models.users import UserGroupModel
 from app.tests.conftest import (
     test_app,
@@ -426,6 +429,85 @@ def test_kitchen_admin_cook_create_view(
         assert len(response.history) == 1
         assert instance in models.CookModel.query.all()
         assert bcrypt.check_password_hash(instance.password, password)
+
+
+@pytest.mark.parametrize(
+    "endpoint,model,form_class,data",
+    (
+        pytest.param(
+            "kitchen.dish_type_update",
+            models.DishTypeModel,
+            forms.DishTypeForm,
+            {"name": "Pasta"},
+            id="Dish type update"
+        ),
+        pytest.param(
+            "kitchen.ingredient_update",
+            models.IngredientModel,
+            forms.IngredientForm,
+            {"name": "Tomato"},
+            id="Ingredient update"
+        ),
+        pytest.param(
+            "kitchen.dish_update",
+            models.DishModel,
+            forms.DishForm,
+            {"name": "Ovcharska salata", "price": Decimal("10.15")},
+            id="Dish update"
+        ),
+        pytest.param(
+            "kitchen.cook_update",
+            models.CookModel,
+            forms.CookUpdateForm,
+            {"username": "test_user", "years_of_experience": 5},
+            id="Cook update"
+        )
+    )
+)
+def test_kitchen_moderator_update_view(
+    endpoint: str,
+    model: type[Model],
+    form_class: type[ModelForm],
+    data: dict,
+    test_app: Flask,
+    test_client: FlaskClient,
+    test_user: models.CookModel,
+    test_moderator: models.CookModel,
+    test_dish_type_porridge: models.DishTypeModel,
+    test_ingredient_cheese: models.IngredientModel,
+    test_dish_salad_by_korean: models.DishModel,
+) -> None:
+    with test_app.test_request_context():
+        login_user(test_moderator)
+
+        match model:
+            case models.DishTypeModel:
+                instance = test_dish_type_porridge
+            case models.IngredientModel:
+                instance = test_ingredient_cheese
+            case models.DishModel:
+                instance = test_dish_salad_by_korean
+                data["dish_type"] = test_dish_type_porridge.id
+            case models.CookModel:
+                instance = test_user
+
+        response = test_client.post(
+            path=url_for(endpoint, id=instance.id),
+            data=data,
+            follow_redirects=True
+        )
+
+        updated_instance = model.query.get(ident=instance.id)
+
+        input_form_data = form_class(data=data).data
+        obj_form_data = form_class(obj=updated_instance).data
+
+        if model is models.DishModel:
+            obj_form_data["dish_type"] = obj_form_data["dish_type"].id
+
+        assert response.status_code == 200
+        assert len(response.history) == 1
+        assert obj_form_data == input_form_data
 
 
 @pytest.mark.parametrize(
