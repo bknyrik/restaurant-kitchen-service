@@ -373,16 +373,6 @@ class CookUpdateView(
 
         return forms.CookUpdateForm
 
-    def update_object(self, form: Form, object_: models.CookModel) -> None:
-        form.populate_obj(object_)
-
-        if form.data.get("new_password"):
-            object_.password = bcrypt.generate_password_hash(
-                form.data["new_password"]
-            ).decode()
-
-        db.session.commit()
-
     def has_permissions(self, *args, **kwargs) -> bool:
         return (
             current_user.id == kwargs["id"]
