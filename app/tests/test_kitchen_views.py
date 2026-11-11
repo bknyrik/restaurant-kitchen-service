@@ -276,6 +276,34 @@ def test_dish_detail_view_add_cook_to_dish(
         assert test_user in test_dish_salad_by_korean.cooks
 
 
+def test_dish_detail_view_delete_cook_from_dish(
+    test_app: Flask,
+    test_client: FlaskClient,
+    test_user: models.CookModel,
+    test_dish_salad_by_korean: models.DishModel,
+) -> None:
+    with test_app.test_request_context():
+        login_user(test_user)
+
+        test_client.post(
+            path=url_for(
+                endpoint="kitchen.dish_detail",
+                id=test_dish_salad_by_korean.id
+            )
+        )
+        response = test_client.post(
+            path=url_for(
+                endpoint="kitchen.dish_detail",
+                id=test_dish_salad_by_korean.id
+            ),
+            follow_redirects=True
+        )
+
+        assert response.status_code == 200
+        assert len(response.history) == 1
+        assert response.get_data(as_text=True).count(test_user.username) == 1
+
+
 def test_dish_type_list_view_filter_by_name(
     test_app: Flask,
     test_client: FlaskClient,
