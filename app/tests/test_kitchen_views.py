@@ -272,7 +272,7 @@ def test_dish_detail_view_add_cook_to_dish(
 
         assert response.status_code == 200
         assert len(response.history) == 1
-        assert test_user.username in response.get_data(as_text=True)
+        assert response.get_data(as_text=True).count(test_user.username) == 2
         assert test_user in test_dish_salad_by_korean.cooks
 
 
