@@ -217,8 +217,8 @@ def test_kitchen_list_view(
 @pytest.mark.parametrize(
     "endpoint,title",
     (
-        pytest.param("kitchen.dish_detail","Dish"),
-        pytest.param("kitchen.cook_detail", "Cook")
+        pytest.param("kitchen.dish_detail","Dish", id="Dish detail"),
+        pytest.param("kitchen.cook_detail", "Cook", id="Cook detail")
     )
 )
 def test_kitchen_detail_view(
