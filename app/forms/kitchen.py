@@ -15,9 +15,9 @@ from wtforms import (
     validators,
 )
 
-from app import db
+from app import db, bcrypt
 from app.database.models import kitchen as models
-from app.database.models.users import UserGroupModel
+from app.database.models.users import UserGroupModel, UserGroupEnum
 from app.forms import mixins
 
 
@@ -209,6 +209,20 @@ class CookCreateForm(ModelForm):
         ],
         render_kw={"class": "form-control"}
     )
+
+    def populate_obj(self, obj: models.CookModel) -> None:
+        for name, field in self._fields.items():
+            if name == "password":
+                field.data = bcrypt.generate_password_hash(field.data).decode()
+
+            field.populate_obj(obj, name)
+
+        group = (
+            db.session.query(UserGroupModel)
+            .filter_by(name=UserGroupEnum.USER)
+            .first()
+        )
+        obj.group_id = group.id
 
 
 class CookUpdateForm(ModelForm):
