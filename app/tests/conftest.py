@@ -167,6 +167,9 @@ def test_dish_salad_by_korean(
 
         db.session.add(dish)
         db.session.commit()
-        db.session.refresh(dish, attribute_names=("dish_type", "ingredients"))
+        db.session.refresh(
+            dish,
+            attribute_names=("dish_type", "ingredients", "cooks")
+        )
 
         return dish
