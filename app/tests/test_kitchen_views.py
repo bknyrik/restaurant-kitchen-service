@@ -325,6 +325,76 @@ def test_dish_type_list_view_filter_by_name(
         assert test_dish_type_salad.name in response.get_data(as_text=True)
 
 
+@pytest.mark.parametrize(
+    "endpoint,model,data",
+    (
+        pytest.param(
+            "kitchen.dish_type_create",
+            models.DishTypeModel,
+            {"name": "Casserole"},
+            id="Dish type create"
+        ),
+        pytest.param(
+            "kitchen.ingredient_create",
+            models.IngredientModel,
+            {"name": "Basil"},
+            id="Ingredient create"
+        ),
+        pytest.param(
+            "kitchen.dish_create",
+            models.DishModel,
+            {
+                "name": "Semolina porridge",
+                "price": Decimal("9.99")
+            },
+            id="Dish create"
+        ),
+        pytest.param(
+            "kitchen.cook_create",
+            models.CookModel,
+            {
+                "username": "testuser",
+                "password": "Userpass1234"
+            },
+            id="Cook create"
+        )
+    )
+)
+def test_kitchen_moderator_create_view(
+    endpoint: str,
+    model: type[Model],
+    data: dict,
+    test_app: Flask,
+    test_client: FlaskClient,
+    test_moderator: models.CookModel,
+    test_group_user: UserGroupModel,
+    test_dish_type_porridge: models.DishTypeModel
+) -> None:
+    with test_app.test_request_context():
+        login_user(test_moderator)
+
+        if model is models.DishModel:
+            data["dish_type"] = test_dish_type_porridge.id
+
+        response = test_client.post(
+            path=url_for(endpoint),
+            data=data,
+            follow_redirects=True
+        )
+
+        match model:
+            case models.CookModel:
+                data.pop("password")
+            case models.DishModel:
+                data.pop("dish_type")
+
+        instance = model.query.filter_by(**data).first()
+
+        assert response.status_code == 200
+        assert len(response.history) == 1
+        assert instance in model.query.all()
+
+
 def test_dish_type_create_view(
     test_app: Flask,
     test_client: FlaskClient,
