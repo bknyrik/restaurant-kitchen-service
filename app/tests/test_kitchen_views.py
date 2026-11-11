@@ -392,7 +392,8 @@ def test_dish_type_update_view_already_exists(
     test_app: Flask,
     test_client: FlaskClient,
     test_moderator: models.CookModel,
-    test_dish_type_salad: models.DishTypeModel
+    test_dish_type_salad: models.DishTypeModel,
+    test_dish_type_porridge: models.DishTypeModel
 ) -> None:
     with test_app.test_request_context():
         login_user(test_moderator)
