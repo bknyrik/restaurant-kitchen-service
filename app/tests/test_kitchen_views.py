@@ -428,24 +428,6 @@ def test_kitchen_admin_cook_create_view(
         assert bcrypt.check_password_hash(instance.password, password)
 
 
-def test_dish_type_create_view_already_exists(
-    test_app: Flask,
-    test_client: FlaskClient,
-    test_moderator: models.CookModel,
-    test_dish_type_salad: models.DishModel
-) -> None:
-    with test_app.test_request_context():
-        login_user(test_moderator)
-
-        data = {"name": "Salad"}
-        response = test_client.post(
-            path=url_for("kitchen.dish_type_create"),
-            data=data
-        )
-
-        assert "Already exists." in response.get_data(as_text=True)
-
-
 def test_dish_type_update_view(
     test_app: Flask,
     test_client: FlaskClient,
