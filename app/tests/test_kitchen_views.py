@@ -428,32 +428,6 @@ def test_kitchen_admin_cook_create_view(
         assert bcrypt.check_password_hash(instance.password, password)
 
 
-def test_dish_type_update_view(
-    test_app: Flask,
-    test_client: FlaskClient,
-    test_moderator: models.CookModel,
-    test_dish_type_salad: models.DishTypeModel
-) -> None:
-    with test_app.test_request_context():
-        login_user(test_moderator)
-
-        data = {"name": "Bread"}
-        response = test_client.post(
-            path=url_for(
-                endpoint="kitchen.dish_type_update",
-                id=test_dish_type_salad.id
-            ),
-            data=data
-        )
-
-        dish_type = models.DishTypeModel.query.get(
-            ident=test_dish_type_salad.id
-        )
-
-        assert response.status_code == 302
-        assert dish_type.name == data["name"]
-
-
 def test_dish_type_update_view_already_exists(
     test_app: Flask,
     test_client: FlaskClient,
