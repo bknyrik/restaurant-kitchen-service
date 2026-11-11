@@ -528,7 +528,7 @@ def test_ingredient_create_view(
         ),
     )
 )
-def test_kitchen_delete_view(
+def test_kitchen_admin_delete_view(
     endpoint: str,
     model: type[Model],
     test_app: Flask,
