@@ -395,6 +395,39 @@ def test_kitchen_moderator_create_view(
         assert instance in model.query.all()
 
 
+def test_kitchen_admin_cook_create_view(
+    test_app: Flask,
+    test_client: FlaskClient,
+    test_group_user: UserGroupModel,
+    test_group_moderator: UserGroupModel,
+    test_admin: models.CookModel
+) -> None:
+    with test_app.test_request_context():
+        login_user(test_admin)
+
+        data = {
+            "username": "testmoder",
+            "password": "Moderpass1234",
+            "group": test_group_moderator.id
+        }
+
+        response = test_client.post(
+            path=url_for("kitchen.cook_create"),
+            data=data,
+            follow_redirects=True
+        )
+
+        data["group_id"] = data.pop("group")
+        password = data.pop("password")
+
+        instance = models.CookModel.query.filter_by(**data).first()
+
+        assert response.status_code == 200
+        assert len(response.history) == 1
+        assert instance in models.CookModel.query.all()
+        assert bcrypt.check_password_hash(instance.password, password)
+
+
 def test_dish_type_create_view_already_exists(
     test_app: Flask,
     test_client: FlaskClient,
