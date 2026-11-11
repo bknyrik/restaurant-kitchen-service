@@ -154,6 +154,18 @@ def test_dish_type_salad(test_app: Flask) -> models.DishTypeModel:
 
 
 @pytest.fixture
+def test_ingredient_cheese(test_app: Flask) -> models.IngredientModel:
+    with test_app.app_context():
+        ingredient = models.IngredientModel(name="Cheese")
+
+        db.session.add(ingredient)
+        db.session.commit()
+        db.session.refresh(ingredient)
+
+        return ingredient
+
+
+@pytest.fixture
 def test_dish_salad_by_korean(
     test_app: Flask,
     test_dish_type_salad: models.DishTypeModel
