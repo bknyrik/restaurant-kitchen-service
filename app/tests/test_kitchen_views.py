@@ -347,7 +347,8 @@ def test_dish_type_create_view(
 def test_dish_type_create_view_already_exists(
     test_app: Flask,
     test_client: FlaskClient,
-    test_moderator: models.CookModel
+    test_moderator: models.CookModel,
+    test_dish_type_salad: models.DishModel
 ) -> None:
     with test_app.test_request_context():
         login_user(test_moderator)
