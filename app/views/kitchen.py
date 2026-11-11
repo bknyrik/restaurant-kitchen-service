@@ -352,28 +352,6 @@ class CookCreateView(
 
         return forms.CookCreateForm
 
-    def create_object(self, form: Form) -> None:
-        object_ = self.model()
-
-        form.populate_obj(object_)
-
-        object_.password = (
-            bcrypt.generate_password_hash(
-                form.data["password"]
-            ).decode()
-        )
-
-        if current_user.group.name != "admin":
-            group = db.session.query(UserGroupModel).filter(
-                UserGroupModel.name == "USER"
-            ).first()
-
-            object_.group = group
-
-        db.session.add(object_)
-        db.session.commit()
-        db.session.refresh(object_)
-
     def has_permissions(self, *args, **kwargs) -> bool:
         return current_user.group.name in ("admin", "moderator")
 
