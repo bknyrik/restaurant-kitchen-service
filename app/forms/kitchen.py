@@ -310,3 +310,14 @@ class CookAdminUpdateForm(CookUpdateForm):
         query_factory=lambda: db.session.query(UserGroupModel),
         render_kw={"class": "form-select"},
     )
+
+    def populate_obj(self, obj: models.CookModel) -> None:
+        for name, field in self._fields.items():
+            if name == "new_password" and field.data:
+                obj.password = (
+                    bcrypt.generate_password_hash(field.data)
+                    .decode()
+                )
+                continue
+
+            field.populate_obj(obj, name)
