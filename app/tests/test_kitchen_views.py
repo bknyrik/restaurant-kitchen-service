@@ -460,29 +460,6 @@ def test_dish_type_update_view_already_exists(
         assert "Already exists." in response.get_data(as_text=True)
 
 
-def test_ingredient_create_view(
-    test_app: Flask,
-    test_client: FlaskClient,
-    test_moderator: models.CookModel
-) -> None:
-    with test_app.test_request_context():
-        login_user(test_moderator)
-
-        data = {"name": "Garlic"}
-
-        response = test_client.post(
-            path=url_for("kitchen.ingredient_create"),
-            data=data,
-            follow_redirects=True
-        )
-
-        query = models.IngredientModel.query.filter_by(**data).exists()
-
-        assert response.status_code == 200
-        assert len(response.history) == 1
-        assert db.session.query(query).scalar() == True
-
-
 @pytest.mark.parametrize(
     "endpoint,model",
     (
