@@ -9,7 +9,7 @@ from app.database.models import kitchen as models
 from app.database.models.users import UserGroupModel, UserGroupEnum
 
 
-@pytest.fixture(scope="module")
+@pytest.fixture
 def test_app():
     test_app = create_app(testing=True)
 
@@ -24,7 +24,7 @@ def test_client(test_app: Flask) -> FlaskClient:
     return test_app.test_client()
 
 
-@pytest.fixture(scope="module")
+@pytest.fixture
 def test_group_user(test_app: Flask) -> UserGroupModel:
     with test_app.test_request_context():
         group = UserGroupModel(name=UserGroupEnum.USER)
@@ -36,7 +36,7 @@ def test_group_user(test_app: Flask) -> UserGroupModel:
         return group
 
 
-@pytest.fixture(scope="module")
+@pytest.fixture
 def test_group_moderator(test_app: Flask) -> UserGroupModel:
     with test_app.test_request_context():
         group = UserGroupModel(name=UserGroupEnum.MODERATOR)
@@ -48,7 +48,7 @@ def test_group_moderator(test_app: Flask) -> UserGroupModel:
         return group
 
 
-@pytest.fixture(scope="module")
+@pytest.fixture
 def test_group_admin(test_app: Flask) -> UserGroupModel:
     with test_app.test_request_context():
         group = UserGroupModel(name=UserGroupEnum.ADMIN)
@@ -60,7 +60,7 @@ def test_group_admin(test_app: Flask) -> UserGroupModel:
         return group
 
 
-@pytest.fixture(scope="module")
+@pytest.fixture
 def test_user(
     test_app: Flask,
     test_group_user: UserGroupModel,
@@ -83,7 +83,7 @@ def test_user(
         return user
 
 
-@pytest.fixture(scope="module")
+@pytest.fixture
 def test_moderator(
     test_app: Flask,
     test_group_moderator: UserGroupModel
@@ -106,7 +106,7 @@ def test_moderator(
         return moderator
 
 
-@pytest.fixture(scope="module")
+@pytest.fixture
 def test_admin(
     test_app: Flask,
     test_group_admin: UserGroupModel
@@ -129,7 +129,7 @@ def test_admin(
         return admin
 
 
-@pytest.fixture(scope="module")
+@pytest.fixture
 def test_dish_type_porridge(test_app: Flask) -> models.DishTypeModel:
     with test_app.app_context():
         dish_type = models.DishTypeModel(name="Porridge")
@@ -141,7 +141,7 @@ def test_dish_type_porridge(test_app: Flask) -> models.DishTypeModel:
         return dish_type
 
 
-@pytest.fixture(scope="module")
+@pytest.fixture
 def test_dish_type_salad(test_app: Flask) -> models.DishTypeModel:
     with test_app.app_context():
         dish_type = models.DishTypeModel(name="Salad")
@@ -153,7 +153,7 @@ def test_dish_type_salad(test_app: Flask) -> models.DishTypeModel:
         return dish_type
 
 
-@pytest.fixture(scope="module")
+@pytest.fixture
 def test_dish_salad_by_korean(
     test_app: Flask,
     test_dish_type_salad: models.DishTypeModel
