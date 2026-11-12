@@ -22,3 +22,9 @@ Signup page:
 
 Home page:
 ![Home](./documentation/home.png)
+
+Dish types page:
+![Dish_type_list](./documentation/dish_type_list.png)
+
+Create dish type page:
+![Dish_type_create](./documentation/dish_type_create.png)
