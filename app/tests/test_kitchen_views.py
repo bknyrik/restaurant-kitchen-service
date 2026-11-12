@@ -673,7 +673,7 @@ def test_kitchen_moderator_create_view(
         )
     )
 )
-def test_kitchen_moderator_create_view_wrong_data(
+def test_kitchen_moderator_create_view_invalid_data(
     endpoint: str,
     data: dict,
     error_message: str,
