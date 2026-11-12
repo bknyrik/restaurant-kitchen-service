@@ -534,126 +534,138 @@ def test_kitchen_moderator_create_view(
 
 
 @pytest.mark.parametrize(
-    "endpoint,data,error_message",
+    "endpoint,data,error_message,count_messages",
     (
         pytest.param(
             "kitchen.dish_type_create",
             {"name": "Porridge"},
             "Already exists.",
+            1,
             id="Dish type create (Already exists)"
         ),
         pytest.param(
             "kitchen.dish_type_create",
-            {"name": ""},
+            {},
             "This field is required.",
+            1,
             id="Dish type create (Field name is required)"
         ),
         pytest.param(
             "kitchen.dish_type_create",
             {"name": "Di"},
             "Field must be between 4 and 25 characters long.",
+            1,
             id="Dish type create (Not enough long for field name)"
         ),
         pytest.param(
             "kitchen.ingredient_create",
             {"name": "Cheese"},
             "Already exists.",
+            1,
             id="Ingredient create (Already exists)"
         ),
         pytest.param(
             "kitchen.ingredient_create",
             {},
             "This field is required.",
+            1,
             id="Ingredient create (Field name is required)"
         ),
         pytest.param(
             "kitchen.ingredient_create",
             {"name": "Ing"},
             "Field must be between 4 and 25 characters long.",
+            1,
             id="Ingredient create (Not enough long for field name)"
         ),
         pytest.param(
             "kitchen.dish_create",
             {},
             "This field is required.",
-            id="Dish create (Field name is required.)"
+            2,
+            id="Dish create (Fields name and price is required.)"
         ),
         pytest.param(
             "kitchen.dish_create",
             {"name": "Sala"},
             "Field must be between 5 and 50 characters long.",
+            1,
             id="Dish create (Not enough long for field name)"
         ),
         pytest.param(
             "kitchen.dish_create",
             {"name": "The salad by korean"},
             "Already exists.",
+            1,
             id="Dish create (Already exists)",
         ),
         pytest.param(
             "kitchen.dish_create",
-            {"name": "Test dish", "dish_type": 999},
+            {"dish_type": 999},
             "Not a valid choice",
-            id="Dish create (Field dish type not a valid choice)"
-        ),
-        pytest.param(
-            "kitchen.dish_create",
-            {"name": "Test dish", "dish_type": 1},
-            "This field is required.",
-            id="Dish create (Field price is required)"
-        ),
-        pytest.param(
-            "kitchen.dish_create",
-            {"price": Decimal("-1")},
-            "Number must be at least 1.",
-            id="Dish create (Field price less than 1)"
+            1,
+            id="Dish create (Not a valid choice for field dish_type)"
         ),
         pytest.param(
             "kitchen.dish_create",
             {"ingredients": [10, 11, 12]},
             "Not a valid choice",
-            id="Dish create (Field ingredients not a valid choice)"
+            1,
+            id="Dish create (Not a valid choice for field ingredients)"
         ),
         pytest.param(
             "kitchen.dish_create",
-            {"cooks": [5, 6, 7]},
+            {"cooks": [3, 4, 5]},
             "Not a valid choice",
-            id="Dish create (Field cooks not a valid choice)"
+            1,
+            id="Dish create (Not a valid choice for field cooks)"
+        ),
+        pytest.param(
+            "kitchen.dish_create",
+            {"price": Decimal("-1")},
+            "Number must be at least 1.",
+            1,
+            id="Dish create (Field price less than 1)"
         ),
         pytest.param(
             "kitchen.cook_create",
-            {"username": "", "password": "Userpass1234"},
+            {},
             "This field is required.",
-            id="Cook create (Field username is required)"
+            2,
+            id="Cook create (Fields username and password are required)"
         ),
         pytest.param(
             "kitchen.cook_create",
             {"username": "user"},
             "Field must be between 5 and 25 characters long.",
+            1,
             id="Cook create (Not enough long for field username)"
         ),
         pytest.param(
             "kitchen.cook_create",
-            {"first_name": "A"},
+            {
+                "first_name": "A",
+                "last_name": "Test" * 6
+            },
             "Field must be between 2 and 20 characters long.",
-            id="Cook create (Not enough long for field first_name)",
-        ),
-        pytest.param(
-            "kitchen.cook_create",
-            {"last_name": "Test" * 6},
-            "Field must be between 2 and 20 characters long.",
-            id="Cook create (Not enough long for field last_name)",
+            2,
+            id=(
+                "Cook create "
+                "(Not enough long for fields first_name and last_name)"
+            )
         ),
         pytest.param(
             "kitchen.cook_create",
             {"email": "notemail"},
             "Invalid email address.",
+            1,
             id="Cook create (Field email is invalid)"
         ),
         pytest.param(
             "kitchen.cook_create",
             {"years_of_experience": -1},
             "Number must be at least 1.",
+            1,
             id="Cook create (Field years_of_experience less than 1)",
         ),
         pytest.param(
@@ -663,13 +675,8 @@ def test_kitchen_moderator_create_view(
                 "Password must have 8 characters and more, one upper case letter, "
                 "one lower case letter and 4 digits and more."
             ),
+            1,
             id="Cook create (Field password doesn't match regex pattern)"
-        ),
-        pytest.param(
-            "kitchen.cook_create",
-            {"username": "testuser", "password": ""},
-            "This field is required.",
-            id="Cook create (Field password is required.)"
         )
     )
 )
@@ -677,6 +684,7 @@ def test_kitchen_moderator_create_view_invalid_data(
     endpoint: str,
     data: dict,
     error_message: str,
+    count_messages: int,
     test_app: Flask,
     test_client: FlaskClient,
     test_moderator: models.CookModel,
@@ -694,6 +702,7 @@ def test_kitchen_moderator_create_view_invalid_data(
 
         assert response.status_code == 200
         assert error_message in response.get_data(as_text=True)
+        assert response.get_data(as_text=True).count(error_message) == count_messages
 
 
 def test_kitchen_admin_cook_create_view(
