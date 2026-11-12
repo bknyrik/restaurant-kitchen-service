@@ -12,13 +12,13 @@ This project is designed using Flask and its extensions to manage all informatio
 - Change current user password;
 
 Database structure:
-![Database_structure](./documentation/database_structure.png)
+![Database structure](./documentation/database_structure.png)
 
 Login page:
 ![Login](./documentation/login.png)
 
 Signup page:
-![Sign_Up](./documentation/signup.png)
+![Sign Up](./documentation/signup.png)
 
 Home page:
 ![Home](./documentation/home.png)
