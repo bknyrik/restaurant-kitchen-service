@@ -59,3 +59,18 @@ def test_logout_view(
         assert response.status_code == 200
         assert "<title>Login</title>" in response.get_data(as_text=True)
         assert test_user.username not in response.get_data(as_text=True)
+
+
+def test_logout_view_authorization_required(
+    test_app: Flask,
+    test_client: FlaskClient,
+) -> None:
+    with test_app.test_request_context():
+        response = test_client.post(
+            path=url_for("accounts.logout"),
+            follow_redirects=True
+        )
+
+        assert response.status_code == 200
+        assert len(response.history) == 1
+        assert "<title>Login</title>" in response.get_data(as_text=True)
