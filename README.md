@@ -19,3 +19,6 @@ Login page:
 
 Signup page:
 ![Sign_Up](./documentation/signup.png)
+
+Home page:
+![Home](./documentation/home.png)
