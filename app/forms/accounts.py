@@ -153,7 +153,7 @@ class ChangePasswordForm(Form):
                 password=old_password.data
             )
         ):
-            raise validators.ValidationError("Enter the correct password")
+            raise validators.ValidationError("Incorrect password")
 
     def validate_confirm_password(
         self,
