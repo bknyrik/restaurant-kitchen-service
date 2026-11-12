@@ -23,3 +23,19 @@ def test_login_view(
         assert response.status_code == 200
         assert len(response.history) == 1
         assert test_user.username in response.get_data(as_text=True)
+
+
+def test_login_view_invalid_account_credentials(
+    test_app: Flask,
+    test_client: FlaskClient,
+    test_user: models.CookModel
+) -> None:
+    with test_app.test_request_context():
+        response = test_client.post(
+            path=url_for("accounts.login"),
+            data={"username": "notuser", "password": "notpassword"},
+        )
+
+        assert response.status_code == 200
+        assert "<title>Login</title>" in response.get_data(as_text=True)
+        assert "Invalid account credentials" in response.get_data(as_text=True)
