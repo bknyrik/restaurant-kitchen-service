@@ -12,6 +12,7 @@ from app import db, bcrypt
 from app.database.models import kitchen as models
 from app.database.models.users import UserGroupModel
 from app.forms import accounts as forms
+from app.views import shortcuts
 
 
 class LoginView(View):
@@ -56,8 +57,7 @@ class LogoutView(View):
         return redirect(url_for("accounts.login"))
 
 
-class SignupView(View):
-    methods = ("GET", "POST")
+class SignupView(shortcuts.CreateView):
     template = "accounts/signup.html"
     model = models.CookModel
     form_class = forms.SignupForm
@@ -69,17 +69,6 @@ class SignupView(View):
         if request.method == "POST" and form.validate():
             object_ = self.model()
             form.populate_obj(object_)
-
-            object_.password = (
-                bcrypt
-                .generate_password_hash(form.password.data)
-                .decode()
-            )
-            group = UserGroupModel.query.filter(
-                UserGroupModel.name == "USER"
-            ).first()
-
-            object_.group = group
 
             db.session.add(object_)
             db.session.commit()
