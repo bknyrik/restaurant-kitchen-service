@@ -579,6 +579,12 @@ def test_kitchen_moderator_create_view(
         ),
         pytest.param(
             "kitchen.cook_create",
+            {"email": "notemail"},
+            "Invalid email address.",
+            id="Cook create (Field email is invalid)"
+        ),
+        pytest.param(
+            "kitchen.cook_create",
             {"years_of_experience": -1},
             "Number must be at least 1.",
             id="Cook create (Field years_of_experience less than 1)",
