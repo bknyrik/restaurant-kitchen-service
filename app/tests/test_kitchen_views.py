@@ -6,7 +6,6 @@ from flask import Flask, url_for
 from flask_sqlalchemy.model import Model
 from flask_login import login_user
 from flask.testing import FlaskClient
-from wtforms.validators import input_required
 from wtforms_alchemy import ModelForm
 
 from app import db, bcrypt
@@ -508,6 +507,47 @@ def test_kitchen_moderator_update_view(
         assert response.status_code == 200
         assert len(response.history) == 1
         assert obj_form_data == input_form_data
+
+
+def test_kitchen_admin_cook_update_view(
+    test_app: Flask,
+    test_client: FlaskClient,
+    test_group_moderator: UserGroupModel,
+    test_user: models.CookModel,
+    test_admin: models.CookModel,
+) -> None:
+    with test_app.test_request_context():
+        login_user(test_admin)
+
+        data = {
+            "username": test_user.username,
+            "first_name": "Moderator",
+            "new_password": "Moderpass12345",
+            "years_of_experience": 3,
+            "group": test_group_moderator.id
+        }
+
+        response = test_client.post(
+            path=url_for("kitchen.cook_update", id=test_user.id),
+            data=data,
+            follow_redirects=True
+        )
+
+        updated_user = models.CookModel.query.get(ident=test_user.id)
+        obj_form_data = forms.CookAdminCreateForm(obj=updated_user).data
+
+        data["group"] = obj_form_data["group"] = test_group_moderator.id
+        input_form_data = forms.CookAdminUpdateForm(data=data).data
+
+        hashed_password, new_password = (
+            obj_form_data.pop("password"),
+            input_form_data.pop("new_password")
+        )
+
+        assert response.status_code == 200
+        assert len(response.history) == 1
+        assert obj_form_data == input_form_data
+        assert bcrypt.check_password_hash(hashed_password, new_password)
 
 
 @pytest.mark.parametrize(
