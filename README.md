@@ -5,7 +5,9 @@ This project is designed using Flask and its extensions to manage all informatio
 ### Features:
 - Create and update dish types, ingredients, dishes and cooks (as moderator/admin);
 - Delete dish types, ingredients, dishes and cooks (as admin);
-- Listing dish types, ingredients, dishes and cooks (as user/moderator/admin);
+- View list with dish types, ingredients, dishes and cooks with pagination and search (as user/moderator/admin);
+- View detail with dishes and cooks;
+- Adding and deletion current user from dish;
 - Custom admin panel - via `/admin/` (as admin);
 - User registration and log in simultaneously;
 - Log in and log out;
