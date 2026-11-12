@@ -13,3 +13,6 @@ This project is designed using Flask and its extensions to manage all informatio
 
 Database structure:
 ![Database_structure](./documentation/database_structure.png)
+
+Login page:
+![Login](./documentation/login.png)
