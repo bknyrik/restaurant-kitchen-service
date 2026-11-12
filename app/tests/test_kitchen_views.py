@@ -218,6 +218,95 @@ def test_kitchen_list_view(
 
 
 @pytest.mark.parametrize(
+    "endpoint,model,form_class",
+    (
+        pytest.param(
+            "kitchen.dish_type_list",
+            models.DishTypeModel,
+            forms.DishTypeForm,
+            id="Dish type list"
+        ),
+        pytest.param(
+            "kitchen.ingredient_list",
+            models.IngredientModel,
+            forms.IngredientForm,
+            id="Ingredient list"
+        ),
+        pytest.param(
+            "kitchen.dish_list",
+            models.DishModel,
+            forms.DishForm,
+            id="Dish list"
+        ),
+        pytest.param(
+            "kitchen.cook_list",
+            models.CookModel,
+            forms.CookCreateForm,
+            id="Cook list"
+        )
+    )
+)
+def test_kitchen_list_view_with_pagination(
+    endpoint: str,
+    model: type[Model],
+    form_class: type[ModelForm],
+    test_app: Flask,
+    test_client: FlaskClient,
+    test_user: models.CookModel,
+    test_dish_type_porridge: models.DishTypeModel,
+    test_group_user: UserGroupModel
+) -> None:
+    with test_app.test_request_context():
+        login_user(test_user)
+
+        data = {}
+
+        match model:
+            case models.DishModel:
+                data["price"] = Decimal("1.11")
+                data["dish_type_id"] = test_dish_type_porridge.id
+            case models.CookModel:
+                data["password"] = "Moderpass1234"
+                data["group_id"] = test_group_user.id
+
+        db.session.bulk_insert_mappings(
+            model,
+            tuple(
+                data | (
+                    {"name": f"Test object {number}"}
+                    if model is not models.CookModel
+                    else {"username": f"testuser{number}"}
+                )
+                for number in range(12)
+            )
+        )
+        db.session.commit()
+
+        instances = model.query.paginate(per_page=10)
+        response = test_client.get(url_for(endpoint))
+
+        assert response.status_code == 200
+        assert all(
+            inst.name
+            if not isinstance(inst, models.CookModel) else inst.username
+            in response.get_data(as_text=True) for inst in instances
+        )
+
+        query_string = {"page": 2}
+        instances = model.query.paginate(**query_string, per_page=10)
+        response = test_client.get(
+            path=url_for(endpoint),
+            query_string=query_string
+        )
+
+        assert all(
+            inst.name
+            if not isinstance(inst, models.CookModel) else inst.username
+            in response.get_data(as_text=True) for inst in instances
+        )
+
+
+@pytest.mark.parametrize(
     "endpoint,title",
     (
         pytest.param("kitchen.dish_detail","Dish", id="Dish detail"),
