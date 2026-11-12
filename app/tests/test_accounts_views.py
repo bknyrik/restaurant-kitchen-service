@@ -28,6 +28,18 @@ def test_login_view(
         assert test_user.username in response.get_data(as_text=True)
 
 
+def test_login_view_fields_are_required(
+    test_app: Flask,
+    test_client: FlaskClient,
+    test_user: models.CookModel
+) -> None:
+    with test_app.test_request_context():
+        response = test_client.post(url_for("accounts.login"))
+
+        assert response.status_code == 200
+        assert response.get_data(as_text=True).count("This field is required.") == 2
+
+
 def test_login_view_invalid_account_credentials(
     test_app: Flask,
     test_client: FlaskClient,
