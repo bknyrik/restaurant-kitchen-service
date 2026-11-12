@@ -112,66 +112,6 @@ class CookModelView(AdminView):
     )
     column_filters = ("username", "email", "group")
 
-    def create_model(self, form: Form) -> bool | typing.Any:
-        session = self.session
-        try:
-            model = self.build_new_instance()
-
-            form.populate_obj(model)
-
-            model.password = (
-                bcrypt.generate_password_hash(form.data["password"])
-                .decode()
-            )
-
-            session.add(model)
-            self._on_model_change(form, model, True)
-            session.commit()
-        except Exception as ex:
-            if not self.handle_view_exception(ex):
-                flash(
-                    gettext("Failed to create record. %(error)s", error=str(ex)),
-                    "error",
-                )
-                sqla.view.log.exception("Failed to create record.")
-
-            session.rollback()
-
-            return False
-        else:
-            self.after_model_change(form, model, True)
-
-        return model
-
-    def update_model(self, form: Form, model: models.CookModel) -> bool:
-        session = self.session
-        try:
-            form.populate_obj(model)
-
-            if form.data["new_password"]:
-                model.password = (
-                    bcrypt.generate_password_hash(form.data["new_password"])
-                    .decode()
-                )
-
-            self._on_model_change(form, model, False)
-            session.commit()
-        except Exception as ex:
-            if not self.handle_view_exception(ex):
-                flash(
-                    gettext("Failed to update record. %(error)s", error=str(ex)),
-                    "error",
-                )
-                sqla.view.log.exception("Failed to update record.")
-
-            session.rollback()
-
-            return False
-        else:
-            self.after_model_change(form, model, False)
-
-        return True
-
     def get_create_form(self) -> type[Form]:
         return forms.CookAdminCreateForm
 
