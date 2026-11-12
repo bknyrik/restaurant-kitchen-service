@@ -109,3 +109,34 @@ def test_signup_view(
         assert "<title>Home</title>" in response.get_data(as_text=True)
         assert user.username in response.get_data(as_text=True)
         assert bcrypt.check_password_hash(user.password, raw_password)
+
+
+def test_change_password_view(
+    test_app: Flask,
+    test_client: FlaskClient,
+    test_user: models.CookModel
+) -> None:
+    with test_app.test_request_context():
+        data = {
+            "old_password": "Userpass12345",
+            "new_password": "NewPass1234",
+            "confirm_password": "NewPass1234",
+        }
+        test_client.post(
+            path=url_for("accounts.login"),
+            data={
+                "username": test_user.username,
+                "password": data["old_password"]
+            }
+        )
+        response = test_client.post(
+            path=url_for("accounts.change_password"),
+            data=data,
+            follow_redirects=True
+        )
+
+        user = models.CookModel.query.get(ident=test_user.id)
+
+        assert response.status_code == 200
+        assert len(response.history) == 1
+        assert bcrypt.check_password_hash(user.password, data["new_password"])
