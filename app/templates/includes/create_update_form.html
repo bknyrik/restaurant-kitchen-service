@@ -3,7 +3,7 @@
 {%- endmacro %}
 
 <h1>{{ create_or_update() }} {{ object_type }}</h1>
-<form action="#" method="post">
+<form action="#" method="post" novalidate>
   <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
   {% for field in form._fields.values() %}
     <div class="mb-3">
