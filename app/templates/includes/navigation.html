@@ -1,20 +1,23 @@
 <div class="fs-5 d-flex bg-dark align-items-center">
   <div class="p-2">
     <img
-      src="{{ url_for("static", filename="kitchen.png") }}"
-      width="50"
-      height="50"
-      alt="Kitchen"
+        src="{{ url_for("static", filename="kitchen.png") }}"
+        width="50"
+        height="50"
+        alt="Kitchen"
     >
   </div>
-  <div class="p-2"><a class="text-white text-decoration-none" href="{{ url_for("kitchen.index") }}">Home</a></div>
-  <div class="p-2"><a class="text-white text-decoration-none" href="{{ url_for("kitchen.dish_type_list") }}">Dish
-    types</a></div>
-  <div class="p-2"><a class="text-white text-decoration-none" href="{{ url_for("kitchen.ingredient_list") }}">Ingredients</a>
-  </div>
-  <div class="p-2"><a class="text-white text-decoration-none" href="{{ url_for("kitchen.dish_list") }}">Dishes</a>
-  </div>
-  <div class="me-auto p-2"><a class="text-white text-decoration-none" href="{{ url_for("kitchen.cook_list") }}">Cooks</a></div>
+  {% for href, text in (
+    ("kitchen.index", "Home"),
+    ("kitchen.dish_type_list", "Dish types"),
+    ("kitchen.ingredient_list", "Ingredients"),
+    ("kitchen.dish_list", "Dishes"),
+    ("kitchen.cook_list", "Cooks")
+    ) %}
+    <div class="{% if text == "Cooks" %}me-auto{% endif %} p-2">
+      <a class="text-white text-decoration-none" href="{{ url_for(href) }}">{{ text }}</a>
+    </div>
+  {% endfor %}
   {% if current_user.is_authenticated %}
     <div class="p-2">
       <a
