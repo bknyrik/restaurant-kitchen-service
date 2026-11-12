@@ -184,10 +184,7 @@ class CookCreateForm(ModelForm):
     )
     email = EmailField(
         label="Email",
-        validators=[
-            validators.Optional(),
-            validators.Length(min=6, max=40),
-        ],
+        validators=[validators.Optional(), validators.Email()],
         render_kw={"class": "form-control"}
     )
     years_of_experience = IntegerField(
@@ -263,10 +260,7 @@ class CookUpdateForm(ModelForm):
     )
     email = EmailField(
         label="Email",
-        validators=[
-            validators.Optional(),
-            validators.Length(min=6, max=40),
-        ],
+        validators=[validators.Optional(), validators.Email()],
         render_kw={"class": "form-control"}
     )
     years_of_experience = IntegerField(
