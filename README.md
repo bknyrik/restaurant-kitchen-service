@@ -46,3 +46,18 @@ Update ingredient page:
 
 Delete ingredient page:
 ![Ingredient delete](./documentation/ingredient_delete.png)
+
+Dishes page:
+![Dish list](./documentation/dish_list.png)
+
+Dish page:
+![Dish list](./documentation/dish_detail.png)
+
+Create dish page:
+![Dish create](./documentation/dish_create.png)
+
+Update dish page:
+![Dish update](./documentation/dish_update.png)
+
+Delete dish page:
+![Dish delete](./documentation/dish_delete.png)
