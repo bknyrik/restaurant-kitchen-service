@@ -22,6 +22,7 @@ from app.tests.conftest import (
     test_dish_type_porridge,
     test_dish_type_salad,
     test_dish_salad_by_korean,
+    test_dish_oatmeal,
     test_ingredient_cheese
 )
 
@@ -304,6 +305,72 @@ def test_kitchen_list_view_with_pagination(
             if not isinstance(inst, models.CookModel) else inst.username
             in response.get_data(as_text=True) for inst in instances
         )
+
+
+@pytest.mark.parametrize(
+    "endpoint,query_string",
+    (
+        pytest.param(
+            "kitchen.dish_type_list",
+            {"name": "dge"},
+            id="Dish type list"
+        ),
+        pytest.param(
+            "kitchen.ingredient_list",
+            {"name": "se"},
+            id="Ingredient list"
+        ),
+        pytest.param(
+            "kitchen.dish_list",
+            {"dish_type": 2},
+            id="Dish list"
+        ),
+        pytest.param(
+            "kitchen.cook_list",
+            {"group": 1},
+            id="Cook list"
+        ),
+    )
+)
+def test_kitchen_list_view_with_search(
+    endpoint: str,
+    query_string: dict,
+    test_app: Flask,
+    test_client: FlaskClient,
+    test_user: models.CookModel,
+    test_moderator: models.CookModel,
+    test_dish_type_porridge: models.DishTypeModel,
+    test_dish_type_salad: models.DishTypeModel,
+    test_ingredient_cheese: models.IngredientModel,
+    test_ingredient_beef: models.IngredientModel,
+    test_dish_oatmeal: models.DishModel,
+    test_dish_salad_by_korean: models.DishModel,
+) -> None:
+    with test_app.test_request_context():
+        login_user(test_user)
+
+        response = test_client.get(
+            path=url_for(endpoint),
+            query_string=query_string
+        )
+
+        match endpoint:
+            case "kitchen.dish_type_list":
+                instance_1 = test_dish_type_porridge.name
+                instance_2 = test_dish_type_salad.name
+            case "kitchen.ingredient_list":
+                instance_1 = test_ingredient_cheese.name
+                instance_2 = test_ingredient_beef.name
+            case "kitchen.dish_list":
+                instance_1 = test_dish_salad_by_korean.name
+                instance_2 = test_dish_oatmeal.name
+            case "kitchen.cook_list":
+                instance_1 = test_user.username
+                instance_2 = test_moderator.username
+
+        assert response.status_code == 200
+        assert instance_1 in response.get_data(as_text=True)
+        assert instance_2 not in response.get_data(as_text=True)
 
 
 @pytest.mark.parametrize(
