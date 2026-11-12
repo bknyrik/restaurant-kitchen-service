@@ -5,6 +5,7 @@ from flask import Flask
 from flask.testing import FlaskClient
 
 from app import create_app, db, bcrypt
+from app.forms import kitchen as forms
 from app.database.models import kitchen as models
 from app.database.models.users import UserGroupModel, UserGroupEnum
 
@@ -183,5 +184,29 @@ def test_dish_salad_by_korean(
             dish,
             attribute_names=("dish_type", "ingredients", "cooks")
         )
+
+        return dish
+
+
+@pytest.fixture
+def test_dish_oatmeal(
+    test_app: Flask,
+    test_dish_type_porridge: models.DishTypeModel
+) -> models.DishModel:
+    with test_app.app_context():
+        dish = models.DishModel()
+
+        form = forms.DishForm(
+            data={
+                "name": "Oatmeal",
+                "price": Decimal("5.55"),
+                "dish_type": test_dish_type_porridge
+            }
+        )
+        form.populate_obj(dish)
+
+        db.session.add(dish)
+        db.session.commit()
+        db.session.refresh()
 
         return dish
