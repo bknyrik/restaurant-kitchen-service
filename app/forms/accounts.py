@@ -11,6 +11,7 @@ from flask_login import current_user
 
 from app import db, bcrypt
 from app.database.models import kitchen as models
+from app.database.models.users import UserGroupModel, UserGroupEnum
 from app.forms.kitchen import (
     PASSWORD_REGEX_PATTERN,
     PASSWORD_REGEX_ERROR_MESSAGE
@@ -103,6 +104,22 @@ class SignupForm(ModelForm):
             raise validators.ValidationError(
                 "The passwords are not matching"
             )
+
+    def populate_obj(self, obj: models.CookModel) -> None:
+        for name, field in self._fields.items():
+            if name == "password":
+                field.data = (
+                    bcrypt.generate_password_hash(field.data)
+                    .decode()
+                )
+
+            field.populate_obj(obj, name)
+
+        obj.group_id = (
+            UserGroupModel.query.
+            filter_by(name=UserGroupEnum.USER)
+            .first().id
+        )
 
 
 class ChangePasswordForm(Form):
