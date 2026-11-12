@@ -24,16 +24,16 @@ Home page:
 ![Home](./documentation/home.png)
 
 Dish types page:
-![Dish_type_list](./documentation/dish_type_list.png)
+![Dish_type list](./documentation/dish_type_list.png)
 
 Create dish type page:
-![Dish_type_create](./documentation/dish_type_create.png)
+![Dish_type create](./documentation/dish_type_create.png)
 
 Update dish type page:
-![Dish_type_update](./documentation/dish_type_update.png)
+![Dish_type update](./documentation/dish_type_update.png)
 
 Delete dish type page:
-![Dish_type_update](./documentation/dish_type_delete.png)
+![Dish_type delete](./documentation/dish_type_delete.png)
 
 Ingredients page:
 ![Ingredient list](./documentation/ingredient_list.png)
