@@ -8,5 +8,5 @@
 
 {% macro delete_object(obj, obj_type, name_attr) %}
   <h1>Delete {{ obj_type }} {{ obj|attr(name_attr) }}?</h1>
-  <p class="text-warning">Warning: after deletion all related objects will be also removed.</p>
+  <p class="fw-bold text-warning">Warning: after deletion all related objects will be also removed.</p>
 {% endmacro %}
