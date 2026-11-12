@@ -222,6 +222,6 @@ def test_dish_oatmeal(
 
         db.session.add(dish)
         db.session.commit()
-        db.session.refresh()
+        db.session.refresh(dish, attribute_names=("dish_type",))
 
         return dish
