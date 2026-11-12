@@ -5,3 +5,8 @@
 {% macro create_or_update_h1(obj, obj_type, name_attr) %}
   <h1>{{ create_or_update_text(obj) }} {{ obj_type }} {{ obj|attr(name_attr) }}</h1>
 {% endmacro %}
+
+{% macro delete_object(obj, obj_type, name_attr) %}
+  <h1>Delete {{ obj_type }} {{ obj|attr(name_attr) }}?</h1>
+  <p class="text-warning">Warning: after deletion all related objects will be also removed.</p>
+{% endmacro %}
