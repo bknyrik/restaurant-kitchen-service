@@ -48,6 +48,7 @@ class LoginView(View):
 
 
 class LogoutView(View):
+    methods = ("POST",)
 
     @login_required
     def dispatch_request(self) -> ResponseReturnValue:
