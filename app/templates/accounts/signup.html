@@ -4,7 +4,7 @@
 {% endblock %}
 {% block content %}
   <h1 class="mb-3">Sign up</h1>
-  <form action="{{ url_for("accounts.signup") }}" method="post">
+  <form action="{{ url_for("accounts.signup") }}" method="post" novalidate>
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
     {% for field in form._fields.values() %}
       <div class="mb-3">
