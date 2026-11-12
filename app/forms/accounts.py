@@ -67,10 +67,7 @@ class SignupForm(ModelForm):
     )
     email = EmailField(
         label="Email",
-        validators=[
-            validators.DataRequired(),
-            validators.Length(min=6, max=40),
-        ],
+        validators=[validators.DataRequired(), validators.Email()],
         render_kw={"class": "form-control"}
     )
     years_of_experience = IntegerField(
