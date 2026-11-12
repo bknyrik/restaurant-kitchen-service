@@ -10,3 +10,6 @@ This project is designed using Flask and its extensions to manage all informatio
 - User registration and log in simultaneously;
 - Log in and log out;
 - Change current user password;
+
+Database structure:
+![Database_structure](./documentation/database_structure.png)
