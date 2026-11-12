@@ -21,11 +21,13 @@ from app.forms.kitchen import (
 class LoginForm(Form):
     username = StringField(
         "Username",
-        validators=[validators.DataRequired()]
+        validators=[validators.DataRequired()],
+        render_kw={"class": "form-control"}
     )
     password = PasswordField(
         "Password",
-        validators=[validators.DataRequired()]
+        validators=[validators.DataRequired()],
+        render_kw={"class": "form-control"}
     )
 
 
