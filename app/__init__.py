@@ -14,10 +14,6 @@ from app.views import error_handlers as eh
 
 db = SQLAlchemy()
 csrf = CSRFProtect()
-admin = Admin(
-    name="Restaurant Kitchen",
-    theme=Bootstrap4Theme(swatch="superhero"),
-)
 login_manager = LoginManager()
 bcrypt = Bcrypt()
 
@@ -53,6 +49,11 @@ def create_app(*, testing: bool = False) -> Flask:
         return models.CookModel.query.get(int(user_id))
 
     from app.views import admin as admin_views
+
+    admin = Admin(
+        name="Restaurant Kitchen",
+        theme=Bootstrap4Theme(swatch="superhero"),
+    )
     admin.init_app(app, index_view=admin_views.HomeAdminView())
 
     admin.add_view(
