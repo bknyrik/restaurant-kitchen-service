@@ -28,3 +28,9 @@ Dish types page:
 
 Create dish type page:
 ![Dish_type_create](./documentation/dish_type_create.png)
+
+Update dish type page:
+![Dish_type_update](./documentation/dish_type_update.png)
+
+Delete dish type page:
+![Dish_type_update](./documentation/dish_type_delete.png)
