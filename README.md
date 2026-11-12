@@ -16,3 +16,6 @@ Database structure:
 
 Login page:
 ![Login](./documentation/login.png)
+
+Signup page:
+![Sign_Up](./documentation/signup.png)
