@@ -1,7 +1,7 @@
 {% extends "base.html" %}
-{% from "macros.html" import create_or_update %}
+{% from "macros.html" import create_or_update_text %}
 {% block title %}
-  <title>{{ create_or_update(object) }} dish</title>
+  <title>{{ create_or_update_text(object) }} dish</title>
 {% endblock %}
 {% block content %}
   {% include "includes/create_update_form.html" %}
