@@ -24,7 +24,10 @@
         {{ current_user.username }}
       </a>
     </div>
-    <div class="p-2"><a class="fs-5 btn btn-danger" href="{{ url_for("accounts.logout") }}">Log out</a></div>
+    <form action="{{ url_for("accounts.logout") }}" method="post">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+      <input class="m-2 fs-5 btn btn-danger" type="submit" value="Log out">
+    </form>
   {% else %}
     <div class="p-2"><a class="fs-5 btn btn-primary" href="{{ url_for("accounts.signup") }}">Sign up</a></div>
     <div class="p-2"><a class="fs-5 btn btn-primary" href="{{ url_for("accounts.login") }}">Log in</a></div>
