@@ -167,6 +167,21 @@ def test_ingredient_cheese(test_app: Flask) -> models.IngredientModel:
 
 
 @pytest.fixture
+def test_ingredient_beef(test_app: Flask) -> models.IngredientModel:
+    with test_app.app_context():
+        ingredient = models.IngredientModel()
+
+        form = forms.IngredientForm(data={"name": "Beef"})
+        form.populate_obj(ingredient)
+
+        db.session.add(ingredient)
+        db.session.commit()
+        db.session.refresh(ingredient)
+
+        return ingredient
+
+
+@pytest.fixture
 def test_dish_salad_by_korean(
     test_app: Flask,
     test_dish_type_salad: models.DishTypeModel
