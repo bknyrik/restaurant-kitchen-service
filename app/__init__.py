@@ -1,7 +1,6 @@
 from flask import Flask
 
 from app.settings import settings
-from app.templatetags import filters
 from app import utils
 
 
