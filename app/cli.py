@@ -9,6 +9,7 @@ from app.database.models.users import UserGroupModel, UserGroupEnum
 @click.argument("username")
 @click.argument("password")
 def create_admin(username: str, password: str) -> None:
+    """Creates admin user."""
     user_exists = (
         db.session
         .query(CookModel.query.filter_by(username=username).exists()
