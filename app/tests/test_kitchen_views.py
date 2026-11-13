@@ -363,7 +363,7 @@ def test_kitchen_list_view_with_search(
 @pytest.mark.parametrize(
     "endpoint,title",
     (
-        pytest.param("kitchen.dish_detail","Dish", id="Dish detail"),
+        pytest.param("kitchen.dish_detail", "Dish", id="Dish detail"),
         pytest.param("kitchen.cook_detail", "Cook", id="Cook detail")
     )
 )
@@ -389,7 +389,10 @@ def test_kitchen_detail_view(
         response = test_client.get(url_for(endpoint, id=instance.id))
 
         assert response.status_code == 200
-        assert f"<title>{title} {instance_name}</title>" in response.get_data(as_text=True)
+        assert (
+            f"<title>{title} {instance_name}</title>"
+            in response.get_data(as_text=True)
+        )
         assert instance_name in response.get_data(as_text=True)
 
 
@@ -659,7 +662,8 @@ def test_kitchen_moderator_create_view(
             "kitchen.cook_create",
             {"password": "notpass"},
             (
-                "Password must have 8 characters and more, one upper case letter, "
+                "Password must have 8 characters and more, "
+                "one upper case letter, "
                 "one lower case letter and 4 digits and more."
             ),
             1,
@@ -689,7 +693,10 @@ def test_kitchen_moderator_create_view_invalid_data(
 
         assert response.status_code == 200
         assert error_message in response.get_data(as_text=True)
-        assert response.get_data(as_text=True).count(error_message) == count_messages
+        assert (
+            response.get_data(as_text=True)
+            .count(error_message) == count_messages
+        )
 
 
 def test_kitchen_admin_cook_create_view(
