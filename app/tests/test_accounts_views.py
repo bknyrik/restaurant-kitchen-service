@@ -36,7 +36,10 @@ def test_login_view_fields_are_required(
         response = test_client.post(url_for("accounts.login"))
 
         assert response.status_code == 200
-        assert response.get_data(as_text=True).count("This field is required.") == 2
+        assert (
+            response.get_data(as_text=True)
+            .count("This field is required.") == 2
+        )
 
 
 def test_login_view_invalid_account_credentials(
@@ -225,4 +228,7 @@ def test_change_password_view_invalid_data(
 
         assert response.status_code == 200
         assert error_message in response.get_data(as_text=True)
-        assert response.get_data(as_text=True).count(error_message) == count_messages
+        assert (
+            response.get_data(as_text=True)
+            .count(error_message) == count_messages
+        )
