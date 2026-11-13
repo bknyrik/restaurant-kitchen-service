@@ -65,13 +65,13 @@ Dishes page:
 ![Dish list](./documentation/dish_list.png)
 
 Dish page (as admin):
-![Dish list admin](documentation/dish_detail_admin.png)
+![Dish detail admin](documentation/dish_detail_admin.png)
 
 Dish page (as moderator):
-![Dish list moderator](documentation/dish_detail_moderator.png)
+![Dish detail moderator](documentation/dish_detail_moderator.png)
 
 Dish page (as user):
-![Dish list user](documentation/dish_detail_user.png)
+![Dish detail user](documentation/dish_detail_user.png)
 
 Create dish page:
 ![Dish create](./documentation/dish_create.png)
