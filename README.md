@@ -120,3 +120,12 @@ Cook update (as moderator):
 
 Cook delete:
 ![Cook delete](./documentation/cook_delete.png)
+
+## Installation
+Below are introduced steps how to install and run the project on your local machine.
+
+1. Clone the repository - `git clone https://github.com/bknyrik/restaurant-kitchen-service.git`;
+2. Install all dependencies using poetry - `poetry install --no-root`;
+3. Add `.env` file according to `.env.sample` templates;
+4. Apply migrations `flask db upgrade`;
+5. Run the server `flask --app app.main run -p 8000 --debug --reload`.
