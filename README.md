@@ -10,6 +10,7 @@
       - [Dish type pages](#dish-type-pages)
       - [Ingredient pages](#ingredient-pages)
       - [Dish pages](#dish-pages)
+      - [Cook pages](#cook-pages)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Contact](#contact)
@@ -117,6 +118,8 @@ Home page:
 
 - Delete dish page:
 ![Dish delete](./documentation/dish_delete.png)
+
+#### Cook pages
 
 Cook list page:
 ![Cook list](./documentation/cook_list.png)
