@@ -1,5 +1,4 @@
 from flask import Flask
-from flask_migrate import Migrate
 from flask_admin import Admin
 from flask_admin.theme import Bootstrap4Theme
 
@@ -9,7 +8,7 @@ from app.views import error_handlers as eh
 
 
 def create_app(*, testing: bool = False) -> Flask:
-    from app.extensions import csrf, login_manager, bcrypt, db
+    from app.extensions import csrf, login_manager, bcrypt, db, migrate
 
     app = Flask(__name__)
     app.config["SECRET_KEY"] = settings.SECRET_KEY
@@ -28,7 +27,7 @@ def create_app(*, testing: bool = False) -> Flask:
     app.jinja_env.filters["query_transform"] = filters.query_transform
 
     db.init_app(app)
-    migrate = Migrate(app, db, directory="app/database/migrations")
+    migrate.init_app(app)
 
     csrf.init_app(app)
 
