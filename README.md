@@ -22,6 +22,9 @@ Login page:
 Signup page:
 ![Sign Up](./documentation/signup.png)
 
+Change password page:
+![Change password](./documentation/change_password.png)
+
 Home page:
 ![Home](./documentation/home.png)
 
