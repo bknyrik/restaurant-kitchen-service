@@ -43,10 +43,10 @@ Below are pictures of web pages:
 ![Change password](./documentation/change_password.png)
 
 #### Error pages
-403 page:
+- 403 page:
 ![403](documentation/403.png)
 
-404 page:
+- 404 page:
 ![404](documentation/404.png)
 
 Home page:
