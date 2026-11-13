@@ -135,3 +135,6 @@ Below are introduced steps how to install and run the project on your local mach
 ## Usage
 Visit `http://localhost:8000/` to use this application. \
 And also don't forget to create an admin user - `flask create_admin admin adminpass12345`.
+
+## Contact
+Email: knyrikkolesnichenko2004@gmail.com
