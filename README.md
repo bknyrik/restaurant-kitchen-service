@@ -6,6 +6,7 @@
     - [Database structure](#database-structure)
     - [Web pages](#web-pages)
       - [Accounts pages](#accounts-pages)
+      - [Error pages](#error-pages)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Contact](#contact)
@@ -41,6 +42,7 @@ Below are pictures of web pages:
 - Change password page:
 ![Change password](./documentation/change_password.png)
 
+#### Error pages
 403 page:
 ![403](documentation/403.png)
 
