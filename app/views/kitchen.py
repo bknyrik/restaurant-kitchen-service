@@ -4,7 +4,7 @@ from flask_login import current_user, login_required
 from flask_sqlalchemy.model import Model
 from flask_sqlalchemy.pagination import Pagination
 
-from app import db
+from app.extensions import db
 from app.database.models import kitchen as models
 from app.forms import kitchen as forms
 from app.views import shortcuts, mixins

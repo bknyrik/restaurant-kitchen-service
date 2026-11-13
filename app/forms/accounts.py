@@ -9,8 +9,7 @@ from wtforms import (
 )
 from flask_login import current_user
 
-from app import db
-from app.extensions import bcrypt
+from app.extensions import db, bcrypt
 from app.database.models import kitchen as models
 from app.database.models.users import UserGroupModel, UserGroupEnum
 from app.forms.kitchen import (

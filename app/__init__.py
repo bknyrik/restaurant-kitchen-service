@@ -1,20 +1,16 @@
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_admin import Admin
 from flask_admin.theme import Bootstrap4Theme
 
 from app.settings import settings
-from app.extensions import csrf, login_manager, bcrypt
 from app.templatetags import filters
 from app.views import error_handlers as eh
 
 
-db = SQLAlchemy()
-
-
-
 def create_app(*, testing: bool = False) -> Flask:
+    from app.extensions import csrf, login_manager, bcrypt, db
+
     app = Flask(__name__)
     app.config["SECRET_KEY"] = settings.SECRET_KEY
     app.config["SQLALCHEMY_DATABASE_URI"] = (

@@ -2,7 +2,7 @@ from enum import StrEnum, auto
 
 from flask_login import UserMixin
 
-from app import db
+from app.extensions import db
 
 
 class UserGroupEnum(StrEnum):

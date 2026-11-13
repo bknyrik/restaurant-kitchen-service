@@ -5,7 +5,7 @@ from flask_wtf import Form
 from flask_sqlalchemy.pagination import Pagination
 from flask_sqlalchemy.model import Model
 
-from app import db
+from app.extensions import db
 from app.views import mixins
 
 

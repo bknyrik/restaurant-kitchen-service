@@ -4,8 +4,8 @@ import pytest
 from flask import Flask
 from flask.testing import FlaskClient
 
-from app import create_app, db
-from app.extensions import bcrypt
+from app import create_app
+from app.extensions import db, bcrypt
 from app.forms import kitchen as forms
 from app.database.models import kitchen as models
 from app.database.models.users import UserGroupModel, UserGroupEnum

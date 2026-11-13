@@ -1,6 +1,6 @@
 import click
 
-from app import db, bcrypt
+from app.extensions import db, bcrypt
 from app.database.models.kitchen import CookModel
 from app.database.models.users import UserGroupModel, UserGroupEnum
 
