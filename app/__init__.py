@@ -90,6 +90,6 @@ def create_app(*, testing: bool = False) -> Flask:
     app.register_error_handler(404, eh.page_not_found_404)
     app.register_error_handler(403, eh.forbidden_403)
 
-    app.cli.add_command(cli.create_admin, "create_admin")
+    app.cli.add_command(cli.create_admin)
     app.cli.add_command(cli.change_password)
     return app
