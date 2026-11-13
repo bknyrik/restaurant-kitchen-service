@@ -28,7 +28,7 @@ Below is illustrated the project database structure:
 ![Database structure](./documentation/restaurant_kitchen_db.png)
 
 ### Web pages
-Below are pictures with pages of service:
+Below are pictures of web pages:
 
 Login page:
 ![Login](./documentation/login.png)
