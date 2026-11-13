@@ -1,5 +1,6 @@
 from flask import Flask
 from flask_admin import Admin
+from flask_admin.theme import Bootstrap4Theme
 
 from app import extensions, cli
 from app.blueprints import kitchen, accounts
@@ -14,10 +15,12 @@ def register_extensions(app: Flask) -> None:
     extensions.csrf.init_app(app)
     extensions.login_manager.init_app(app)
     extensions.bcrypt.init_app(app)
-    extensions.admin.init_app(
-        app,
-        index_view=admin_views.HomeAdminView()
+    admin = Admin(
+        name="Restaurant Kitchen",
+        theme=Bootstrap4Theme(swatch="superhero"),
     )
+    admin.init_app(app, index_view=admin_views.HomeAdminView())
+    register_admin_views(admin)
 
     @extensions.login_manager.user_loader
     def load_user(user_id: str) -> models.CookModel:
