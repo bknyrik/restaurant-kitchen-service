@@ -1,0 +1,3 @@
+INSERT INTO user_groups (name)
+VALUES ('USER'), ('MODERATOR'), ('ADMIN')
+ON CONFLICT DO NOTHING;
