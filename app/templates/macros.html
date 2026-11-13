@@ -7,7 +7,7 @@
 {% endmacro %}
 
 {% macro delete_related_objects(obj, h3_attr_names) %}
-  <ul class="list-group mb-3">
+  <ul class="list-group">
     {% for h3, attr_name in h3_attr_names.items() %}
       {% if obj|attr(attr_name) %}
         <li class="list-group-item">
