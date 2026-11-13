@@ -5,6 +5,7 @@
     - [Features](#features)
     - [Database structure](#database-structure)
     - [Web pages](#web-pages)
+      - [Main page](#main-page)
       - [Accounts pages](#accounts-pages)
       - [Error pages](#error-pages)
       - [Dish type pages](#dish-type-pages)
@@ -35,6 +36,8 @@ Below is illustrated the project database structure (for more details follow thi
 
 ### Web pages
 Below are pictures of web pages:
+
+#### Main page
 
 #### Accounts pages
 - Login page:
