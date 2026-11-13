@@ -25,8 +25,8 @@ Signup page:
 Home page:
 ![Home](./documentation/home.png)
 
-Dish types page:
-![Dish_type list](./documentation/dish_type_list.png)
+Dish types page (as admin):
+![Dish_type list admin](documentation/dish_type_list_admin.png)
 
 Create dish type page:
 ![Dish_type create](./documentation/dish_type_create.png)
