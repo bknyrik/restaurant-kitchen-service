@@ -76,22 +76,22 @@ Home page:
 
 #### Ingredient pages
 
-Ingredients page (as admin):
+- Ingredients page (as admin):
 ![Ingredient list admin](documentation/ingredient_list_admin.png)
 
-Ingredients page (as moderator):
+- Ingredients page (as moderator):
 ![Ingredient list moderator](documentation/ingredient_list_moderator.png)
 
-Ingredients page (as user):
+- Ingredients page (as user):
 ![Ingredient list user](documentation/ingredient_list_user.png)
 
-Create ingredient page:
+- Create ingredient page:
 ![Ingredient create](./documentation/ingredient_create.png)
 
-Update ingredient page:
+- Update ingredient page:
 ![Ingredient update](./documentation/ingredient_update.png)
 
-Delete ingredient page:
+- Delete ingredient page:
 ![Ingredient delete](./documentation/ingredient_delete.png)
 
 Dishes page:
