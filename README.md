@@ -8,6 +8,7 @@
       - [Accounts pages](#accounts-pages)
       - [Error pages](#error-pages)
       - [Dish type pages](#dish-type-pages)
+      - [Ingredient pages](#ingredient-pages)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Contact](#contact)
@@ -72,6 +73,8 @@ Home page:
 
 - Delete dish type page:
 ![Dish_type delete](./documentation/dish_type_delete.png)
+
+#### Ingredient pages
 
 Ingredients page (as admin):
 ![Ingredient list admin](documentation/ingredient_list_admin.png)
