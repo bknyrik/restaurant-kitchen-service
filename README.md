@@ -1,5 +1,14 @@
 # Restaurant Kitchen Service
 
+## Table of contents
+- [Description](#description)
+    - [Features](#features)
+    - [Database structure](#database-structure)
+    - [Web pages](#web-pages)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Contact](#contact)
+
 ## Description
 This project is designed using Flask and its extensions to manage all information related to dishes.
 ### Features:
@@ -14,7 +23,8 @@ This project is designed using Flask and its extensions to manage all informatio
 - Change current user password;
 - Custom cli commands - `create_admin` and `change_password`.
 
-Database structure:
+### Database structure:
+Below is illustrated the project database structure: 
 ![Database structure](./documentation/restaurant_kitchen_db.png)
 
 ### Web pages
