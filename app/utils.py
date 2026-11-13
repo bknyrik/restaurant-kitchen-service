@@ -7,6 +7,7 @@ from app.blueprints import kitchen, accounts
 from app.views import error_handlers, admin as admin_views
 from app.database.models import kitchen as models
 from app.database.models.users import UserGroupModel
+from app.templatetags import filters
 
 
 def register_extensions(app: Flask) -> None:
@@ -83,3 +84,7 @@ def register_admin_views(admin: Admin) -> None:
             url="user_group"
         )
     )
+
+
+def register_jinja_filters(app: Flask) -> None:
+    app.jinja_env.filters["query_transform"] = filters.query_transform
