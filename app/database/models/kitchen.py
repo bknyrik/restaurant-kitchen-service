@@ -8,16 +8,15 @@ DishIngredientsModel = db.Table(
     db.Column(
         "dish_id",
         db.ForeignKey("dishes.id"),
-        nullable=False,
         primary_key=True
     ),
     db.Column(
         "ingredient_id",
         db.ForeignKey("ingredients.id"),
-        nullable=False,
         primary_key=True
     )
 )
+
 
 CookDishesModel = db.Table(
     "cook_dishes",
