@@ -43,7 +43,6 @@ class LoginView(View):
                     form=form
                 )
 
-
         return render_template(self.template, form=form)
 
 
