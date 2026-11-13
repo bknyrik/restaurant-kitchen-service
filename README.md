@@ -9,6 +9,7 @@
       - [Error pages](#error-pages)
       - [Dish type pages](#dish-type-pages)
       - [Ingredient pages](#ingredient-pages)
+      - [Dish pages](#dish-pages)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Contact](#contact)
@@ -93,6 +94,8 @@ Home page:
 
 - Delete ingredient page:
 ![Ingredient delete](./documentation/ingredient_delete.png)
+
+#### Dish pages
 
 Dishes page:
 ![Dish list](./documentation/dish_list.png)
