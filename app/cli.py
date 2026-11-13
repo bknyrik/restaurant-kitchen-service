@@ -40,7 +40,7 @@ def create_admin(username: str, password: str) -> None:
         print(error)
 
 
-@click.command("change_password", help="Change user password")
+@click.command("change_password", help="Change user password.")
 @click.argument("username")
 @click.argument("password")
 def change_password(username: str, password: str) -> None:
