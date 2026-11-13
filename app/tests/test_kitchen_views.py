@@ -8,7 +8,8 @@ from flask_login import login_user
 from flask.testing import FlaskClient
 from wtforms_alchemy import ModelForm
 
-from app import db, bcrypt
+from app import db
+from app.extensions import bcrypt
 from app.database.models import kitchen as models
 from app.forms import kitchen as forms
 from app.database.models.users import UserGroupModel

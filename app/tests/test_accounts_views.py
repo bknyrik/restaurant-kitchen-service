@@ -2,7 +2,7 @@ import pytest
 from flask import Flask, url_for
 from flask.testing import FlaskClient
 
-from app import bcrypt
+from app.extensions import bcrypt
 from app.database.models import kitchen as models
 from app.database.models.users import UserGroupModel
 from app.tests.conftest import test_app, test_client, test_user

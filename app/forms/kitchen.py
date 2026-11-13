@@ -15,7 +15,8 @@ from wtforms import (
     validators,
 )
 
-from app import db, bcrypt
+from app import db
+from app.extensions import bcrypt
 from app.database.models import kitchen as models
 from app.database.models.users import UserGroupModel, UserGroupEnum
 from app.forms import mixins
