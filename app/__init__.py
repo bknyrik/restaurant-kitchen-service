@@ -13,6 +13,11 @@ from app.blueprints import kitchen, accounts
 from app import commands
 
 
+@login_manager.user_loader
+def load_user(user_id: str) -> models.CookModel:
+    return models.CookModel.query.get(int(user_id))
+
+
 def create_app(*, testing: bool = False) -> Flask:
     app = Flask(__name__)
     app.config["SECRET_KEY"] = settings.SECRET_KEY
@@ -31,10 +36,6 @@ def create_app(*, testing: bool = False) -> Flask:
     csrf.init_app(app)
     login_manager.init_app(app)
     bcrypt.init_app(app)
-
-    @login_manager.user_loader
-    def load_user(user_id: str) -> models.CookModel:
-        return models.CookModel.query.get(int(user_id))
 
     admin = Admin(
         name="Restaurant Kitchen",
