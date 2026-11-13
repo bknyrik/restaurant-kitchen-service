@@ -7,6 +7,7 @@
     - [Web pages](#web-pages)
       - [Accounts pages](#accounts-pages)
       - [Error pages](#error-pages)
+      - [Dish type pages](#dish-type-pages)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Contact](#contact)
@@ -51,6 +52,8 @@ Below are pictures of web pages:
 
 Home page:
 ![Home](./documentation/home.png)
+
+#### Dish type pages
 
 Dish types page (as admin):
 ![Dish type list admin](documentation/dish_type_list_admin.png)
