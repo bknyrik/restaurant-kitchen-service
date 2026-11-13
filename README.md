@@ -131,3 +131,7 @@ Below are introduced steps how to install and run the project on your local mach
 4. Apply migrations `flask db upgrade`;
 5. Run the script file to create all user groups - `psql -d <DATABASE_NAME> -U <USER_USERNAME> -f init.sql`;
 6. Run the server `flask --app app.main run -p 8000 --debug --reload`.
+
+## Usage
+Visit `http://localhost:8000/` to use this application. \
+And also don't forget to create an admin user - `flask create_admin admin adminpass12345`.
