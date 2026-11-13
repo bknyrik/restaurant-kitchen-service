@@ -1,19 +1,18 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-from flask_wtf.csrf import CSRFProtect
 from flask_admin import Admin
 from flask_admin.theme import Bootstrap4Theme
 from flask_login import LoginManager
 from flask_bcrypt import Bcrypt
 
 from app.settings import settings
+from app.extensions import csrf
 from app.templatetags import filters
 from app.views import error_handlers as eh
 
 
 db = SQLAlchemy()
-csrf = CSRFProtect()
 login_manager = LoginManager()
 bcrypt = Bcrypt()
 
