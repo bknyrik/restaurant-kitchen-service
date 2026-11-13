@@ -116,14 +116,14 @@ class UpdateView(mixins.DetailMixin, View):
         return render_template(self.template, form=form, object=object_)
 
 
-class DeleteView(View):
+class DeleteView(mixins.DetailMixin, View):
     methods = ("GET", "POST")
     model: type[Model]
     template: str
     success_url_name: str
 
     def dispatch_request(self, id: int) -> ResponseReturnValue:
-        object_ = db.get_or_404(self.model, id)
+        object_ = self.get_object(id)
 
         if request.method == "POST":
             db.session.delete(object_)
