@@ -3,17 +3,15 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_admin import Admin
 from flask_admin.theme import Bootstrap4Theme
-from flask_login import LoginManager
 from flask_bcrypt import Bcrypt
 
 from app.settings import settings
-from app.extensions import csrf
+from app.extensions import csrf, login_manager
 from app.templatetags import filters
 from app.views import error_handlers as eh
 
 
 db = SQLAlchemy()
-login_manager = LoginManager()
 bcrypt = Bcrypt()
 
 
@@ -40,16 +38,10 @@ def create_app(*, testing: bool = False) -> Flask:
     csrf.init_app(app)
 
     login_manager.init_app(app)
-    login_manager.login_view = "accounts.login"
-
     bcrypt.init_app(app)
 
     from app.database.models import kitchen as models
     from app.database.models.users import UserGroupModel
-
-    @login_manager.user_loader
-    def load_user(user_id: str) -> models.CookModel:
-        return models.CookModel.query.get(int(user_id))
 
     from app.views import admin as admin_views
 
