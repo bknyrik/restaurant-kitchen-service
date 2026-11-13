@@ -5,21 +5,21 @@ from flask_admin.theme import Bootstrap4Theme
 from app.settings import settings
 from app.templatetags import filters
 from app.views import error_handlers as eh
+from app.extensions import csrf, login_manager, bcrypt, db, migrate
+from app.database.models import kitchen as models
+from app.database.models.users import UserGroupModel
+from app.views import admin as admin_views
+from app.blueprints import kitchen, accounts
+from app import commands
 
 
 def create_app(*, testing: bool = False) -> Flask:
-    from app.extensions import csrf, login_manager, bcrypt, db, migrate
-
     app = Flask(__name__)
     app.config["SECRET_KEY"] = settings.SECRET_KEY
     app.config["SQLALCHEMY_DATABASE_URI"] = (
         settings.SQLALCHEMY_DATABASE_URI if not testing
         else settings.SQLALCHEMY_TEST_DATABASE_URI
     )
-
-    from app.commands import create_admin
-
-    app.cli.add_command(create_admin, "create_admin")
 
     if testing:
         app.config["WTF_CSRF_ENABLED"] = False
@@ -28,16 +28,13 @@ def create_app(*, testing: bool = False) -> Flask:
 
     db.init_app(app)
     migrate.init_app(app)
-
     csrf.init_app(app)
-
     login_manager.init_app(app)
     bcrypt.init_app(app)
 
-    from app.database.models import kitchen as models
-    from app.database.models.users import UserGroupModel
-
-    from app.views import admin as admin_views
+    @login_manager.user_loader
+    def load_user(user_id: str) -> models.CookModel:
+        return models.CookModel.query.get(int(user_id))
 
     admin = Admin(
         name="Restaurant Kitchen",
@@ -86,11 +83,11 @@ def create_app(*, testing: bool = False) -> Flask:
         )
     )
 
-    from app.blueprints import kitchen, accounts
-
     app.register_blueprint(kitchen.blueprint)
     app.register_blueprint(accounts.blueprint)
 
     app.register_error_handler(404, eh.page_not_found_404)
     app.register_error_handler(403, eh.forbidden_403)
+
+    app.cli.add_command(commands.create_admin, "create_admin")
     return app
