@@ -5,6 +5,7 @@
     - [Features](#features)
     - [Database structure](#database-structure)
     - [Web pages](#web-pages)
+      - [Accounts pages](#accounts-pages)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Contact](#contact)
@@ -30,6 +31,7 @@ Below is illustrated the project database structure (for more details follow thi
 ### Web pages
 Below are pictures of web pages:
 
+#### Accounts pages
 Login page:
 ![Login](./documentation/login.png)
 
