@@ -55,22 +55,22 @@ Home page:
 
 #### Dish type pages
 
-Dish types page (as admin):
+- Dish types page (as admin):
 ![Dish type list admin](documentation/dish_type_list_admin.png)
 
-Dish types page (as moderator):
+- Dish types page (as moderator):
 ![Dish type list moderator](documentation/dish_type_list_moderator.png)
 
-Dish types page (as user):
+- Dish types page (as user):
 ![Dish type list user](documentation/dish_type_list_user.png)
 
-Create dish type page:
+- Create dish type page:
 ![Dish_type create](./documentation/dish_type_create.png)
 
-Update dish type page:
+- Update dish type page:
 ![Dish_type update](./documentation/dish_type_update.png)
 
-Delete dish type page:
+- Delete dish type page:
 ![Dish_type delete](./documentation/dish_type_delete.png)
 
 Ingredients page (as admin):
