@@ -43,8 +43,8 @@ Update dish type page:
 Delete dish type page:
 ![Dish_type delete](./documentation/dish_type_delete.png)
 
-Ingredients page:
-![Ingredient list](./documentation/ingredient_list.png)
+Ingredients page (as admin):
+![Ingredient list](documentation/ingredient_list_admin.png)
 
 Create ingredient page:
 ![Ingredient create](./documentation/ingredient_create.png)
