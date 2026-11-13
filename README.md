@@ -44,7 +44,13 @@ Delete dish type page:
 ![Dish_type delete](./documentation/dish_type_delete.png)
 
 Ingredients page (as admin):
-![Ingredient list](documentation/ingredient_list_admin.png)
+![Ingredient list admin](documentation/ingredient_list_admin.png)
+
+Ingredients page (as moderator):
+![Ingredient list moderator](documentation/ingredient_list_moderator.png)
+
+Ingredients page (as user):
+![Ingredient list user](documentation/ingredient_list_user.png)
 
 Create ingredient page:
 ![Ingredient create](./documentation/ingredient_create.png)
