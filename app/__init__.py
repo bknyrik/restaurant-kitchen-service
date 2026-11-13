@@ -26,6 +26,10 @@ def create_app(*, testing: bool = False) -> Flask:
         else settings.SQLALCHEMY_TEST_DATABASE_URI
     )
 
+    from app.commands import create_admin
+
+    app.cli.add_command(create_admin, "create_admin")
+
     if testing:
         app.config["WTF_CSRF_ENABLED"] = False
 
