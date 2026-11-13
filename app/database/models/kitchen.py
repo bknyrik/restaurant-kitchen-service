@@ -83,6 +83,9 @@ class DishModel(db.Model):
         backref="dishes"
     )
 
+    def __str__(self) -> str:
+        return self.name
+
 
 class CookModel(AbstractUserModel):
     __tablename__ = "cooks"
