@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_admin import Admin
 
 from app import extensions, cli
 from app.blueprints import kitchen, accounts
@@ -38,8 +39,8 @@ def register_cli_commands(app: Flask) -> None:
     app.cli.add_command(cli.change_password)
 
 
-def register_admin_views() -> None:
-    extensions.admin.add_view(
+def register_admin_views(admin: Admin) -> None:
+    admin.add_view(
         admin_views.DishTypeModelView(
             name="Dish type",
             model=models.DishTypeModel,
@@ -47,7 +48,7 @@ def register_admin_views() -> None:
             url="dish_type"
         )
     )
-    extensions.admin.add_view(
+    admin.add_view(
         admin_views.IngredientModelView(
             name="Ingredient",
             model=models.IngredientModel,
@@ -55,7 +56,7 @@ def register_admin_views() -> None:
             url="ingredient"
         )
     )
-    extensions.admin.add_view(
+    admin.add_view(
         admin_views.DishModelView(
             name="Dish",
             model=models.DishModel,
@@ -63,7 +64,7 @@ def register_admin_views() -> None:
             url="dish"
         )
     )
-    extensions.admin.add_view(
+    admin.add_view(
         admin_views.CookModelView(
             name="Cook",
             model=models.CookModel,
@@ -71,7 +72,7 @@ def register_admin_views() -> None:
             url="cook"
         )
     )
-    extensions.admin.add_view(
+    admin.add_view(
         admin_views.UserGroupModelView(
             name="User group",
             model=UserGroupModel,
