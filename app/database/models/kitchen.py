@@ -5,7 +5,6 @@ from app.database.models.users import AbstractUserModel
 DishIngredientsModel = db.Table(
     "dish_ingredients",
     db.Model.metadata,
-    db.Column("id", db.Integer, primary_key=True, index=True),
     db.Column("dish_id", db.ForeignKey("dishes.id"), nullable=False),
     db.Column("ingredient_id", db.ForeignKey("ingredients.id"), nullable=False)
 )
@@ -13,7 +12,6 @@ DishIngredientsModel = db.Table(
 CookDishesModel = db.Table(
     "cook_dishes",
     db.Model.metadata,
-    db.Column("id", db.Integer, primary_key=True, index=True),
     db.Column("cook_id", db.ForeignKey("cooks.id"), nullable=False),
     db.Column("dish_id", db.ForeignKey("dishes.id"), nullable=False)
 )
