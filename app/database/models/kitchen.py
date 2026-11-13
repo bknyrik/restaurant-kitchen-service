@@ -21,8 +21,16 @@ DishIngredientsModel = db.Table(
 CookDishesModel = db.Table(
     "cook_dishes",
     db.Model.metadata,
-    db.Column("cook_id", db.ForeignKey("cooks.id"), nullable=False),
-    db.Column("dish_id", db.ForeignKey("dishes.id"), nullable=False)
+    db.Column(
+        "cook_id",
+        db.ForeignKey("cooks.id"),
+        primary_key=True
+    ),
+    db.Column(
+        "dish_id",
+        db.ForeignKey("dishes.id"),
+        primary_key=True
+    )
 )
 
 
