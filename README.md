@@ -97,25 +97,25 @@ Home page:
 
 #### Dish pages
 
-Dishes page:
+- Dishes page:
 ![Dish list](./documentation/dish_list.png)
 
-Dish page (as admin):
+- Dish page (as admin):
 ![Dish detail admin](documentation/dish_detail_admin.png)
 
-Dish page (as moderator):
+- Dish page (as moderator):
 ![Dish detail moderator](documentation/dish_detail_moderator.png)
 
-Dish page (as user):
+- Dish page (as user):
 ![Dish detail user](documentation/dish_detail_user.png)
 
-Create dish page:
+- Create dish page:
 ![Dish create](./documentation/dish_create.png)
 
-Update dish page:
+- Update dish page:
 ![Dish update](./documentation/dish_update.png)
 
-Delete dish page:
+- Delete dish page:
 ![Dish delete](./documentation/dish_delete.png)
 
 Cook list page:
