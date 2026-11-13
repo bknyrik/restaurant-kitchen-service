@@ -121,31 +121,31 @@ Home page:
 
 #### Cook pages
 
-Cook list page:
+- Cook list page:
 ![Cook list](./documentation/cook_list.png)
 
-Cook detail (as admin):
+- Cook detail (as admin):
 ![Cook detail admin](./documentation/cook_detail_admin.png)
 
-Cook detail (as moderator):
+- Cook detail (as moderator):
 ![Cook detail moderator](./documentation/cook_detail_moderator.png)
 
-Cook detail (as user):
+- Cook detail (as user):
 ![Cook detail user](./documentation/cook_detail_user.png)
 
-Cook create (as admin):
+- Cook create (as admin):
 ![Cook create admin](./documentation/cook_create_admin.png)
 
-Cook create (as moderator):
+- Cook create (as moderator):
 ![Cook create moderator](./documentation/cook_create_moderator.png)
 
-Cook update (as admin):
+- Cook update (as admin):
 ![Cook update admin](./documentation/cook_update_admin.png)
 
-Cook update (as moderator):
+- Cook update (as moderator):
 ![Cook update moderator](./documentation/cook_update_moderator.png)
 
-Cook delete:
+- Cook delete:
 ![Cook delete](./documentation/cook_delete.png)
 
 ## Installation
