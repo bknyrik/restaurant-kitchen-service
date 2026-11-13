@@ -10,7 +10,7 @@ from app.database.models import kitchen as models
 from app.database.models.users import UserGroupModel
 from app.views import admin as admin_views
 from app.blueprints import kitchen, accounts
-from app import commands
+from app import cli
 
 
 @login_manager.user_loader
@@ -90,5 +90,5 @@ def create_app(*, testing: bool = False) -> Flask:
     app.register_error_handler(404, eh.page_not_found_404)
     app.register_error_handler(403, eh.forbidden_403)
 
-    app.cli.add_command(commands.create_admin, "create_admin")
+    app.cli.add_command(cli.create_admin, "create_admin")
     return app
