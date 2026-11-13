@@ -2,7 +2,7 @@ from flask import Flask
 
 from app import extensions, cli
 from app.blueprints import kitchen, accounts
-from app.views import error_handlers
+from app.views import error_handlers, admin as admin_views
 
 
 def register_extensions(app: Flask) -> None:
@@ -11,6 +11,10 @@ def register_extensions(app: Flask) -> None:
     extensions.csrf.init_app(app)
     extensions.login_manager.init_app(app)
     extensions.bcrypt.init_app(app)
+    extensions.admin.init_app(
+        app,
+        index_view=admin_views.HomeAdminView()
+    )
 
 
 def register_blueprints(app: Flask) -> None:
