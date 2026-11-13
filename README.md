@@ -64,8 +64,8 @@ Delete ingredient page:
 Dishes page:
 ![Dish list](./documentation/dish_list.png)
 
-Dish page:
-![Dish list](./documentation/dish_detail.png)
+Dish page (as admin):
+![Dish list admin](documentation/dish_detail_admin.png)
 
 Create dish page:
 ![Dish create](./documentation/dish_create.png)
