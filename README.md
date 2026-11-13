@@ -24,7 +24,7 @@ This project is designed using Flask and its extensions to manage all informatio
 - Custom cli commands - `create_admin` and `change_password`.
 
 ### Database structure:
-Below is illustrated the project database structure: 
+Below is illustrated the project database structure (for more details follow this [link](https://dbdiagram.io/e/6af63ae94fa75117f678aa3b/6af70bd14e0bad6598a5a954)):
 ![Database structure](./documentation/restaurant_kitchen_db.png)
 
 ### Web pages
