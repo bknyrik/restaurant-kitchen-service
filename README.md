@@ -25,6 +25,12 @@ Signup page:
 Change password page:
 ![Change password](./documentation/change_password.png)
 
+403 page:
+![403](documentation/403.png)
+
+404 page:
+![404](documentation/404.png)
+
 Home page:
 ![Home](./documentation/home.png)
 
