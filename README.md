@@ -26,7 +26,13 @@ Home page:
 ![Home](./documentation/home.png)
 
 Dish types page (as admin):
-![Dish_type list admin](documentation/dish_type_list_admin.png)
+![Dish type list admin](documentation/dish_type_list_admin.png)
+
+Dish types page (as moderator):
+![Dish type list moderator](documentation/dish_type_list_moderator.png)
+
+Dish types page (as user):
+![Dish type list user](documentation/dish_type_list_user.png)
 
 Create dish type page:
 ![Dish_type create](./documentation/dish_type_create.png)
