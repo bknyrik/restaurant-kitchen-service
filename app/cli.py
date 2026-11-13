@@ -12,8 +12,8 @@ def create_admin(username: str, password: str) -> None:
     try:
         user_exists = (
             db.session
-            .query(CookModel.query.filter_by(username=username).exists()
-            ).scalar()
+            .query(CookModel.query.filter_by(username=username).exists())
+            .scalar()
         )
 
         if user_exists:
