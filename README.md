@@ -38,6 +38,7 @@ Below is illustrated the project database structure (for more details follow thi
 Below are pictures of web pages:
 
 #### Main page
+- ![Home](./documentation/home.png)
 
 #### Accounts pages
 - Login page:
@@ -55,9 +56,6 @@ Below are pictures of web pages:
 
 - 404 page:
 ![404](documentation/404.png)
-
-Home page:
-![Home](./documentation/home.png)
 
 #### Dish type pages
 
