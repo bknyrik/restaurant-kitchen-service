@@ -32,13 +32,13 @@ Below is illustrated the project database structure (for more details follow thi
 Below are pictures of web pages:
 
 #### Accounts pages
-Login page:
+- Login page:
 ![Login](./documentation/login.png)
 
-Signup page:
+- Signup page:
 ![Sign Up](./documentation/signup.png)
 
-Change password page:
+- Change password page:
 ![Change password](./documentation/change_password.png)
 
 403 page:
