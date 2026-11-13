@@ -1,11 +1,9 @@
 from flask import Flask
-from flask_admin import Admin
-from flask_admin.theme import Bootstrap4Theme
 
 from app.settings import settings
 from app.templatetags import filters
 from app.views import error_handlers as eh
-from app.extensions import csrf, login_manager, bcrypt, db, migrate
+from app.extensions import csrf, login_manager, bcrypt, db, migrate, admin
 from app.database.models import kitchen as models
 from app.database.models.users import UserGroupModel
 from app.views import admin as admin_views
@@ -38,10 +36,7 @@ def create_app(*, testing: bool = False) -> Flask:
     login_manager.init_app(app)
     bcrypt.init_app(app)
 
-    admin = Admin(
-        name="Restaurant Kitchen",
-        theme=Bootstrap4Theme(swatch="superhero"),
-    )
+
     admin.init_app(app, index_view=admin_views.HomeAdminView())
 
     admin.add_view(
