@@ -9,11 +9,12 @@ from app.extensions import db, bcrypt
 from app.forms import kitchen as forms
 from app.database.models import kitchen as models
 from app.database.models.users import UserGroupModel, UserGroupEnum
+from app.settings import TestConfig
 
 
 @pytest.fixture
 def test_app():
-    test_app = create_app(testing=True)
+    test_app = create_app(config=TestConfig())
 
     with test_app.app_context():
         db.create_all()
