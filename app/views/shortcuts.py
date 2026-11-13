@@ -83,7 +83,7 @@ class CreateView(View):
         return render_template(self.template, form=form)
 
 
-class UpdateView(View):
+class UpdateView(mixins.DetailMixin, View):
     methods = ("GET", "POST")
     model: type[Model]
     template: str
@@ -106,7 +106,7 @@ class UpdateView(View):
         db.session.commit()
 
     def dispatch_request(self, id: int) -> ResponseReturnValue:
-        object_ = db.get_or_404(self.model, id)
+        object_ = self.get_object(id)
         form = self.get_form(object_)
 
         if request.method == "POST" and form.validate():
