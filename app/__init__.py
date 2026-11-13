@@ -11,11 +11,6 @@ from app.blueprints import kitchen, accounts
 from app import cli
 
 
-@login_manager.user_loader
-def load_user(user_id: str) -> models.CookModel:
-    return models.CookModel.query.get(int(user_id))
-
-
 def create_app(*, testing: bool = False) -> Flask:
     app = Flask(__name__)
     app.config["SECRET_KEY"] = settings.SECRET_KEY

@@ -18,6 +18,10 @@ def register_extensions(app: Flask) -> None:
         index_view=admin_views.HomeAdminView()
     )
 
+    @extensions.login_manager.user_loader
+    def load_user(user_id: str) -> models.CookModel:
+        return models.CookModel.query.get(int(user_id))
+
 
 def register_blueprints(app: Flask) -> None:
     app.register_blueprint(kitchen.blueprint)
