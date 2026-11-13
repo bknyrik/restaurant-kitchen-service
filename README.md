@@ -12,6 +12,7 @@ This project is designed using Flask and its extensions to manage all informatio
 - User registration and log in simultaneously;
 - Log in and log out;
 - Change current user password;
+- Custom cli commands - `create_admin` and `change_password`.
 
 Database structure:
 ![Database structure](./documentation/database_structure.png)
