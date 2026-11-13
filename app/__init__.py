@@ -25,6 +25,7 @@ def create_app(*, testing: bool = False) -> Flask:
         settings.SQLALCHEMY_DATABASE_URI if not testing
         else settings.SQLALCHEMY_TEST_DATABASE_URI
     )
+    app.config["TESTING"] = testing
 
     if testing:
         app.config["WTF_CSRF_ENABLED"] = False
