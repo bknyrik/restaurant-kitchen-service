@@ -5,6 +5,22 @@ from app.database.models.kitchen import CookModel
 from app.database.models.users import UserGroupModel, UserGroupEnum
 
 
+@click.command("create_user_groups", help="Create user groups (user, moderator, admin)")
+def create_user_groups() -> None:
+    try:
+        db.session.execute(
+            db.text("""
+                INSERT INTO user_groups(name)
+                VALUES('USER'), ('MODERATOR'), ('ADMIN')
+                ON CONFLICT DO NOTHING;
+            """)
+        )
+        db.session.commit()
+    except db.SQLAlchemyError as error:
+        db.session.rollback()
+        print(error)
+
+
 @click.command("create_admin", help="Create admin user.")
 @click.argument("username")
 @click.argument("password")
