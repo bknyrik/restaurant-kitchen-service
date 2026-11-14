@@ -1,0 +1,26 @@
+services:
+  flask_web:
+    container_name: flask_web
+    build:
+      context: .
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+    command: sh -c "poetry run flask db upgrade && poetry run flask run"
+
+  postgres_db:
+    image: postgres:18.3-alpine
+    container_name: postgres_db
+    env_file:
+      - .env
+    ports:
+      - "5432:5432"
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin4
+    env_file:
+      - .env
+    ports:
+      - "5050:80"
