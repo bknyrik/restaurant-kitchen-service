@@ -12,6 +12,18 @@ class BaseConfig:
     PROJECT_ROOT = os.path.abspath(os.path.join(APP_DIR, os.pardir))
 
 
+class ProductionConfig(BaseConfig):
+    ENV = "production"
+    DEBUG = False
+    SQLALCHEMY_DATABASE_URI = (
+        f"postgresql://{os.getenv("POSTGRES_USER")}"
+        f":{os.getenv("POSTGRES_PASSWORD")}"
+        f"@{os.getenv("POSTGRES_HOST")}"
+        f"/{os.getenv("POSTGRES_DB")}"
+    )
+    PREFERRED_URL_SCHEME = "https"
+
+
 class DevelopmentConfig(BaseConfig):
     ENV = "development"
     DEBUG = True
