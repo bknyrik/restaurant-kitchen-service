@@ -185,3 +185,6 @@ documentation/
 Dockerfile
 docker-compose.yaml
 .dockerignore
+.flake8
+app/tests/
+
