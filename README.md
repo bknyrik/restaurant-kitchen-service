@@ -15,6 +15,7 @@
       - [Cook pages](#cook-pages)
 - [Installation](#installation)
 - [Usage](#usage)
+- [How to run in Docker](#how-to-run-in-docker)
 - [Contact](#contact)
 
 ## Description
@@ -170,6 +171,21 @@ Note: If you are running locally on your machine, don't add variables related to
 Visit `http://localhost:8000/` to use this application. \
 And also don't forget to create an admin user - `flask create_admin admin adminpass12345`. \
 But before it, launch the command `flask create_user_groups` to create all groups for users.
+
+## How to run in Docker
+You can run the project on Docker in multiple containers, including PostgreSQL database and utility pgAdmin4 via the web interface. \
+To do this, follow these steps:
+1. In the `.env` file change values to these variables:
+    - `FLASK_RUN_HOST` - `0.0.0.0`;
+    - `FLASK_RUN_PORT` - `8000`;
+    - `POSTGRES_HOST` - `postgres_db`;
+    - `POSTGRES_PORT` - `5432`.
+2. Run the command `docker-compose up -d --build`.
+3. Visit these addresses in your browser:
+    - `http://localhost:8000/` - Flask application;
+    - `http://localhost:5050/` - pgAdmin web interface; 
+4. To use the pgAdmin web interface, you need to log in with email and password, and then register the server with database information specified in `.env`.
+5. To create all user groups and admin user use the next command - `docker exec -it flask_web sh -c "poetry run flask create_user_groups && poetry run flask create_admin admin adminpass12345"`.
 
 ## Contact
 Email: knyrikkolesnichenko2004@gmail.com
