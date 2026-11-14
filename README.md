@@ -164,7 +164,7 @@ Below are introduced steps how to install and run the project on your local mach
 2. Install all dependencies using poetry - `poetry install --no-root`;
 3. Add `.env` file according to `.env.sample` templates;
 4. Apply migrations `flask db upgrade`;
-5. Run the server `flask --app app.main run -p 8000 --debug --reload`.
+5. Run the server `flask --app main run --reload`.
 
 Note: If you are running locally on your machine, don't add variables related to pgAdmin to `.env` file.
 
