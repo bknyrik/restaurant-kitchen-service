@@ -17,9 +17,9 @@ class DevelopmentConfig(BaseConfig):
     DEBUG = True
 
     SQLALCHEMY_DATABASE_URI = (
-        f"postgresql://{os.getenv("DB_USER")}:{os.getenv("DB_PASSWORD")}"
-        f"@{os.getenv("DB_HOST")}:"
-        f"{os.getenv("DB_PORT")}/{os.getenv("DB_NAME")}"
+        f"postgresql://{os.getenv("POSTGRES_USER")}:{os.getenv("POSTGRES_PASSWORD")}"
+        f"@{os.getenv("POSTGRES_HOST")}:"
+        f"{os.getenv("POSTGRES_PORT")}/{os.getenv("POSTGRES_DB")}"
     )
 
 
