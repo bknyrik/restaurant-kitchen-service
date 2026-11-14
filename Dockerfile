@@ -1,11 +1,9 @@
 FROM python:3.12-alpine3.24
 LABEL maintainer="knyrikkolesnichenko2004@gmail.com";
 
-COPY . .
-
 WORKDIR /flask-app
 
-COPY . .
+COPY . /flask-app
 
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONBUFFERED=1 \
