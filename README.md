@@ -181,7 +181,7 @@ To do this, follow these steps:
     - `FLASK_RUN_PORT` - `8000`;
     - `POSTGRES_HOST` - `postgres_db`;
     - `POSTGRES_PORT` - `5432`.
-2. Run the command `docker-compose up -d --build`.
+2. Run the command `docker compose up -d --build`.
 3. Visit these addresses in your browser:
     - `http://localhost:8000/` - Flask application;
     - `http://localhost:5050/` - pgAdmin web interface; 
