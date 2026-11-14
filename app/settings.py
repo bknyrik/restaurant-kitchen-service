@@ -23,7 +23,7 @@ class ProductionConfig(BaseConfig):
         f"/{os.getenv("POSTGRES_DB")}"
     )
     PREFERRED_URL_SCHEME = "https"
-    SERVER_NAME = "https://restaurant-kitchen-service-zv4g.onrender.com"
+    SERVER_NAME = os.getenv("FLASK_SERVER_NAME")
 
 
 class DevelopmentConfig(BaseConfig):
