@@ -17,7 +17,7 @@
 - [Contact](#contact)
 
 ## Description
-This project is designed using Flask and its extensions to manage all information related to dishes.
+This is my first project in Flask after Django. It was designed using Flask and its extensions to manage all information related to dishes.
 ### Features:
 - Create and update dish types, ingredients, dishes and cooks (as moderator/admin);
 - Delete dish types, ingredients, dishes and cooks (as admin);
