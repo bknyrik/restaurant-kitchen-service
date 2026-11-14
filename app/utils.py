@@ -41,6 +41,7 @@ def register_error_handlers(app: Flask) -> None:
 def register_cli_commands(app: Flask) -> None:
     app.cli.add_command(cli.create_admin)
     app.cli.add_command(cli.change_password)
+    app.cli.add_command(cli.create_user_groups)
 
 
 def register_admin_views(admin: Admin) -> None:
