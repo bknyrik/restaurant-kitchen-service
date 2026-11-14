@@ -28,7 +28,7 @@ This is my first project in Flask after Django. It was designed using Flask and 
 - User registration and log in simultaneously;
 - Log in and log out;
 - Change current user password;
-- Custom cli commands - `create_admin` and `change_password`.
+- Custom cli commands - `create_admin`, `create_user_groups` and `change_password`.
 
 ### Database structure:
 Below is illustrated the project database structure (for more details follow this [link](https://dbdiagram.io/e/6af63ae94fa75117f678aa3b/6af70bd14e0bad6598a5a954)):
