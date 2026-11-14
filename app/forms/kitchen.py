@@ -121,7 +121,7 @@ class DishForm(ModelForm):
         "Price",
         validators=[
             validators.DataRequired(),
-            validators.NumberRange(min=1)
+            validators.NumberRange(min=1, max=100000),
         ],
         render_kw={"class": "form-control"}
     )
