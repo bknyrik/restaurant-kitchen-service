@@ -1,13 +1,9 @@
 from flask import Flask
 
-from app import settings
 from app import utils
 
 
-def create_app(
-    *,
-    config: settings.BaseConfig = settings.DevelopmentConfig()
-) -> Flask:
+def create_app(*, config: str = "app.settings.DevelopmentConfig") -> Flask:
     app = Flask(__name__)
     app.config.from_object(config)
 
