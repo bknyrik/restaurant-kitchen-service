@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}
+  <title>Login</title>
+{% endblock %}
+{% block content %}
+  <h1 class="mb-3">Login</h1>
+  {% if error %}
+    <p class="mt-3 mb-3 text-danger">{{ error }}</p>
+  {% endif %}
+  <form action="{{ url_for("accounts.login") }}" method="post">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+    {% for field in form._fields.values() %}
+      <div class="mb-3">
+        {{ field.label(class="form-label") }} {{ field() }}
+        {% for error in field.errors %}
+          <span class="text-danger">{{ error }}</span>
+        {% endfor %}
+      </div>
+    {% endfor %}
+    <input class="btn btn-primary" type="submit" value="Log in">
+    <input class="btn btn-primary" type="reset" value="Reset">
+  </form>
+{% endblock %}

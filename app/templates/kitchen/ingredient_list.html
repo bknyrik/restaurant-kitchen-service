@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}
+  <title>Ingredients</title>
+{% endblock %}
+{% block content %}
+  <h1 class="mt-3">Ingredients</h1>
+  {% include "includes/search_form.html" %}
+  {% if current_user.group.name in ("moderator", "admin") %}
+    <div class="mt-3">
+      <a class="btn btn-primary" href="{{ url_for("kitchen.ingredient_create") }}">Create</a>
+    </div>
+  {% endif %}
+  {% if not object_list or not object_list.total %}
+    <p class="mt-3">There are no ingredients in the system.</p>
+  {% else %}
+    <table class="mt-3 table table-dark table-striped">
+      <thead>
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Name</th>
+        {% if current_user.group.name in ("moderator", "admin") %}
+          <th scope="col">Update</th>
+        {% endif %}
+        {% if current_user.group.name == "admin" %}
+          <th scope="col">Delete</th>
+        {% endif %}
+      </tr>
+      </thead>
+      <tbody>
+      {% for object in object_list %}
+        <tr>
+          <th scope="row">{{ object.id }}</th>
+          <td>{{ object.name }}</td>
+          {% if current_user.group.name in ("moderator", "admin") %}
+            <td>
+              <a class="btn btn-success" href="{{ url_for("kitchen.ingredient_update", id=object.id) }}">Update</a>
+            </td>
+          {% endif %}
+          {% if current_user.group.name == "admin" %}
+            <td>
+              <a class="btn btn-danger" href="{{ url_for("kitchen.ingredient_delete", id=object.id) }}">Delete</a>
+            </td>
+          {% endif %}
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    {% with pagination=object_list, endpoint="kitchen.ingredient_list" %}
+      {% include "includes/pagination.html" %}
+    {% endwith %}
+  {% endif %}
+{% endblock %}

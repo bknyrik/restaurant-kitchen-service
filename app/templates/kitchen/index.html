@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}
+  <title>Home</title>
+{% endblock %}
+{% block content %}
+  <div class="container text-center mt-5 fs-5">
+    <h1>Welcome to Restaurant Kitchen Service!</h1>
+    <h2 class="mt-5">The service has the following content:</h2>
+    <div class="row mt-5">
+      <div class="col">Dish types</div>
+      <div class="col">Ingredients</div>
+      <div class="col">Dishes</div>
+      <div class="col">Cooks</div>
+    </div>
+    <div class="row mt-2">
+      <div class="col"><img src="{{ url_for("static", filename="dish_type.png") }}" alt="Dish type"></div>
+      <div class="col"><img src="{{ url_for("static", filename="ingredient.png") }}" alt="Ingredient"></div>
+      <div class="col"><img src="{{ url_for("static", filename="dish.png") }}" alt="Dish"></div>
+      <div class="col"><img src="{{ url_for("static", filename="cook.png") }}" alt="Cook"></div>
+    </div>
+    <div class="row mt-3">
+      <div class="col">{{ count_dish_types }}</div>
+      <div class="col">{{ count_ingredients }}</div>
+      <div class="col">{{ count_dishes }}</div>
+      <div class="col">{{ count_cooks }}</div>
+    </div>
+  </div>
+{% endblock %}

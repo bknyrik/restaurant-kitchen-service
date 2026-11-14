@@ -1,0 +1,38 @@
+<div class="fs-5 d-flex bg-dark align-items-center">
+  <div class="p-2">
+    <img
+        src="{{ url_for("static", filename="kitchen.png") }}"
+        width="50"
+        height="50"
+        alt="Kitchen"
+    >
+  </div>
+  {% for href, text in (
+    ("kitchen.index", "Home"),
+    ("kitchen.dish_type_list", "Dish types"),
+    ("kitchen.ingredient_list", "Ingredients"),
+    ("kitchen.dish_list", "Dishes"),
+    ("kitchen.cook_list", "Cooks")
+    ) %}
+    <div class="{% if text == "Cooks" %}me-auto{% endif %} p-2">
+      <a class="text-white text-decoration-none" href="{{ url_for(href) }}">{{ text }}</a>
+    </div>
+  {% endfor %}
+  {% if current_user.is_authenticated %}
+    <div class="p-2">
+      <a
+          class="fs-5 text-white text-decoration-none"
+          href="{{ url_for("kitchen.cook_detail", id=current_user.id) }}"
+      >
+        {{ current_user.username }}
+      </a>
+    </div>
+    <form action="{{ url_for("accounts.logout") }}" method="post">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+      <input class="m-2 fs-5 btn btn-danger" type="submit" value="Log out">
+    </form>
+  {% else %}
+    <div class="p-2"><a class="fs-5 btn btn-primary" href="{{ url_for("accounts.signup") }}">Sign up</a></div>
+    <div class="p-2"><a class="fs-5 btn btn-primary" href="{{ url_for("accounts.login") }}">Log in</a></div>
+  {% endif %}
+</div>

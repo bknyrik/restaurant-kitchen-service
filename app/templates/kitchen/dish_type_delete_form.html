@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% from "macros.html" import delete_object, delete_related_objects %}
+{% block title %}
+  <title>Delete dish type</title>
+{% endblock %}
+{% block content %}
+  {{ delete_object(object, "dish type", "name") }}
+  {{ delete_related_objects(object, {"Dishes": "dishes"}) }}
+  {% include "includes/delete_form.html" %}
+{% endblock %}

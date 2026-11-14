@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block title %}
+  <title>Dish {{ object.name }}</title>
+{% endblock %}
+{% block content %}
+  <h1>Dish {{ object.name }}</h1>
+  <div class="d-flex">
+    {% if current_user.group.name in ("admin", "moderator") %}
+      <a class="me-2 btn btn-success" href="{{ url_for("kitchen.dish_update", id=object.id) }}">Update</a>
+    {% endif %}
+    {% if current_user.group.name == "admin" %}
+      <a class="me-2 btn btn-danger" href="{{ url_for("kitchen.dish_delete", id=object.id) }}">Delete</a>
+    {% endif %}
+    <form action="{{ url_for("kitchen.dish_detail", id=object.id) }}" method="post">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+      <input
+          class="btn {{ "btn-success" if current_user not in object.cooks else "btn-danger" }}"
+          type="submit"
+          value="{{ "Add me to this dish" if current_user not in object.cooks else "Delete me from this dish" }}"
+      >
+    </form>
+  </div>
+  <section class="fs-5">
+    <hr>
+    <h2 class="mb-3">General information</h2>
+    <p><span class="fw-bold">Description:</span> {{ object.description|default("Absent", True) }}</p>
+    <p><span class="fw-bold">Price:</span> {{ object.price }}</p>
+    <p><span class="fw-bold">Dish type:</span> {{ object.dish_type.name }}</p>
+    <p><span
+        class="fw-bold">Ingredients:</span> {{ object.ingredients|map(attribute="name")|join(", ")|default("Absent", True) }}
+    </p>
+    <hr>
+    <h2 class="mt-3">Cooks</h2>
+    {% if not object_list|list|length %}
+      <p>There are no cooks assigned to this dish.</p>
+    {% else %}
+      <table class="table table-dark table-striped mt-3">
+        <thead>
+        <tr>
+          <th scope="col">Id</th>
+          <th scope="col">Username</th>
+          <th scope="col">First name</th>
+          <th scope="col">Last name</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for object_ in object_list %}
+          <tr>
+            <th scope="row">
+              <a href="{{ url_for("kitchen.cook_detail", id=object_.id) }}" class="btn btn-info">
+                {{ object_.id }}
+              </a>
+            </th>
+            <td>{{ object_.username }}</td>
+            <td>{{ object_.first_name|default("Absent", True) }}</td>
+            <td>{{ object_.last_name|default("Absent", True) }}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+      {% with pagination=object_list, endpoint="kitchen.dish_detail", endpoint_params={"id": object.id} %}
+        {% include "includes/pagination.html" %}
+      {% endwith %}
+    {% endif %}
+  </section>
+{% endblock %}

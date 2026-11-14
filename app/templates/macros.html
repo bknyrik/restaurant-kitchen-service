@@ -1,0 +1,29 @@
+{% macro create_or_update_text(obj) %}
+  {{ "Create" if not obj else "Update" }}
+{% endmacro %}
+
+{% macro create_or_update_h1(obj, obj_type, name_attr) %}
+  <h1>{{ create_or_update_text(obj) }} {{ obj_type }} {{ obj|attr(name_attr) }}</h1>
+{% endmacro %}
+
+{% macro delete_related_objects(obj, h3_attr_names) %}
+  <p class="fw-bold text-warning">Warning: After deletion all related objects will be also removed.</p>
+  <ul class="list-group">
+    {% for h3, attr_name in h3_attr_names.items() %}
+      {% if obj|attr(attr_name) %}
+        <li class="list-group-item">
+          <h3>{{ h3 }}</h3>
+          <ul class="list-group list-group-flush">
+            {% for rel_obj in obj|attr(attr_name) %}
+              <li class="list-group-item">{{ rel_obj }}</li>
+            {% endfor %}
+          </ul>
+        </li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+{% endmacro %}
+
+{% macro delete_object(obj, obj_type, name_attr) %}
+  <h1>Delete {{ obj_type }} {{ obj|attr(name_attr) }}?</h1>
+{% endmacro %}

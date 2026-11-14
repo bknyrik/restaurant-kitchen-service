@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}
+  <title>Cooks</title>
+{% endblock %}
+{% block content %}
+  <h1 class="mb-3">Cooks</h1>
+  {% include "includes/search_form.html" %}
+  {% if current_user.group.name in ("moderator", "admin") %}
+    <div class="mt-3">
+      <a class="btn btn-primary" href="{{ url_for("kitchen.cook_create") }}">Create</a>
+    </div>
+  {% endif %}
+  {% if not object_list or not object_list.total %}
+    <p class="mt-3">There are no dishes in the system.</p>
+  {% else %}
+    <table class="mt-3 table table-dark table-striped">
+      <thead>
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Username</th>
+        <th scope="col">Email</th>
+        <th scope="col">Group</th>
+      </tr>
+      </thead>
+      <tbody>
+      {% for object in object_list %}
+        <tr>
+          <th scope="row">
+            <a href="{{ url_for("kitchen.cook_detail", id=object.id) }}" class="btn btn-info">{{ object.id }}</a>
+          </th>
+          <th>{{ object.username }}</th>
+          <th>{{ object.email|default("Absent", True) }}</th>
+          <th>{{ object.group }}</th>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    {% with pagination=object_list, endpoint="kitchen.cook_list" %}
+      {% include "includes/pagination.html" %}
+    {% endwith %}
+  {% endif %}
+{% endblock %}
