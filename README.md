@@ -16,6 +16,7 @@
 - [Installation](#installation)
 - [Usage](#usage)
 - [How to run in Docker](#how-to-run-in-docker)
+- [Check it out](#check-it-out)
 - [Contact](#contact)
 
 ## Description
@@ -186,6 +187,13 @@ To do this, follow these steps:
     - `http://localhost:5050/` - pgAdmin web interface; 
 4. To use the pgAdmin web interface, you need to log in with email and password, and then register the server with database information specified in `.env`.
 5. To create all user groups and admin user use the next command - `docker exec -it flask_web sh -c "poetry run flask create_user_groups && poetry run flask create_admin admin adminpass12345"`.
+
+## Check it out
+The project deployed on Render is [here](https://restaurant-kitchen-service-zv4g.onrender.com). To view the website, use this user:
+```
+username: admin
+password: Adminpass1234
+```
 
 ## Contact
 Email: knyrikkolesnichenko2004@gmail.com
