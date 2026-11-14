@@ -168,7 +168,8 @@ Note: If you are running locally on your machine, don't add variables related to
 
 ## Usage
 Visit `http://localhost:8000/` to use this application. \
-And also don't forget to create an admin user - `flask create_admin admin adminpass12345`.
+And also don't forget to create an admin user - `flask create_admin admin adminpass12345`. \
+But before it, launch the command `flask create_user_groups` to create all groups for users.
 
 ## Contact
 Email: knyrikkolesnichenko2004@gmail.com
