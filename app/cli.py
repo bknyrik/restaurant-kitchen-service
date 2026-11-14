@@ -5,7 +5,10 @@ from app.database.models.kitchen import CookModel
 from app.database.models.users import UserGroupModel, UserGroupEnum
 
 
-@click.command("create_user_groups", help="Create user groups (user, moderator, admin)")
+@click.command(
+    "create_user_groups",
+    help="Create user groups (user, moderator, admin)"
+)
 def create_user_groups() -> None:
     try:
         db.session.execute(
