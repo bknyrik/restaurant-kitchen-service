@@ -9,7 +9,6 @@ services:
       - "8000:8000"
     depends_on:
       - postgres_db
-    command: sh -c "poetry run flask db upgrade && poetry run flask run"
 
   postgres_db:
     image: postgres:18.3-alpine
