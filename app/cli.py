@@ -44,16 +44,26 @@ def create_admin(username: str, password: str) -> None:
                 .first()
             )
 
-            db.session.execute(
-                db.insert(CookModel)
-                .values(
-                    username=username,
-                    password=bcrypt.generate_password_hash(password).decode(),
-                    group_id=group.id
+            if not group:
+                print(
+                    "There is no group 'ADMIN'. "
+                    "Enter the command 'create_user_groups' at first."
                 )
-            )
-            db.session.commit()
-            print(f"Admin {repr(username)} is created.")
+            else:
+                db.session.execute(
+                    db.insert(CookModel)
+                    .values(
+                        username=username,
+                        password=(
+                            bcrypt
+                            .generate_password_hash(password)
+                            .decode()
+                        ),
+                        group_id=group.id
+                    )
+                )
+                db.session.commit()
+                print(f"Admin {repr(username)} is created.")
     except db.SQLAlchemyError as error:
         db.session.rollback()
         print(error)
