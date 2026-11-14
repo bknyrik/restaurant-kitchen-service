@@ -613,9 +613,9 @@ def test_kitchen_moderator_create_view(
         pytest.param(
             "kitchen.dish_create",
             {"price": Decimal("-1")},
-            "Number must be at least 1.",
+            "Number must be between 1 and 100000.",
             1,
-            id="Dish create (Field price less than 1)"
+            id="Dish create (Field price out of range 1 and 100000)"
         ),
         pytest.param(
             "kitchen.cook_create",
