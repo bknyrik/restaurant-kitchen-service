@@ -112,7 +112,7 @@
           {% endfor %}
           {% if update_has_permissions %}
             <td>
-              {{ update_object_h1(object, endpoint_update, update_has_permissions) }}
+              {{ update_object_link(object, endpoint_update, update_has_permissions) }}
             </td>
           {% endif %}
           {% if delete_has_permissions %}
