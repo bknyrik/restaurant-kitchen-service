@@ -9,6 +9,8 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     POETRY_CACHE_DIR='/var/cache/pypoetry' \
     POETRY_HOME='/usr/local'
 
+EXPOSE 8000
+
 WORKDIR /flask-app
 
 RUN pip install poetry
