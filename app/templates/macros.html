@@ -117,7 +117,7 @@
           {% endif %}
           {% if delete_has_permissions %}
             <td>
-              {{ delete_object(object, endpoint_delete, delete_has_permissions) }}
+              {{ delete_object_link(object, endpoint_delete, delete_has_permissions) }}
             </td>
           {% endif %}
         </tr>
@@ -145,7 +145,7 @@
   {% endif %}
 {% endmacro %}
 
-{% macro delete_object(obj, endpoint_delete, has_permissions, extra_class_names=()) %}
+{% macro delete_object_link(obj, endpoint_delete, has_permissions, extra_class_names=()) %}
   {% if has_permissions %}
     <a href="{{ url_for(endpoint_delete, id=obj.id) }}"
        class="{{ extra_class_names|join(" ") }} btn btn-danger">Delete</a>
