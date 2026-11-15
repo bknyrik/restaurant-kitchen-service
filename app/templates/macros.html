@@ -74,10 +74,10 @@
   {% endif %}
 {% endmacro %}
 
-{% macro update_object(obj, endpoint_update, has_permissions) %}
-  <a href="{{ url_for(endpoint_update, id=obj.id) }}" class="btn btn-success">Update</a>
+{% macro update_object(obj, endpoint_update, has_permissions, extra_class_names=()) %}
+  <a href="{{ url_for(endpoint_update, id=obj.id) }}" class="{{ extra_class_names|join(" ") }} btn btn-success">Update</a>
 {% endmacro %}
 
-{% macro delete_object(obj, endpoint_delete, has_permissions) %}
-  <a href="{{ url_for(endpoint_delete, id=obj.id) }}" class="btn btn-danger">Delete</a>
+{% macro delete_object(obj, endpoint_delete, has_permissions, extra_class_names=()) %}
+  <a href="{{ url_for(endpoint_delete, id=obj.id) }}" class="{{ extra_class_names|join(" ") }} btn btn-danger">Delete</a>
 {% endmacro %}
