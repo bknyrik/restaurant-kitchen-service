@@ -27,3 +27,41 @@
 {% macro delete_object(obj, obj_type, name_attr) %}
   <h1>Delete {{ obj_type }} {{ obj|attr(name_attr) }}?</h1>
 {% endmacro %}
+
+{% macro table_objects(obj_list, empty_list_text, cols_attrs, endpoint_list, endpoint_list_params=None, endpoint_detail=None) %}
+  {% if not obj_list or not obj_list.total %}
+    <p class="mt-3">{{ empty_list_text }}</p>
+  {% else %}
+    <table class="mt-3 table table-dark table-striped">
+      <thead>
+      <tr>
+        <th scope="col">Id</th>
+        {% for col in cols_attrs.keys() %}
+          <th scope="row">{{ col }}</th>
+        {% endfor %}
+      </tr>
+      </thead>
+      <tbody>
+      {% for object in obj_list %}
+        <tr>
+          <th scope="row">
+            {% if endpoint_detail %}
+              <a class="btn btn-info" href="{{ url_for(endpoint_detail, id=object.id ) }}">
+                {{ object.id }}
+              </a>
+            {% else %}
+              {{ object.id }}
+            {% endif %}
+          </th>
+          {% for attr_name in cols_attrs.values() %}
+            <td>{{ object|attr(attr_name)|d("Absent", True) }}</td>
+          {% endfor %}
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    {% with pagination=obj_list, endpoint=endpoint_list, endpoint_params=endpoint_list_params %}
+      {% include "includes/pagination.html" %}
+    {% endwith %}
+  {% endif %}
+{% endmacro %}
