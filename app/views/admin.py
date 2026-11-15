@@ -1,6 +1,6 @@
 import typing
 
-from flask import redirect, url_for, abort
+from flask import redirect, url_for, abort, request
 from flask.typing import ResponseReturnValue
 from flask_login import current_user
 from flask_admin import AdminIndexView
@@ -49,7 +49,7 @@ class HomeAdminView(AdminIndexView):
         ):
             abort(403)
 
-        return redirect(url_for("accounts.login"))
+        return redirect(url_for("accounts.login", next=request.path))
 
 
 class DishTypeModelView(AdminView):
