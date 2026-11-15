@@ -1,6 +1,8 @@
+from urllib.parse import urlparse
+
 from flask.views import View
 from flask.typing import ResponseReturnValue
-from flask import request, redirect, render_template, url_for
+from flask import request, redirect, render_template, url_for, session
 from flask_login import (
     login_user,
     logout_user,
@@ -19,6 +21,9 @@ class LoginView(View):
     template = "accounts/login.html"
 
     def dispatch_request(self) -> ResponseReturnValue:
+        if request.args.get("next"):
+            session["next_url"] = urlparse(request.args["next"]).path
+
         form = forms.LoginForm(request.form)
 
         if request.method == "POST" and form.validate():
@@ -35,7 +40,11 @@ class LoginView(View):
 
             if cook and bcrypt.check_password_hash(cook.password, password):
                 login_user(cook)
-                return redirect(url_for("kitchen.index"))
+
+                return redirect(
+                    url_for("kitchen.index", next=request.path)
+                    if not session.get("next_url") else session["next_url"]
+                )
             else:
                 return render_template(
                     "accounts/login.html",
