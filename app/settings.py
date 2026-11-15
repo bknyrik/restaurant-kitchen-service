@@ -25,6 +25,7 @@ class ProductionConfig(BaseConfig):
     SQLALCHEMY_ENGINE_OPTIONS = {
         "connect_args": {
             "sslmode": "require",
+            "channel_binding": "require"
         }
     }
     PREFERRED_URL_SCHEME = "https"
