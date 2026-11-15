@@ -1,12 +1,12 @@
 {% extends "base.html" %}
-{% from "macros.html" import table_objects, update_object, delete_object %}
+{% from "macros.html" import table_objects, update_object_link, delete_object %}
 {% block title %}
   <title>Cook {{ object.username }}</title>
 {% endblock %}
 {% block content %}
   <h1>Cook {{ object.username }}</h1>
   <section class="fs-5">
-    {{ update_object(object, "kitchen.cook_update", current_user.group.name in ("admin", "moderator")) }}
+    {{ update_object_link(object, "kitchen.cook_update", current_user.group.name in ("admin", "moderator")) }}
     {% if current_user.id == object.id %}
       <a class="btn btn-primary" href="{{ url_for("accounts.change_password") }}">Change password</a>
     {% endif %}
