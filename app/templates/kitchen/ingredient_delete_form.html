@@ -1,9 +1,9 @@
 {% extends "base.html" %}
-{% from "macros.html" import delete_object %}
+{% from "macros.html" import delete_object_h1 %}
 {% block title %}
   <title>Delete ingredient</title>
 {% endblock %}
 {% block content %}
-  {{ delete_object(object, "ingredient", "name") }}
+  {{ delete_object_h1(object, "ingredient", "name") }}
   {% include "includes/delete_form.html" %}
 {% endblock %}
