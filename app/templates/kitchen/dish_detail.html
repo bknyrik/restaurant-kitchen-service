@@ -1,17 +1,13 @@
 {% extends "base.html" %}
-{% from "macros.html" import table_objects %}
+{% from "macros.html" import table_objects, update_object, delete_object %}
 {% block title %}
   <title>Dish {{ object.name }}</title>
 {% endblock %}
 {% block content %}
   <h1>Dish {{ object.name }}</h1>
   <div class="d-flex">
-    {% if current_user.group.name in ("admin", "moderator") %}
-      <a class="me-2 btn btn-success" href="{{ url_for("kitchen.dish_update", id=object.id) }}">Update</a>
-    {% endif %}
-    {% if current_user.group.name == "admin" %}
-      <a class="me-2 btn btn-danger" href="{{ url_for("kitchen.dish_delete", id=object.id) }}">Delete</a>
-    {% endif %}
+    {{ update_object(object, "kitchen.dish_update", current_user.group.name in ("admin", "moderator"), ("me-2",)) }}
+    {{ delete_object(object, "kitchen.dish_delete", current_user.group.name == "admin", ("me-2",)) }}
     <form action="{{ url_for("kitchen.dish_detail", id=object.id) }}" method="post">
       <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
       <input
