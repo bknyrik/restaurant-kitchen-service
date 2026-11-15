@@ -22,6 +22,9 @@ class ProductionConfig(BaseConfig):
         f":{os.getenv("POSTGRES_PORT")}"
         f"/{os.getenv("POSTGRES_DB")}"
     )
+    SQLALCHEMY_ENGINE_OPTIONS = {
+        "sslmode": "require"
+    }
     PREFERRED_URL_SCHEME = "https"
     SERVER_NAME = os.getenv("FLASK_SERVER_NAME")
 
