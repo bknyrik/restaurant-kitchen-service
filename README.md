@@ -14,6 +14,8 @@
       - [Dish pages](#dish-pages)
       - [Cook pages](#cook-pages)
 - [Installation](#installation)
+    - [Requirements](#requirements)
+    - [Steps](#steps)
 - [Usage](#usage)
 - [How to run in Docker](#how-to-run-in-docker)
 - [Check it out](#check-it-out)
