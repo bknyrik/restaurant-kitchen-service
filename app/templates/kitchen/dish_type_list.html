@@ -1,15 +1,12 @@
 {% extends "base.html" %}
+{% from "macros.html" import create_object %}
 {% block title %}
   <title>Dish types</title>
 {% endblock %}
 {% block content %}
   <h1 class="mt-3">Dish types</h1>
   {% include "includes/search_form.html" %}
-  {% if current_user.group.name in ("moderator", "admin") %}
-    <div class="mt-3">
-      <a class="btn btn-primary" href="{{ url_for("kitchen.dish_type_create") }}">Create</a>
-    </div>
-  {% endif %}
+  {{ create_object("kitchen.dish_type_create", current_user.group.name in ("moderator", "admin")) }}
   {% if not object_list or not object_list.total %}
     <p class="mt-3">There are no dish types in the system.</p>
   {% else %}
