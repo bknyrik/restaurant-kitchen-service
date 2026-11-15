@@ -28,7 +28,7 @@ class AdminView(sqla.ModelView):
         ):
             abort(403)
 
-        return redirect(url_for("accounts.login"))
+        return redirect(url_for("accounts.login", next=request.path))
 
 
 class HomeAdminView(AdminIndexView):
