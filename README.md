@@ -158,8 +158,14 @@ Below are pictures of web pages:
 ![Cook delete](./documentation/cook_delete.png)
 
 ## Installation
-Below are introduced steps how to install and run the project on your local machine.
+Below are introduced steps and requirements how to install and run the project on your local machine:
 
+### Requirements:
+- PostgreSQL 18;
+- Python 3.12+;
+- Poetry.
+
+### Steps
 1. Clone the repository - `git clone https://github.com/bknyrik/restaurant-kitchen-service.git`;
 2. Install all dependencies using poetry - `poetry install --no-root`;
 3. Add `.env` file according to `.env.sample` templates;
