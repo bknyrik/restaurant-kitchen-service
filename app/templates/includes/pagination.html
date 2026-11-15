@@ -1,4 +1,4 @@
-{% if pagination.pages > 1 %}
+{% if pagination|attr("pages") and pagination.pages > 1 %}
   <div>
     <ul class="pagination">
       <li class="page-item">
