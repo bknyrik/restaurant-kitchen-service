@@ -130,7 +130,7 @@
   {% endif %}
 {% endmacro %}
 
-{% macro create_object(endpoint_create, has_permissions) %}
+{% macro create_object_link(endpoint_create, has_permissions) %}
   {% if has_permissions %}
     <div class="mt-3">
       <a class="btn btn-primary" href="{{ url_for(endpoint_create) }}">Create</a>
