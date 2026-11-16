@@ -8,6 +8,7 @@ from flask_migrate import Migrate
 csrf = CSRFProtect()
 login_manager = LoginManager()
 login_manager.login_view = "accounts.login"
+login_manager.login_message = None
 bcrypt = Bcrypt()
 db = SQLAlchemy()
 migrate = Migrate(db=db, directory="app/database/migrations")
