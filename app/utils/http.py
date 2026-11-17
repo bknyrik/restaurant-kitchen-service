@@ -4,8 +4,11 @@ from urllib.parse import urlsplit
 from flask import request
 
 
+MAX_URL_LENGTH = 2048
+
+
 def url_has_allowed_host_and_scheme(url: str) -> bool:
-    if not url:
+    if not url or len(url) > MAX_URL_LENGTH:
         return False
 
     url_info = urlsplit(url)
