@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% from "macros.html" import table_objects, create_object_link %}
+{% block title %}
+  <title>Dishes</title>
+{% endblock %}
+{% block content %}
+  <h1 class="mb-3">Dishes</h1>
+  {% include "includes/search_form.html" %}
+  {{ create_object_link("kitchen.dish_create", current_user.group.name in ("moderator", "admin")) }}
+  {{ table_objects(
+      obj_list=object_list,
+      empty_list_text="There are no dishes in the system.",
+      cols_attrs={"Name": "name", "Price": "price", "Dish type": "dish_type"},
+      endpoint_list="kitchen.dish_list",
+      endpoint_detail="kitchen.dish_detail"
+    ) }}
+{% endblock %}

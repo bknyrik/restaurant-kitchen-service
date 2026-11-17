@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% from "macros.html" import table_objects, update_object_link, delete_object_link %}
+{% block title %}
+  <title>Cook {{ object.username }}</title>
+{% endblock %}
+{% block content %}
+  <h1>Cook {{ object.username }}</h1>
+  <section class="fs-5">
+    {{ update_object_link(object, "kitchen.cook_update", current_user.group.name in ("admin", "moderator")) }}
+    {% if current_user.id == object.id %}
+      <a class="btn btn-primary" href="{{ url_for("accounts.change_password") }}">Change password</a>
+    {% endif %}
+    {{ delete_object_link(object, "kitchen.cook_delete", current_user.group.name == "admin") }}
+    <hr>
+    <h2 class="mb-3">Personal information</h2>
+    <p><span class="fw-bold">First name: </span>{{ object.first_name|default("Absent", True) }}</p>
+    <p><span class="fw-bold">Last name: </span>{{ object.last_name|default("Absent", True) }}</p>
+    <p><span class="fw-bold">Email: </span>{{ object.email|default("Absent", True) }}</p>
+    <p><span class="fw-bold">Created at: </span>{{ object.created_at.strftime("%F %T") }}</p>
+    <p><span class="fw-bold">Updated at: </span>{{ object.updated_at.strftime("%F %T") }}</p>
+    <p><span class="fw-bold">Group: </span>{{ object.group.name }}</p>
+    <hr>
+    <h2 class="mt-3">Dishes</h2>
+    {{ table_objects(
+      obj_list=object.dishes,
+      empty_list_text="There are no dishes assigned to this cook.",
+      cols_attrs={"Name": "name", "Price": "price", "Dish type": "dish_type"},
+      endpoint_list="kitchen.cook_list",
+      endpoint_list_params={"id": object.id},
+      endpoint_detail="kitchen.dish_detail"
+    ) }}
+  </section>
+{% endblock %}

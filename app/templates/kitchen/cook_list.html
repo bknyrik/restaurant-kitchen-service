@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% from "macros.html" import table_objects, create_object_link %}
+{% block title %}
+  <title>Cooks</title>
+{% endblock %}
+{% block content %}
+  <h1 class="mb-3">Cooks</h1>
+  {% include "includes/search_form.html" %}
+  {{ create_object_link("kitchen.cook_create", current_user.group.name in ("moderator", "admin")) }}
+  {{ table_objects(
+      obj_list=object_list,
+      empty_list_text="There are no cooks in the system.",
+      cols_attrs={"Username": "username", "Email": "email", "Group": "group"},
+      endpoint_list="kitchen.cook_list",
+      endpoint_detail="kitchen.cook_detail"
+    ) }}
+{% endblock %}

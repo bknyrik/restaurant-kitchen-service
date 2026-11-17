@@ -1,0 +1,153 @@
+{% macro create_or_update_text(obj) %}
+  {{ "Create" if not obj else "Update" }}
+{% endmacro %}
+
+{% macro create_or_update_h1(obj, obj_type, name_attr) %}
+  <h1>{{ create_or_update_text(obj) }} {{ obj_type }} {{ obj|attr(name_attr) }}</h1>
+{% endmacro %}
+
+{% macro delete_related_objects(obj, h3_attr_names) %}
+  <p class="fw-bold text-warning">Warning: After deletion all related objects will be also removed.</p>
+  <ul class="list-group">
+    {% for h3, attr_name in h3_attr_names.items() %}
+      {% if obj|attr(attr_name) %}
+        <li class="list-group-item">
+          <h3>{{ h3 }}</h3>
+          <ul class="list-group list-group-flush">
+            {% for rel_obj in obj|attr(attr_name) %}
+              <li class="list-group-item">{{ rel_obj }}</li>
+            {% endfor %}
+          </ul>
+        </li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+{% endmacro %}
+
+{% macro delete_object_h1(obj, obj_type, name_attr) %}
+  <h1>Delete {{ obj_type }} {{ obj|attr(name_attr) }}?</h1>
+{% endmacro %}
+
+{% macro table_objects(obj_list, empty_list_text, cols_attrs, endpoint_list, endpoint_list_params=None, endpoint_detail=None) %}
+  {% if not obj_list|list|length %}
+    <p class="mt-3">{{ empty_list_text }}</p>
+  {% else %}
+    <table class="mt-3 table table-dark table-striped">
+      <thead>
+      <tr>
+        <th scope="col">Id</th>
+        {% for col in cols_attrs.keys() %}
+          <th scope="row">{{ col }}</th>
+        {% endfor %}
+      </tr>
+      </thead>
+      <tbody>
+      {% for object in obj_list %}
+        <tr>
+          <th scope="row">
+            {% if endpoint_detail %}
+              <a class="btn btn-info" href="{{ url_for(endpoint_detail, id=object.id ) }}">
+                {{ object.id }}
+              </a>
+            {% else %}
+              {{ object.id }}
+            {% endif %}
+          </th>
+          {% for attr_name in cols_attrs.values() %}
+            <td>{{ object|attr(attr_name)|d("Absent", True) }}</td>
+          {% endfor %}
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    {% with pagination=obj_list, endpoint=endpoint_list, endpoint_params=endpoint_list_params %}
+      {% include "includes/pagination.html" %}
+    {% endwith %}
+  {% endif %}
+{% endmacro %}
+
+{% macro table_objects_with_update_delete(
+  obj_list,
+  empty_list_text,
+  cols_attrs,
+  endpoint_update,
+  endpoint_delete,
+  update_has_permissions,
+  delete_has_permissions,
+  endpoint_list,
+  endpoint_list_params=None,
+  endpoint_detail=None) %}
+  {% if not obj_list|list|length %}
+    <p class="mt-3">{{ empty_list_text }}</p>
+  {% else %}
+    <table class="mt-3 table table-dark table-striped">
+      <thead>
+      <tr>
+        <th scope="col">Id</th>
+        {% for col in cols_attrs.keys() %}
+          <th scope="row">{{ col }}</th>
+        {% endfor %}
+        {% if update_has_permissions %}
+          <th scope="col">Update</th>
+        {% endif %}
+        {% if delete_has_permissions %}
+          <th scope="col">Delete</th>
+        {% endif %}
+      </tr>
+      </thead>
+      <tbody>
+      {% for object in obj_list %}
+        <tr>
+          <th scope="row">
+            {% if endpoint_detail %}
+              <a class="btn btn-info" href="{{ url_for(endpoint_detail, id=object.id ) }}">
+                {{ object.id }}
+              </a>
+            {% else %}
+              {{ object.id }}
+            {% endif %}
+          </th>
+          {% for attr_name in cols_attrs.values() %}
+            <td>{{ object|attr(attr_name)|d("Absent", True) }}</td>
+          {% endfor %}
+          {% if update_has_permissions %}
+            <td>
+              {{ update_object_link(object, endpoint_update, update_has_permissions) }}
+            </td>
+          {% endif %}
+          {% if delete_has_permissions %}
+            <td>
+              {{ delete_object_link(object, endpoint_delete, delete_has_permissions) }}
+            </td>
+          {% endif %}
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    {% with pagination=obj_list, endpoint=endpoint_list, endpoint_params=endpoint_list_params %}
+      {% include "includes/pagination.html" %}
+    {% endwith %}
+  {% endif %}
+{% endmacro %}
+
+{% macro create_object_link(endpoint_create, has_permissions) %}
+  {% if has_permissions %}
+    <div class="mt-3">
+      <a class="btn btn-primary" href="{{ url_for(endpoint_create) }}">Create</a>
+    </div>
+  {% endif %}
+{% endmacro %}
+
+{% macro update_object_link(obj, endpoint_update, has_permissions, extra_class_names=()) %}
+  {% if has_permissions %}
+    <a href="{{ url_for(endpoint_update, id=obj.id) }}"
+       class="{{ extra_class_names|join(" ") }} btn btn-success">Update</a>
+  {% endif %}
+{% endmacro %}
+
+{% macro delete_object_link(obj, endpoint_delete, has_permissions, extra_class_names=()) %}
+  {% if has_permissions %}
+    <a href="{{ url_for(endpoint_delete, id=obj.id) }}"
+       class="{{ extra_class_names|join(" ") }} btn btn-danger">Delete</a>
+  {% endif %}
+{% endmacro %}

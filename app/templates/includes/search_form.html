@@ -1,0 +1,6 @@
+<form method="get">
+  {% for field in search_form._fields.values() %}
+    <div class="mb-3">{{ field() }}</div>
+  {% endfor %}
+  <input class="btn btn-primary" type="submit" value="Search">
+</form>

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% from "macros.html" import create_object_link, table_objects_with_update_delete %}
+{% block title %}
+  <title>Ingredients</title>
+{% endblock %}
+{% block content %}
+  <h1 class="mt-3">Ingredients</h1>
+  {% include "includes/search_form.html" %}
+  {{ create_object_link("kitchen.ingredient_create", current_user.group.name in ("moderator", "admin")) }}
+  {{ table_objects_with_update_delete(
+      obj_list=object_list,
+      empty_list_text="There are no ingredients in the system.",
+      cols_attrs={"Name": "name",},
+      endpoint_list="kitchen.ingredient_list",
+      endpoint_update="kitchen.ingredient_update",
+      update_has_permissions=current_user.group.name in ("moderator", "admin"),
+      endpoint_delete="kitchen.ingredient_delete",
+      delete_has_permissions=current_user.group.name == "admin"
+    ) }}
+{% endblock %}

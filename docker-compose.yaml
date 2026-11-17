@@ -1,0 +1,39 @@
+services:
+  flask_web:
+    container_name: flask_web
+    build:
+      context: .
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres_db:
+        condition: service_healthy
+
+  postgres_db:
+    image: postgres:18.3-alpine
+    container_name: postgres_db
+    volumes:
+      - pgdata:/var/lib/postgresql
+    env_file:
+      - .env
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin4
+    env_file:
+      - .env
+    ports:
+      - "5050:80"
+
+volumes:
+  pgdata:
