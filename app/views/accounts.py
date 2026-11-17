@@ -1,5 +1,4 @@
-import unicodedata
-from urllib.parse import urlsplit
+
 
 from flask.views import View
 from flask.typing import ResponseReturnValue
@@ -15,38 +14,12 @@ from app.extensions import db, bcrypt
 from app.database.models import kitchen as models
 from app.forms import accounts as forms
 from app.views import shortcuts
+from app.utils.http import url_has_allowed_host_and_scheme
 
 
 class LoginView(View):
     methods = ("GET", "POST")
     template = "accounts/login.html"
-
-    @staticmethod
-    def url_has_allowed_host_and_scheme(url: str) -> bool:
-        if not url:
-            return False
-
-        url_info = urlsplit(url)
-
-        if url_info.scheme and not url_info.netloc:
-            return False
-
-        if unicodedata.category(url[0])[0] == "C":
-            return False
-
-        scheme = url_info.scheme
-
-        if not scheme and url_info.netloc:
-            scheme = "https"
-
-        return (
-            not url_info.netloc
-            or (
-                bool(request.trusted_hosts)
-                and url_info.netloc in request.trusted_hosts
-            )
-            and (not scheme or scheme in ("http", "https"))
-        )
 
     def dispatch_request(self) -> ResponseReturnValue:
         form = forms.LoginForm(request.form)
@@ -68,7 +41,7 @@ class LoginView(View):
 
                 next_url = form.data["next"]
 
-                if self.url_has_allowed_host_and_scheme(next_url):
+                if url_has_allowed_host_and_scheme(next_url):
                     return redirect(next_url)
 
                 return redirect(url_for("kitchen.index"))
