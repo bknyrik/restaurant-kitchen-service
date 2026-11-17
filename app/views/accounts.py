@@ -1,9 +1,9 @@
 import unicodedata
-from urllib.parse import urlparse, urlsplit
+from urllib.parse import urlsplit
 
 from flask.views import View
 from flask.typing import ResponseReturnValue
-from flask import request, redirect, render_template, url_for, session
+from flask import request, redirect, render_template, url_for
 from flask_login import (
     login_user,
     logout_user,
@@ -49,9 +49,6 @@ class LoginView(View):
         )
 
     def dispatch_request(self) -> ResponseReturnValue:
-        if request.args.get("next"):
-            session["next_url"] = urlparse(request.args["next"]).path
-
         form = forms.LoginForm(request.form)
 
         if request.method == "POST" and form.validate():
@@ -69,10 +66,12 @@ class LoginView(View):
             if cook and bcrypt.check_password_hash(cook.password, password):
                 login_user(cook)
 
-                return redirect(
-                    url_for("kitchen.index", next=request.path)
-                    if not session.get("next_url") else session["next_url"]
-                )
+                next_url = form.data["next"]
+
+                if self.url_has_allowed_host_and_scheme(next_url):
+                    return redirect(next_url)
+
+                return redirect(url_for("kitchen.index", next=request.path))
             else:
                 return render_template(
                     "accounts/login.html",
