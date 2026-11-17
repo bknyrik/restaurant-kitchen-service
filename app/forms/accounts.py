@@ -5,6 +5,7 @@ from wtforms import (
     IntegerField,
     EmailField,
     PasswordField,
+    HiddenField,
     validators
 )
 from flask_login import current_user
@@ -29,6 +30,7 @@ class LoginForm(Form):
         validators=[validators.DataRequired()],
         render_kw={"class": "form-control"}
     )
+    next = HiddenField()
 
 
 class SignupForm(ModelForm):
