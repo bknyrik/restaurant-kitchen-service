@@ -71,7 +71,7 @@ class LoginView(View):
                 if self.url_has_allowed_host_and_scheme(next_url):
                     return redirect(next_url)
 
-                return redirect(url_for("kitchen.index", next=request.path))
+                return redirect(url_for("kitchen.index"))
             else:
                 return render_template(
                     "accounts/login.html",
