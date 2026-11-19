@@ -71,8 +71,8 @@ def create_admin(username: str, password: str) -> None:
 
 
 @click.command("change_password", help="Change user password.")
-@click.argument("username")
-@click.argument("password")
+@click.argument("username", help="User's username, must exist.")
+@click.argument("password", help="New user's password.")
 def change_password(username: str, password: str) -> None:
     try:
         user = (
