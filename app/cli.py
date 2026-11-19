@@ -1,4 +1,5 @@
 import click
+from sqlalchemy.exc import SQLAlchemyError
 
 from app.extensions import db, bcrypt
 from app.database.models.kitchen import CookModel
@@ -19,7 +20,7 @@ def create_user_groups() -> None:
             """)
         )
         db.session.commit()
-    except db.SQLAlchemyError as error:
+    except SQLAlchemyError as error:
         db.session.rollback()
         print(error)
 
@@ -64,7 +65,7 @@ def create_admin(username: str, password: str) -> None:
                 )
                 db.session.commit()
                 print(f"Admin {repr(username)} is created.")
-    except db.SQLAlchemyError as error:
+    except SQLAlchemyError as error:
         db.session.rollback()
         print(error)
 
@@ -91,6 +92,6 @@ def change_password(username: str, password: str) -> None:
                 f"Password for user {repr(username)} "
                 f"was changed successfully."
             )
-    except db.SQLAlchemyError as error:
+    except SQLAlchemyError as error:
         db.session.rollback()
         print(error)
