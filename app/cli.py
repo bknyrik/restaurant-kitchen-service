@@ -72,8 +72,8 @@ def create_admin(username: str, password: str) -> None:
 
 @click.command("change_password", help="Change user password.")
 @click.argument("username", help="User's username, must exist.")
-@click.argument("password", help="New user's password.")
-def change_password(username: str, password: str) -> None:
+@click.argument("new_password", help="New user's password.")
+def change_password(username: str, new_password: str) -> None:
     try:
         user = (
             db.session
@@ -85,7 +85,11 @@ def change_password(username: str, password: str) -> None:
         if not user:
             print("User with this username doesn't exist.")
         else:
-            user.password = bcrypt.generate_password_hash(password).decode()
+            user.password = (
+                bcrypt
+                .generate_password_hash(new_password)
+                .decode()
+            )
             db.session.commit()
 
             print(
