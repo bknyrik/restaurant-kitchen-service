@@ -26,8 +26,8 @@ def create_user_groups() -> None:
 
 
 @click.command("create_admin", help="Create admin user.")
-@click.argument("username")
-@click.argument("password")
+@click.argument("username", help="Admin's username, must be unique.")
+@click.argument("password", help="Admin's password.")
 def create_admin(username: str, password: str) -> None:
     try:
         user_exists = (
