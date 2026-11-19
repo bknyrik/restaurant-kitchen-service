@@ -1,4 +1,5 @@
 import click
+from sqlalchemy.exc import SQLAlchemyError
 
 from app.extensions import db, bcrypt
 from app.database.models.kitchen import CookModel
@@ -19,14 +20,14 @@ def create_user_groups() -> None:
             """)
         )
         db.session.commit()
-    except db.SQLAlchemyError as error:
+    except SQLAlchemyError as error:
         db.session.rollback()
         print(error)
 
 
 @click.command("create_admin", help="Create admin user.")
-@click.argument("username")
-@click.argument("password")
+@click.argument("username", help="Admin's username, must be unique.")
+@click.argument("password", help="Admin's password.")
 def create_admin(username: str, password: str) -> None:
     try:
         user_exists = (
@@ -64,15 +65,15 @@ def create_admin(username: str, password: str) -> None:
                 )
                 db.session.commit()
                 print(f"Admin {repr(username)} is created.")
-    except db.SQLAlchemyError as error:
+    except SQLAlchemyError as error:
         db.session.rollback()
         print(error)
 
 
 @click.command("change_password", help="Change user password.")
-@click.argument("username")
-@click.argument("password")
-def change_password(username: str, password: str) -> None:
+@click.argument("username", help="User's username, must exist.")
+@click.argument("new_password", help="New user's password.")
+def change_password(username: str, new_password: str) -> None:
     try:
         user = (
             db.session
@@ -84,13 +85,17 @@ def change_password(username: str, password: str) -> None:
         if not user:
             print("User with this username doesn't exist.")
         else:
-            user.password = bcrypt.generate_password_hash(password).decode()
+            user.password = (
+                bcrypt
+                .generate_password_hash(new_password)
+                .decode()
+            )
             db.session.commit()
 
             print(
                 f"Password for user {repr(username)} "
                 f"was changed successfully."
             )
-    except db.SQLAlchemyError as error:
+    except SQLAlchemyError as error:
         db.session.rollback()
         print(error)
